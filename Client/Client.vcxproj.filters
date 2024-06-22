@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Client">
+      <UniqueIdentifier>{e5ab2be0-4b0e-45f9-a060-e675c05188c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pch">
+      <UniqueIdentifier>{3e189de7-d73c-4c9e-b385-41ffff0e12a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\00. Scene">
+      <UniqueIdentifier>{c08cc455-fa1a-4dfa-b94b-4ebdb4316dea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\01. GameObject">
+      <UniqueIdentifier>{5e418c14-dbaf-43b9-857e-c60e0ebb6468}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Pch</Filter>
+    </ClCompile>
+    <ClCompile Include="JProject.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgBox.cpp">
+      <Filter>Client\01. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgCamera.cpp">
+      <Filter>Client\01. GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Pch</Filter>
+    </ClInclude>
+    <ClInclude Include="JProject.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgBox.h">
+      <Filter>Client\01. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgCamera.h">
+      <Filter>Client\01. GameObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
