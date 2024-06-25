@@ -144,6 +144,15 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine\01. Game\03. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Engine\01. Game\03. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -232,6 +241,15 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\01. Game\03. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Engine\01. Game\03. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

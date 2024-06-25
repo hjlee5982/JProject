@@ -30,6 +30,9 @@
     <ClCompile Include="DbgCamera.cpp">
       <Filter>Client\01. GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Client\00. Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="DbgCamera.h">
       <Filter>Client\01. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Client\00. Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

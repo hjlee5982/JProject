@@ -5,13 +5,8 @@ DbgBox::DbgBox()
 {
 }
 
-void DbgBox::Awake()
+void DbgBox::Init()
 {
-}
-
-void DbgBox::Start()
-{
-
 }
 
 void DbgBox::Update()

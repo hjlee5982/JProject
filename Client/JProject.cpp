@@ -1,22 +1,24 @@
 #include "pch.h"
 #include "JProject.h"
+#include "SceneManager.h"
+#include "TitleScene.h"
 
 void JProject::Init()
 {
-	int a = 0;
+	SCENE->Init(makeSptr<TitleScene>());
 }
 
 void JProject::Update()
 {
-	int a = 0;
+	SCENE->Update();
 }
 
 void JProject::LateUpdate()
 {
-	int a = 0;
+	SCENE->LateUpdate();
 }
 
 void JProject::Render()
 {
-	int a = 0;
+	SCENE->Render();
 }

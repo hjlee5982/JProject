@@ -6,8 +6,7 @@ public:
 	DbgCamera();
 	virtual ~DbgCamera() = default;
 public:
-	void Awake()      override;
-	void Start()      override;
+	void Init()       override;
 	void Update()     override;
 	void LateUpdate() override;
 	void Render()     override;

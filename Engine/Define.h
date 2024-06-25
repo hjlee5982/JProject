@@ -32,7 +32,7 @@ public:										\
 //#define GUI		 GET_SINGLETON(ImGuiManager)
 #define INPUT	 GET_SINGLETON(InputManager)
 #define TIME	 GET_SINGLETON(TimeManager)
-//#define SCENE    GET_SINGLETON(SceneManager)
+#define SCENE    GET_SINGLETON(SceneManager)
 //#define RENDERER GET_SINGLETON(Renderer)
 //#define RESOURCE GET_SINGLETON(ResourceManager)
 //

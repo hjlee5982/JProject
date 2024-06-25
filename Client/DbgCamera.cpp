@@ -5,11 +5,7 @@ DbgCamera::DbgCamera()
 {
 }
 
-void DbgCamera::Awake()
-{
-}
-
-void DbgCamera::Start()
+void DbgCamera::Init()
 {
 }
 
