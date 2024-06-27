@@ -85,48 +85,74 @@ ComPtr<ID3D11InputLayout> Shader::CreateInputLayout(ComPtr<ID3DBlob> fxBlob, D3D
 	for (D3D11_SIGNATURE_PARAMETER_DESC& paramDesc : params)
 	{
 		D3D11_INPUT_ELEMENT_DESC elementDesc;
-		elementDesc.SemanticName = paramDesc.SemanticName;
-		elementDesc.SemanticIndex = paramDesc.SemanticIndex;
-		elementDesc.InputSlot = 0;
-		elementDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-		elementDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		elementDesc.InstanceDataStepRate = 0;
+		{
+			elementDesc.SemanticName         = paramDesc.SemanticName;
+			elementDesc.SemanticIndex        = paramDesc.SemanticIndex;
+			elementDesc.InputSlot            = 0;
+			elementDesc.AlignedByteOffset    = D3D11_APPEND_ALIGNED_ELEMENT;
+			elementDesc.InputSlotClass       = D3D11_INPUT_PER_VERTEX_DATA;
+			elementDesc.InstanceDataStepRate = 0;
+		}
 
 		if (paramDesc.Mask == 1)
 		{
 			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32_UINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32_SINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32_FLOAT;
+			}
 		}
 		else if (paramDesc.Mask <= 3)
 		{
 			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32_UINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32_SINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
+			}
 		}
 		else if (paramDesc.Mask <= 7)
 		{
 			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32B32_UINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32B32_SINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+			}
 		}
 		else if (paramDesc.Mask <= 15)
 		{
 			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32B32A32_SINT;
+			}
 			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
+			{
 				elementDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+			}
 		}
 
 		string name = paramDesc.SemanticName;
@@ -139,14 +165,16 @@ ComPtr<ID3D11InputLayout> Shader::CreateInputLayout(ComPtr<ID3DBlob> fxBlob, D3D
 
 		if (Utils::StartsWith(name, "INST") == true)
 		{
-			elementDesc.InputSlot = 1;
-			elementDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-			elementDesc.InputSlotClass = D3D11_INPUT_PER_INSTANCE_DATA;
+			elementDesc.InputSlot            = 1;
+			elementDesc.AlignedByteOffset    = D3D11_APPEND_ALIGNED_ELEMENT;
+			elementDesc.InputSlotClass       = D3D11_INPUT_PER_INSTANCE_DATA;
 			elementDesc.InstanceDataStepRate = 1;
 		}
 
 		if (Utils::StartsWith(name, "SV_") == false)
+		{
 			inputLayoutDesc.push_back(elementDesc);
+		}
 	}
 
 	const void* code = effectVsDesc->pBytecode;

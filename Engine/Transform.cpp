@@ -8,39 +8,39 @@ Transform::Transform()
 
 vec3 Transform::GetScale()
 {
-	f32 right = GetState(EState::RIGHT).Length();
-	f32 up    = GetState(EState::UP).Length();
-	f32 look  = GetState(EState::LOOK).Length();
+	f32 right = GetState(ETransformState::RIGHT).Length();
+	f32 up    = GetState(ETransformState::UP).Length();
+	f32 look  = GetState(ETransformState::LOOK).Length();
 
 	return vec3(right, up, look);
 }
 
 void Transform::SetScale(vec3 scale)
 {
-	vec3 right = GetState(EState::RIGHT);
-	vec3 up    = GetState(EState::UP);
-	vec3 look  = GetState(EState::LOOK);
+	vec3 right = GetState(ETransformState::RIGHT);
+	vec3 up    = GetState(ETransformState::UP);
+	vec3 look  = GetState(ETransformState::LOOK);
 
 	right.Normalize();
 	up.Normalize();
 	look.Normalize();
 
-	SetState(EState::RIGHT, right);
-	SetState(EState::UP,    up);
-	SetState(EState::LOOK,  look);
+	SetState(ETransformState::RIGHT, right);
+	SetState(ETransformState::UP,    up);
+	SetState(ETransformState::LOOK,  look);
 }
 
 void Transform::RotationAxis(vec3 axis, f32 deltaTime)
 {
-	vec3 right = GetState(EState::RIGHT);
-	vec3 up    = GetState(EState::UP);
-	vec3 look  = GetState(EState::LOOK);
+	vec3 right = GetState(ETransformState::RIGHT);
+	vec3 up    = GetState(ETransformState::UP);
+	vec3 look  = GetState(ETransformState::LOOK);
 
 	matx rotation = XMMatrixRotationAxis(axis, deltaTime);
 
-	SetState(EState::RIGHT, XMVector3TransformNormal(right, rotation));
-	SetState(EState::UP,    XMVector3TransformNormal(up,    rotation));
-	SetState(EState::LOOK,  XMVector3TransformNormal(look,  rotation));
+	SetState(ETransformState::RIGHT, XMVector3TransformNormal(right, rotation));
+	SetState(ETransformState::UP,    XMVector3TransformNormal(up,    rotation));
+	SetState(ETransformState::LOOK,  XMVector3TransformNormal(look,  rotation));
 }
 
 vec3 Transform::ToEulerAngles(quat q)

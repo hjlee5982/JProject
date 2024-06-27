@@ -4,7 +4,6 @@
 
 GameObject::GameObject()
 {
-	AddComponent(makeSptr<Transform>());
 }
 
 void GameObject::AddComponent(sptr<Component> component)

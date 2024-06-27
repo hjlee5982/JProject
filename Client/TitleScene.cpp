@@ -1,22 +1,23 @@
 #include "pch.h"
 #include "TitleScene.h"
+#include "GameObjectManager.h"
+#include "DbgBox.h"
+#include "DbgCamera.h"
 
 void TitleScene::Init()
 {
-	int a = 0;
+	OBJECT->AddGameObject(makeSptr<DbgBox>());
+	OBJECT->AddGameObject(makeSptr<DbgCamera>());
 }
 
 void TitleScene::Update()
 {
-	int a = 0;
 }
 
 void TitleScene::LateUpdate()
 {
-	int a = 0;
 }
 
 void TitleScene::Render()
 {
-	int a = 0;
 }

@@ -16,7 +16,7 @@ int main()
 			desc.vsync      = false;
 			desc.width      = 1920;
 			desc.height     = 1080;
-			desc.clearColor = Color(Colors::AliceBlue);
+			desc.clearColor = Color(Colors::Black);
 			desc.app        = makeSptr<JProject>();
 		}
 

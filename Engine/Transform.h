@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-enum class EState
+enum class ETransformState
 {
 	RIGHT,
 	UP,
@@ -30,7 +30,7 @@ public:
 	{
 		return _world.Invert();
 	}
-	vec3 GetState(EState state)
+	vec3 GetState(ETransformState state)
 	{
 		return *(vec3*)&_world.m[(u32)state][0];
 	}
@@ -40,7 +40,7 @@ public:
 	{
 		_world = world;
 	}
-	void SetState(EState state, vec3 vec)
+	void SetState(ETransformState state, vec3 vec)
 	{
 		::memcpy(&_world.m[(u32)state][0], &vec, sizeof(vec3));
 	}
