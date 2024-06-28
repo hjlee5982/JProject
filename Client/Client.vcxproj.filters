@@ -13,6 +13,12 @@
     <Filter Include="Client\01. GameObject">
       <UniqueIdentifier>{5e418c14-dbaf-43b9-857e-c60e0ebb6468}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\01. GameObject\Dbg">
+      <UniqueIdentifier>{9851ffd3-a4b8-40cf-a793-4ec295639676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\01. GameObject\Skydome">
+      <UniqueIdentifier>{f9bd669c-d68d-42d2-a8ee-ef396dc67aa4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,14 +30,17 @@
     <ClCompile Include="JProject.cpp">
       <Filter>Client</Filter>
     </ClCompile>
-    <ClCompile Include="DbgBox.cpp">
-      <Filter>Client\01. GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="DbgCamera.cpp">
-      <Filter>Client\01. GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Client\00. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgBox.cpp">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgCamera.cpp">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClCompile>
+    <ClCompile Include="Skydome.cpp">
+      <Filter>Client\01. GameObject\Skydome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,14 +50,17 @@
     <ClInclude Include="JProject.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="DbgBox.h">
-      <Filter>Client\01. GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="DbgCamera.h">
-      <Filter>Client\01. GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Client\00. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgBox.h">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgCamera.h">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClInclude>
+    <ClInclude Include="Skydome.h">
+      <Filter>Client\01. GameObject\Skydome</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

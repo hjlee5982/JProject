@@ -19,5 +19,8 @@ private:
 	u32 indexCount = 0;
 
 	sptr<class Shader> shader;
+
+	ComPtr<ID3D11ShaderResourceView> srv;
+	ComPtr<ID3DX11EffectShaderResourceVariable> diffuseEffectBuffer;
 };
 

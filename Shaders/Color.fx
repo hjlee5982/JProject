@@ -1,4 +1,14 @@
 
+//SamplerState LinearSampler
+//{
+//    Filter   = MIN_MAG_MIP_LINEAR;
+//    AddressU = Wrap;
+//    AddressV = Wrap;
+//};
+SamplerState Sampler0;
+
+Texture2D    DiffuseMap;
+
 cbuffer TransformBuffer
 {
     matrix W;
@@ -44,7 +54,11 @@ PS_IN VS(VS_IN input)
 
 float4 PS(PS_IN input) : SV_TARGET
 {
-    return float4(0.f, 1.f, 0.f, 0.f);
+    //float4 color = float4(0.f, 1.f, 0.f, 0.f);
+    
+    float4 color = DiffuseMap.Sample(Sampler0, input.uv);
+    
+    return color;
 }
 
 RasterizerState FillModeWireFrame
@@ -56,7 +70,7 @@ technique11 T0
 {
     pass P0
     {
-        SetRasterizerState(FillModeWireFrame);
+        //SetRasterizerState(FillModeWireFrame);
         SetVertexShader(CompileShader(vs_5_0, VS()));
         SetPixelShader(CompileShader(ps_5_0, PS()));
     }

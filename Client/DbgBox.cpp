@@ -154,6 +154,17 @@ void DbgBox::Init()
 
 
 	// 4. Texture   ( Optional )
+	DirectX::ScratchImage img = {};
+
+	DirectX::TexMetadata md;
+
+	wstring path = L"../Resources/Textures/Block.png";
+
+	HRESULT hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, img);
+	hr = ::CreateShaderResourceView(DEVICE.Get(), img.GetImages(), img.GetImageCount(), md, srv.GetAddressOf());
+
+	diffuseEffectBuffer = shader->GetSRV("DiffuseMap");
+
 }
 
 void DbgBox::Update()
@@ -176,12 +187,18 @@ void DbgBox::Render()
 	shader->PushTransformData(worldDesc);
 	shader->PushGlobalData(view, proj); 
 	u32 offset = 0;
+
+	// Bind Texture to Shader
+	diffuseEffectBuffer->SetResource(srv.Get());
+
+
 	// Bind to Shader
 	CONTEXT->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &vStride, &offset);
 	CONTEXT->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 
 	//mesh->GetVertexBuffer()->PushData();
 	//mesh->GetIndexBuffer()->PushData();
+
 
 	// Draw
 	shader->DrawIndexed(0, 0, indexCount, 0, 0);

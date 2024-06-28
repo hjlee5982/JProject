@@ -46,8 +46,8 @@ using namespace std;
 #include <d3d11.h>
 #include <wrl.h>
 #include <DirectXMath.h>
-//#include <DirectXTex/DirectXTex.h>
-//#include <DirectXTex/DirectXTex.inl>
+#include <DirectXTex/DirectXTex.h>
+#include <DirectXTex/DirectXTex.inl>
 #include <FX11/d3dx11effect.h>
 #include <DirectXColors.h>
 using namespace DirectX;
@@ -79,10 +79,10 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "dxguid.lib")
 
 #ifdef _DEBUG
-//#pragma comment(lib, "DirectXTex/DirectXTex_debug.lib")
+#pragma comment(lib, "DirectXTex/DirectXTex_debug.lib")
 #pragma comment(lib, "FX11/Effects11d.lib")
 #else
-//#pragma comment(lib, "DirectXTex/DirectXTex.lib")
+#pragma comment(lib, "DirectXTex/DirectXTex.lib")
 #pragma comment(lib, "FX11/Effects11.lib")
 #endif
 
