@@ -12,7 +12,7 @@ int main()
 	{
 		WindowDesc desc;
 		{
-			desc.appName    = L"MyProject";
+			desc.appName    = L"JProject";
 			desc.vsync      = false;
 			desc.width      = 1920;
 			desc.height     = 1080;

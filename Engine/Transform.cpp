@@ -25,9 +25,9 @@ void Transform::SetScale(vec3 scale)
 	up.Normalize();
 	look.Normalize();
 
-	SetState(ETransformState::RIGHT, right);
-	SetState(ETransformState::UP,    up);
-	SetState(ETransformState::LOOK,  look);
+	SetState(ETransformState::RIGHT, right * scale.x);
+	SetState(ETransformState::UP,    up    * scale.y);
+	SetState(ETransformState::LOOK,  look  * scale.z);
 }
 
 void Transform::RotationAxis(vec3 axis, f32 deltaTime)

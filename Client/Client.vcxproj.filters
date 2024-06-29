@@ -42,6 +42,12 @@
     <ClCompile Include="Skydome.cpp">
       <Filter>Client\01. GameObject\Skydome</Filter>
     </ClCompile>
+    <ClCompile Include="DbgSphere.cpp">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgGrid.cpp">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -61,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="Skydome.h">
       <Filter>Client\01. GameObject\Skydome</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgSphere.h">
+      <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgGrid.h">
+      <Filter>Client\01. GameObject\Dbg</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

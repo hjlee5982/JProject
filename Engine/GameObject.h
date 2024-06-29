@@ -42,7 +42,7 @@ public:
 private:
 	sptr<Component> GetComponent(EComponentType type);
 private:
-	array<sptr<Component>, COMPONENT_COUNT> _components;
+	array<sptr<Component>, COMPONENT_TYPE_COUNT> _components;
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
 };

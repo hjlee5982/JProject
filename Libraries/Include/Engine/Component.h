@@ -24,7 +24,7 @@ enum class EComponentType : u8
 
 enum
 {
-	COMPONENT_COUNT = static_cast<u8>(EComponentType::END)
+	COMPONENT_TYPE_COUNT = static_cast<u8>(EComponentType::END)
 };
 
 class Component : public IComponent

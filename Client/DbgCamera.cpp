@@ -13,7 +13,7 @@ void DbgCamera::Init()
 
 	auto transform = GetTransform();
 
-	transform->SetState(ETransformState::POSITION, vec3(0.f, 3.f, -5.f));
+	transform->SetState(ETransformState::POSITION, vec3(0.f, 3.f, -10.f));
 	
 	vec3 lookAt = vec3(0.f, 0.f, 0.f) - transform->GetState(ETransformState::POSITION);
 	lookAt.Normalize();
@@ -39,6 +39,11 @@ void DbgCamera::Update()
 
 	if (INPUT->KeyPress(RBTN))
 	{
+		// 마우스 중앙 고정
+		//POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };
+		//ClientToScreen(WINDOW->GetGameDesc().hWnd, &pos);
+		//SetCursorPos(pos.x, pos.y);
+
 		if (INPUT->KeyPress(KEY_W))
 		{
 			vec3 look = transform->GetState(ETransformState::LOOK);

@@ -98,16 +98,16 @@ using namespace Microsoft::WRL;
 #include "DirectX11.h"
 //#include "Renderer.h"
 
-//#include "VertexData.h"
-//#include "VertexBuffer.h"
-//#include "IndexBuffer.h"
+#include "VertexData.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "Shader.h"
 
 #include "GameObject.h"
 #include "Transform.h"
 #include "Camera.h"
-//#include "Texture.h"
+#include "Texture.h"
 //#include "Material.h"
 //#include "Light.h"
 

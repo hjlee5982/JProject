@@ -61,6 +61,13 @@ float4 PS(PS_IN input) : SV_TARGET
     return color;
 }
 
+float4 PS_SOLID(PS_IN input) : SV_TARGET
+{
+    float4 color = float4(1.f, 1.f, 1.f, 0.f);
+
+    return color;
+}
+
 RasterizerState FillModeWireFrame
 {
     FillMode = WireFrame;
@@ -70,8 +77,28 @@ technique11 T0
 {
     pass P0
     {
-        //SetRasterizerState(FillModeWireFrame);
         SetVertexShader(CompileShader(vs_5_0, VS()));
         SetPixelShader(CompileShader(ps_5_0, PS()));
+    }
+    pass P1
+    {
+        SetRasterizerState(FillModeWireFrame);
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetPixelShader(CompileShader(ps_5_0, PS()));
+    }
+};
+
+technique11 T1
+{
+    pass P0
+    {
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetPixelShader(CompileShader(ps_5_0, PS_SOLID()));
+    }
+    pass P1
+    {
+        SetRasterizerState(FillModeWireFrame);
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetPixelShader(CompileShader(ps_5_0, PS_SOLID()));
     }
 };

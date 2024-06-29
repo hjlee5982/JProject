@@ -139,6 +139,8 @@
   <ItemGroup>
     <ClCompile Include="DbgBox.cpp" />
     <ClCompile Include="DbgCamera.cpp" />
+    <ClCompile Include="DbgGrid.cpp" />
+    <ClCompile Include="DbgSphere.cpp" />
     <ClCompile Include="JProject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -150,6 +152,8 @@
   <ItemGroup>
     <ClInclude Include="DbgBox.h" />
     <ClInclude Include="DbgCamera.h" />
+    <ClInclude Include="DbgGrid.h" />
+    <ClInclude Include="DbgSphere.h" />
     <ClInclude Include="JProject.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Skydome.h" />

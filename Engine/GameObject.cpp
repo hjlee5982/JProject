@@ -12,7 +12,7 @@ void GameObject::AddComponent(sptr<Component> component)
 
 	u8 index = static_cast<u8>(component->GetType());
 
-	assert(index < COMPONENT_COUNT);
+	assert(index < COMPONENT_TYPE_COUNT);
 	
 	_components[index] = component;
 }
@@ -35,7 +35,7 @@ sptr<Component> GameObject::GetComponent(EComponentType type)
 {
 	u8 index = static_cast<u8>(type);
 
-	assert(index < COMPONENT_COUNT);
+	assert(index < COMPONENT_TYPE_COUNT);
 
 	return _components[index];
 }
