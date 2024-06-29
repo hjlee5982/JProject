@@ -92,6 +92,8 @@ void DbgCamera::Update()
 		i32 dx = INPUT->MouseMove(EMouseState::X);
 		i32 dy = INPUT->MouseMove(EMouseState::Y);
 
+		_restriction = transform->GetState(ETransformState::LOOK).Dot(vec3::Up);
+
 		if (0 != dx)
 		{
 			transform->RotationAxis(vec3::Up, TIME->GetDeltaTime() * dx * _rotateSpeed);

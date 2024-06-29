@@ -5,7 +5,11 @@
 //    AddressU = Wrap;
 //    AddressV = Wrap;
 //};
-SamplerState Sampler0;
+SamplerState Sampler0
+{
+    AddressU = wrap;
+    AddressV = wrap;
+};
 
 Texture2D    DiffuseMap;
 
@@ -52,6 +56,25 @@ PS_IN VS(VS_IN input)
     return output;
 }
 
+PS_IN VS_SKYDOME(VS_IN input)
+{
+    PS_IN output;
+    
+    input.position.w = 1.0f;
+    
+    float4 outPos = input.position;
+    
+    outPos = mul(outPos, W);
+    outPos = mul(outPos, V);
+    outPos = mul(outPos, P);
+
+    output.position = outPos;
+    output.position.z = output.position.w * 0.999999f;;
+    output.uv = input.uv;
+    
+    return output;
+}
+
 float4 PS(PS_IN input) : SV_TARGET
 {
     //float4 color = float4(0.f, 1.f, 0.f, 0.f);
@@ -63,24 +86,46 @@ float4 PS(PS_IN input) : SV_TARGET
 
 float4 PS_SOLID(PS_IN input) : SV_TARGET
 {
-    float4 color = float4(1.f, 1.f, 1.f, 0.f);
+    float4 color = float4(1.f, 1.f, 1.f, 1.f);
 
     return color;
 }
+
+// D3D11_RASTERIZER_DESC 인수 참고
 
 RasterizerState FillModeWireFrame
 {
     FillMode = WireFrame;
 };
 
-technique11 T0
+RasterizerState FillModeWireFrameEx
 {
-    pass P0
+    FillMode = WireFrame;
+    CullMode = None;
+};
+
+RasterizerState CullModeCCW
+{
+    // 앞면을 안그리겠다
+    CullMode = Front; 
+
+    // 뒷면을 안그리겠다
+    //CullMode = Back;
+
+    // 앞 뒤 다 그리겠다
+    //CullMode = None;
+
+    //FrontcounterClockwise = true;
+};
+
+technique11 NORMAL
+{
+    pass DEFAULT
     {
         SetVertexShader(CompileShader(vs_5_0, VS()));
         SetPixelShader(CompileShader(ps_5_0, PS()));
     }
-    pass P1
+    pass DEFAULT_WIREFRAME
     {
         SetRasterizerState(FillModeWireFrame);
         SetVertexShader(CompileShader(vs_5_0, VS()));
@@ -88,17 +133,33 @@ technique11 T0
     }
 };
 
-technique11 T1
+technique11 GRID
 {
-    pass P0
+    pass DEFAULT
     {
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetPixelShader(CompileShader(ps_5_0, PS()));
+    }
+    pass DEFAULT_WIREFRAME
+    {
+        SetRasterizerState(FillModeWireFrameEx);
         SetVertexShader(CompileShader(vs_5_0, VS()));
         SetPixelShader(CompileShader(ps_5_0, PS_SOLID()));
     }
-    pass P1
+};
+
+technique11 SKYDOME
+{
+    pass DEFAULT
     {
-        SetRasterizerState(FillModeWireFrame);
-        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetRasterizerState(CullModeCCW);
+        SetVertexShader(CompileShader(vs_5_0, VS_SKYDOME()));
+        SetPixelShader(CompileShader(ps_5_0, PS()));
+    }
+    pass DEFAULT_WIREFRAME
+    {
+        SetRasterizerState(FillModeWireFrameEx);
+        SetVertexShader(CompileShader(vs_5_0, VS_SKYDOME()));
         SetPixelShader(CompileShader(ps_5_0, PS_SOLID()));
     }
 };

@@ -26,6 +26,11 @@ int main()
 	{
 		LOG_ERROR(e.ToString());
 	}
+	
+	//D3D11_DEPTH_STENCIL_DESC desc;
+	//desc.DepthWriteMask = 
+
+	//CONTEXT->OMSetBlendState();
 
 	return 0;
 }
