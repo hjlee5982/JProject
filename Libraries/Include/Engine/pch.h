@@ -70,6 +70,7 @@ using namespace Microsoft::WRL;
 //#include "rapidjson/filereadstream.h"
 //#include "rapidjson/filewritestream.h"
 //using namespace rapidjson;
+#include "JsonData.h"
 
 
 // Libs *************************************************
@@ -108,11 +109,12 @@ using namespace Microsoft::WRL;
 #include "Transform.h"
 #include "Camera.h"
 #include "Texture.h"
-//#include "Material.h"
+#include "Mesh.h"
+#include "Material.h"
 //#include "Light.h"
 
 //#include "ImGuiManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"
 //#include "SceneManager.h"
-//#include "ResourceManager.h"
+#include "ResourceManager.h"

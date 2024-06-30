@@ -37,7 +37,7 @@ WPARAM Window::Run(WindowDesc& desc)
 	{
 		LOG->Init();
 		DX->Init(_desc);
-		//RESOURCE->Init();
+		RESOURCE->Init();
 		//GUI->Init();
 		INPUT->Init(_desc.hWnd, _desc.hInstance);
 		TIME->Init();

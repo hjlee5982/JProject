@@ -40,9 +40,10 @@
 # PreHeader
 *.ipch
 
-----------Custom----------
+-----------Custom----------
 # Folders
 
 .vs/
 Bin
 Intermediate
+

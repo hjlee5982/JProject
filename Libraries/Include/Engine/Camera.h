@@ -8,11 +8,10 @@ public:
 	Camera(f32 Near, f32 Far, f32 Fov);
 	virtual ~Camera() = default;
 public:
-	void Awake()	  override {};
-	void Start()	  override {};
-	void Update()	  override;
-	void LateUpdate() override {};
-	void Render()	  override {};
+	virtual void Init()       override {};
+	virtual void Update()     override;
+	virtual void LateUpdate() override {};
+	virtual void Render()     override {};
 private:
 	matx _view = matx::Identity;
 	matx _proj = matx::Identity;

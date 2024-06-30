@@ -8,18 +8,18 @@ Transform::Transform()
 
 vec3 Transform::GetScale()
 {
-	f32 right = GetState(ETransformState::RIGHT).Length();
-	f32 up    = GetState(ETransformState::UP).Length();
-	f32 look  = GetState(ETransformState::LOOK).Length();
+	f32 right = GetRight().Length();
+	f32 up    = GetUp().Length();
+	f32 look  = GetLook().Length();
 
 	return vec3(right, up, look);
 }
 
 void Transform::SetScale(vec3 scale)
 {
-	vec3 right = GetState(ETransformState::RIGHT);
-	vec3 up    = GetState(ETransformState::UP);
-	vec3 look  = GetState(ETransformState::LOOK);
+	vec3 right = GetRight();
+	vec3 up    = GetUp();
+	vec3 look  = GetLook();
 
 	right.Normalize();
 	up.Normalize();
@@ -32,9 +32,9 @@ void Transform::SetScale(vec3 scale)
 
 void Transform::RotationAxis(vec3 axis, f32 deltaTime)
 {
-	vec3 right = GetState(ETransformState::RIGHT);
-	vec3 up    = GetState(ETransformState::UP);
-	vec3 look  = GetState(ETransformState::LOOK);
+	vec3 right = GetRight();
+	vec3 up    = GetUp();
+	vec3 look  = GetLook();
 
 	matx rotation = XMMatrixRotationAxis(axis, deltaTime);
 

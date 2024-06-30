@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "MeshRenderer.h"
 
 GameObject::GameObject()
 {
@@ -29,6 +30,13 @@ sptr<class Camera> GameObject::GetCamera()
 	auto component = GetComponent(EComponentType::CAMERA);
 
 	return static_pointer_cast<Camera>(component);
+}
+
+sptr<class MeshRenderer> GameObject::GetMeshRenderer()
+{
+	auto component = GetComponent(EComponentType::MESHRENDERER);
+
+	return static_pointer_cast<MeshRenderer>(component);
 }
 
 sptr<Component> GameObject::GetComponent(EComponentType type)

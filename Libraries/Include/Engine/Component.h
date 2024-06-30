@@ -5,8 +5,7 @@ class IComponent
 public:
 	virtual ~IComponent() = default;
 public:
-	virtual void Awake()      = 0;
-	virtual void Start()      = 0;
+	virtual void Init()       = 0;
 	virtual void Update()     = 0;
 	virtual void LateUpdate() = 0;
 	virtual void Render()     = 0;
@@ -16,6 +15,7 @@ enum class EComponentType : u8
 {
 	TRANSFORM,
 	CAMERA,
+	MESHRENDERER,
 
 	// etc..
 
@@ -33,11 +33,10 @@ public:
 	Component(EComponentType type) : _type(type) {}
 	virtual ~Component() = default;
 public:
-	void Awake()	  override {};
-	void Start()	  override {};
-	void Update()	  override {};
-	void LateUpdate() override {};
-	void Render()	  override {};
+	virtual void Init()       override {};
+	virtual void Update()     override {};
+	virtual void LateUpdate() override {};
+	virtual void Render()     override {};
 public:
 	EComponentType GetType()
 	{

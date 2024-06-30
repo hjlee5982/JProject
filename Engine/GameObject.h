@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-class IGameObject
+class IGameObject : public IJson
 {
 public:
 	virtual ~IGameObject() = default;
@@ -11,6 +11,9 @@ public:
 	virtual void Update()     = 0;
 	virtual void LateUpdate() = 0;
 	virtual void Render()     = 0;
+public:
+	virtual void MakeJson(sptr<JsonData> data) override {};
+	virtual void LoadJson(sptr<JsonData> data) override {};
 };
 
 class GameObject : public IGameObject, public enable_shared_from_this<GameObject>
@@ -37,13 +40,17 @@ public:
 		return _layerType;
 	}
 public:
-	sptr<class Transform> GetTransform();
-	sptr<class Camera>    GetCamera();
+	sptr<class Transform>    GetTransform();
+	sptr<class Camera>       GetCamera();
+	sptr<class MeshRenderer> GetMeshRenderer();
 private:
 	sptr<Component> GetComponent(EComponentType type);
 private:
 	array<sptr<Component>, COMPONENT_TYPE_COUNT> _components;
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
+public:
+	virtual void MakeJson(sptr<JsonData> data) override {};
+	virtual void LoadJson(sptr<JsonData> data) override {};
 };
 

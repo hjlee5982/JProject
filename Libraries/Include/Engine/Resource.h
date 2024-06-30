@@ -6,6 +6,7 @@ enum class EResourceType : i8
 	MESH,
 	SHADER,
 	TEXTURE,
+	MATERIAL,
 
 
 	END

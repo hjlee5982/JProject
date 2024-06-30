@@ -52,6 +52,9 @@
     <Filter Include="Engine\00. Core\02. Resources">
       <UniqueIdentifier>{17d69611-ec43-4f3c-89c8-0deb1c289fe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\98. Utils\rapidjson">
+      <UniqueIdentifier>{f6f3a1a6-7ad9-40a1-9a26-dac67fb4687e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -183,6 +186,18 @@
     <ClInclude Include="Resource.h">
       <Filter>Engine\00. Core\02. Resources</Filter>
     </ClInclude>
+    <ClInclude Include="JsonData.h">
+      <Filter>Engine\98. Utils\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>Engine\01. Game\01. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Engine\00. Core\02. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Engine\00. Core\02. Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -305,6 +320,18 @@
     <ClCompile Include="Resource.cpp">
       <Filter>Engine\00. Core\02. Resources</Filter>
     </ClCompile>
+    <ClCompile Include="JsonData.cpp">
+      <Filter>Engine\98. Utils\rapidjson</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>Engine\01. Game\01. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Engine\00. Core\02. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine\00. Core\02. Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -312,7 +339,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Shaders\Color.fx">
+    <FxCompile Include="..\Shaders\Default.fx">
       <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
     </FxCompile>
   </ItemGroup>

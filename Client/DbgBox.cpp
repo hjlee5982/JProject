@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DbgBox.h"
+#include "MeshRenderer.h"
 
 #include "Geometry.h"
 #include "GeometryHelper.h"
@@ -14,31 +15,31 @@ DbgBox::DbgBox()
 
 void DbgBox::Init()
 {
+	// GameObject Init에서는 그 Object가 필요로 하는 Component를 추가
+
 	AddComponent(makeSptr<Transform>());
+	{
+		// 필요한 Component를 추가해 주고 여기서 초기 설정
+	}
+	AddComponent(makeSptr<MeshRenderer>());
+	{
+		// MeshRenderer 초기 설정
 
+		// MeshRenderer가 렌더링 할 매시를 리소스 매니저에서 가져와서 MeshRenderer에 등록
+		// 매시는 리소스 매니저 초기화 시 리소스 매니저에 등록됨
+		auto mesh = RESOURCE->Get<Mesh>(L"Cube");
+		GetMeshRenderer()->SetMesh(mesh);
 
-	_mesh = makeSptr<Mesh>();
-	_mesh->CreateCube();
-
-
-
-	// 3. Shader		   
-	_shader = makeSptr<Shader>(L"Color.fx");
-
-
-
-
-	// 4. Texture   ( Optional )
-	_texture = makeSptr<Texture>();
-	_texture->Load(L"../Resources/Textures/Block.png");
-
-	diffuseEffectBuffer = _shader->GetSRV("DiffuseMap");
-
+		// MeshRenderer가 렌더링 할 머티리얼을 리소스 매니저에서 가져와서 MeshRenderer에 등록
+		// 머티리얼은 오브젝트 추가 전에 리소스 매니저에 등록해주면 됨 (지금은 Scene에서 해주는중 )
+		auto material = RESOURCE->Get<Material>(L"Block");
+		GetMeshRenderer()->SetMaterial(material);
+	}
 }
 
 void DbgBox::Update()
 {
-	GetTransform()->RotationAxis(vec3::Up, TIME->GetDeltaTime());
+	GetTransform()->RotationAxis(vec3::Up, TIME->GetDeltaTime() * -1.f);
 }
 
 void DbgBox::LateUpdate()
@@ -47,33 +48,5 @@ void DbgBox::LateUpdate()
 
 void DbgBox::Render()
 {
-	TransformDesc worldDesc;
-	worldDesc.W = GetTransform()->GetWorld();
-	matx view = Camera::SView;
-	matx proj = Camera::SProj;
-
-
-
-	// Bind ConstantBuffer to Shader
-	_shader->PushTransformData(worldDesc);
-	_shader->PushGlobalData(view, proj); 
-
-
-
-
-	// Bind Texture to Shader
-	diffuseEffectBuffer->SetResource(_texture->GetSRV().Get());
-
-
-
-
-
-	// Bind to Shader
-	_mesh->GetVertexBuffer()->PushData();
-	_mesh->GetIndexBuffer()->PushData();
-
-
-	
-	// Draw
-	_shader->DrawIndexed(0, 0, _mesh->GetIndexBuffer()->GetIndexCount(), 0, 0);
+	GetMeshRenderer()->Render();
 }

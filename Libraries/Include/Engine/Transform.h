@@ -16,11 +16,10 @@ public:
 	Transform();
 	virtual ~Transform() = default;
 public:
-	void Awake()	  override {};
-	void Start()	  override {};
-	void Update()	  override {};
-	void LateUpdate() override {};
-	void Render()	  override {};
+	virtual void Init()       override {};
+	virtual void Update()     override {};
+	virtual void LateUpdate() override {};
+	virtual void Render()     override {};
 public:
 	matx GetWorld()
 	{
@@ -30,21 +29,55 @@ public:
 	{
 		return _world.Invert();
 	}
+	vec3 GetRight()
+	{
+		return GetState(ETransformState::RIGHT);
+	}
+	vec3 GetUp()
+	{
+		return GetState(ETransformState::UP);
+	}
+	vec3 GetLook()
+	{
+		return GetState(ETransformState::LOOK);
+	}
+	vec3 GetPosition()
+	{
+		return GetState(ETransformState::POSITION);
+	}
+	vec3 GetScale();
+private:
 	vec3 GetState(ETransformState state)
 	{
 		return *(vec3*)&_world.m[(u32)state][0];
 	}
-	vec3 GetScale();
 public:
 	void SetWorld(const matx& world)
 	{
 		_world = world;
 	}
+	void SetRight(vec3 right)
+	{
+		SetState(ETransformState::RIGHT, right);
+	}
+	void SetUp(vec3 up)
+	{
+		SetState(ETransformState::UP, up);
+	}
+	void SetLook(vec3 look)
+	{
+		SetState(ETransformState::LOOK, look);
+	}
+	void SetPosition(vec3 pos)
+	{
+		SetState(ETransformState::POSITION, pos);
+	}
+	void SetScale(vec3 scale);
+private:
 	void SetState(ETransformState state, vec3 vec)
 	{
 		::memcpy(&_world.m[(u32)state][0], &vec, sizeof(vec3));
 	}
-	void SetScale(vec3 scale);
 public:
 	void RotationAxis(vec3 axis, f32 deltaTime);
 public:

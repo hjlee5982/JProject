@@ -1,12 +1,6 @@
 #include "pch.h"
 #include "DbgGrid.h"
-
-#include "Geometry.h"
-#include "GeometryHelper.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "Texture.h"
-#include "Mesh.h"
+#include "MeshRenderer.h"
 
 DbgGrid::DbgGrid()
 {
@@ -14,30 +8,25 @@ DbgGrid::DbgGrid()
 
 void DbgGrid::Init()
 {
+	i32 x = 30;
+	i32 z = 30;
+
 	AddComponent(makeSptr<Transform>());
+	{
+		GetTransform()->SetPosition(vec3(-x / 2, 0.f, -z / 2));
+	}
+	AddComponent(makeSptr<MeshRenderer>());
+	{
+		auto mesh = makeSptr<Mesh>();
+		mesh->CreateGrid(x, z);
+		GetMeshRenderer()->SetMesh(mesh);
 
+		auto shader = RESOURCE->Get(L"Default.fx");
+		GetMeshRenderer()->SetShader(shader);
 
-
-	int x = 30;
-	int z = 30;
-
-	_mesh = makeSptr<Mesh>();
-	_mesh->CreateGrid(x, z);
-
-	GetTransform()->SetState(ETransformState::POSITION, vec3(-x / 2, 0.f, -z / 2));
-
-	// 3. Shader		   
-	shader = makeSptr<Shader>(L"Color.fx");
-
-
-
-
-	// 4. Texture   ( Optional )
-	_texture = makeSptr<Texture>();
-	_texture->Load(L"../Resources/Textures/Block.png");
-
-	diffuseEffectBuffer = shader->GetSRV("DiffuseMap");
-
+		GetMeshRenderer()->SetTech(1);
+		GetMeshRenderer()->SetPass(1);
+	}
 }
 
 void DbgGrid::Update()
@@ -50,33 +39,5 @@ void DbgGrid::LateUpdate()
 
 void DbgGrid::Render()
 {
-	TransformDesc worldDesc;
-	worldDesc.W = GetTransform()->GetWorld();
-	matx view = Camera::SView;
-	matx proj = Camera::SProj;
-
-
-
-	// Bind ConstantBuffer to Shader
-	shader->PushTransformData(worldDesc);
-	shader->PushGlobalData(view, proj); 
-
-
-
-
-	// Bind Texture to Shader
-	diffuseEffectBuffer->SetResource(_texture->GetSRV().Get());
-
-
-
-
-
-	// Bind to Shader
-	_mesh->GetVertexBuffer()->PushData();
-	_mesh->GetIndexBuffer()->PushData();
-
-
-	
-	// Draw
-	shader->DrawIndexed(1, 1, _mesh->GetIndexBuffer()->GetIndexCount(), 0, 0);
+	GetMeshRenderer()->Render();
 }
