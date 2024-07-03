@@ -9,5 +9,7 @@ public:
 	virtual void Update()     override;
 	virtual void LateUpdate() override;
 	virtual void Render()     override;
+public:
+	sptr<class Texture> _texture;
 };
 

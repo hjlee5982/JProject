@@ -1,0 +1,54 @@
+#ifndef __LIGHT_FX__
+#define __LIGHT_FX__
+
+////////////////////////////////////////////////////////////
+// Structures
+////////////////////////////////////////////////////////////
+struct LightDesc
+{
+    float4 ambient;
+    float4 diffuse;
+    float4 specular;
+    float4 emissive;
+    
+    float3 direction;
+    float  padding;
+};
+struct MaterialDesc
+{
+    float4 ambient;
+    float4 diffuse;
+    float4 specular;
+    float4 emissive;
+};
+
+
+
+
+////////////////////////////////////////////////////////////
+// ConstantBuffer
+////////////////////////////////////////////////////////////
+cbuffer LightBuffer
+{
+    LightDesc GlobalLight;
+};
+
+cbuffer MaterialBuffer
+{
+    MaterialDesc Material;
+};
+
+
+
+
+
+
+////////////////////////////////////////////////////////////
+// Texture
+////////////////////////////////////////////////////////////
+Texture2D DiffuseMap;
+Texture2D NormalMap;
+Texture2D SpecularMap;
+
+
+#endif

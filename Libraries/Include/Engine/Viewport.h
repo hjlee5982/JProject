@@ -13,16 +13,16 @@ public:
 public:
 	f32 GetWidth()
 	{
-		return mViewport.Width;
+		return _viewport.Width;
 	}
 	f32 GetHeight()
 	{
-		return mViewport.Height;
+		return _viewport.Height;
 	}
 public:
 	vec3 Project(const vec3& pos, const matx& W, const matx& V, const matx& P);
 	vec3 UnProject(const vec3& pos, const matx& W, const matx& V, const matx& P);
 private:
-	D3D11_VIEWPORT mViewport = { 0 };
+	D3D11_VIEWPORT _viewport = { 0 };
 };
 

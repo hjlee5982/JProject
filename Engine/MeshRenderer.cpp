@@ -27,7 +27,19 @@ void MeshRenderer::Render()
 
 	_shader->PushTransformData(TransformDesc{ ownerWorld });
 	_shader->PushGlobalData(Camera::SView, Camera::SProj);
-	//shader->PushLightData(...);
+	
+	
+	LightDesc lDesc;
+	{
+	}
+	MaterialDesc mDesc;
+	{
+		//mDesc.ambient = vec4(1.f);
+	}
+
+	_shader->PushLightData(lDesc);
+	_shader->PushMaterialData(mDesc);
+
 
 	if (nullptr != _material)
 	{

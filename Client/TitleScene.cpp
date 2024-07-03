@@ -23,10 +23,10 @@ void TitleScene::Init()
 	}
 	{
 		auto material = makeSptr<Material>();
-		auto texture = RESOURCE->Load<Texture>(L"Block", L"../Resources/Textures/Block.png");
+		_texture = RESOURCE->Load<Texture>(L"Block", L"../Resources/Textures/Block.png");
 
 		material->SetShader(defaultShader);
-		material->SetDiffuseMap(texture);
+		material->SetDiffuseMap(_texture);
 
 		RESOURCE->Add(L"Block", material);
 	}

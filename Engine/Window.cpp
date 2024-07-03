@@ -11,13 +11,13 @@ void Window::Update()
 
 	DX->RenderBegin();
 	
-	//GUI->Update();
+	GUI->Update();
 
 	_desc.app->Update();
 	_desc.app->LateUpdate();
 	_desc.app->Render();
 
-	//GUI->Render();
+	GUI->Render();
 	
 	DX->RenderEnd();
 }
@@ -38,7 +38,7 @@ WPARAM Window::Run(WindowDesc& desc)
 		LOG->Init();
 		DX->Init(_desc);
 		RESOURCE->Init();
-		//GUI->Init();
+		GUI->Init();
 		INPUT->Init(_desc.hWnd, _desc.hInstance);
 		TIME->Init();
 		//RENDERER->Init();

@@ -29,7 +29,7 @@ public:										\
 #define DX		 GET_SINGLETON(DirectX11)
 #define DEVICE	 GET_SINGLETON(DirectX11)->GetDevice()
 #define CONTEXT  GET_SINGLETON(DirectX11)->GetContext()
-//#define GUI		 GET_SINGLETON(ImGuiManager)
+#define GUI		 GET_SINGLETON(ImGuiManager)
 #define INPUT	 GET_SINGLETON(InputManager)
 #define TIME	 GET_SINGLETON(TimeManager)
 #define SCENE    GET_SINGLETON(SceneManager)

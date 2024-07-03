@@ -12,31 +12,31 @@ public:
 public:
 	ComPtr<ID3D11Device> GetDevice()
 	{
-		return mDevice;
+		return _device;
 	}
 	ComPtr<ID3D11DeviceContext> GetContext()
 	{
-		return mContext;
+		return _context;
 	}
 	Viewport GetViewport()
 	{
-		return mViewport;
+		return _viewport;
 	}
 private:
 	void CreateDeviceAndSwapChain();
 	void CreateRenderTargetView();
 	void CreateDepthStencilView(u32 width, u32 height);
 private:
-	ComPtr<ID3D11Device>		mDevice;
-	ComPtr<ID3D11DeviceContext> mContext;
-	ComPtr<IDXGISwapChain>		mSwapChain;
+	ComPtr<ID3D11Device>		_device;
+	ComPtr<ID3D11DeviceContext> _context;
+	ComPtr<IDXGISwapChain>		_swapChain;
 private:
-	ComPtr<ID3D11RenderTargetView> mRTV;
+	ComPtr<ID3D11RenderTargetView>   _renderTargetView;
 private:
-	ComPtr<ID3D11Texture2D>        mDST;
-	ComPtr<ID3D11DepthStencilView> mDSV;
+	ComPtr<ID3D11Texture2D>        _depthStencilTexture;
+	ComPtr<ID3D11DepthStencilView> _depthStencilView;
 private:
-	WindowDesc mWindowDesc;
-	Viewport   mViewport;
+	WindowDesc _windowDesc;
+	Viewport   _viewport;
 };
 

@@ -113,7 +113,7 @@ using namespace Microsoft::WRL;
 #include "Material.h"
 //#include "Light.h"
 
-//#include "ImGuiManager.h"
+#include "ImGuiManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"
 //#include "SceneManager.h"
