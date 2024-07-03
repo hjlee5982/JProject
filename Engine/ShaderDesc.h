@@ -9,7 +9,7 @@ struct GlobalDesc
 	matx V    = matx::Identity;
 	matx P    = matx::Identity;
 	matx VP   = matx::Identity;
-	matx VInv = matx::Identity;
+	matx CamW = matx::Identity;
 };
 
 struct TransformDesc

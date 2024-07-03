@@ -13,7 +13,7 @@ cbuffer GlobalBuffer
     matrix V;
     matrix P;
     matrix VP;
-    matrix VInv;
+    matrix CamW;
 };
 
 
@@ -28,6 +28,13 @@ struct VertexTexture
 {
     float4 position : POSITION;
     float2 uv       : TEXCOORD;
+};
+
+struct VertexTextureNormal
+{
+    float4 position : POSITION;
+    float2 uv       : TEXCOORD;
+    float3 normal   : NORMAL;
 };
 
 

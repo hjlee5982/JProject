@@ -9,28 +9,28 @@ Mesh::Mesh()
 
 void Mesh::CreateQuad()
 {
-	_geometry = makeSptr<Geometry<VertexTextureData>>();
+	_geometry = makeSptr<Geometry<VertexTextureNormalData>>();
 	GeometryHelper::CreateQuad(_geometry);
 	CreateBuffers();
 }
 
 void Mesh::CreateCube()
 {
-	_geometry = makeSptr<Geometry<VertexTextureData>>();
+	_geometry = makeSptr<Geometry<VertexTextureNormalData>>();
 	GeometryHelper::CreateCube(_geometry);
 	CreateBuffers();
 }
 
 void Mesh::CreateGrid(i32 sizeX, i32 sizeY)
 {
-	_geometry = makeSptr<Geometry<VertexTextureData>>();
+	_geometry = makeSptr<Geometry<VertexTextureNormalData>>();
 	GeometryHelper::CreateGrid(_geometry, sizeX, sizeY);
 	CreateBuffers();
 }
 
 void Mesh::CreateSphere()
 {
-	_geometry = makeSptr<Geometry<VertexTextureData>>();
+	_geometry = makeSptr<Geometry<VertexTextureNormalData>>();
 	GeometryHelper::CreateSphere(_geometry);
 	CreateBuffers();
 }

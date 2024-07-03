@@ -31,6 +31,7 @@ void MeshRenderer::Render()
 	
 	LightDesc lDesc;
 	{
+		lDesc.direction = vec3(1.f, -1.f, 1.f);
 	}
 	MaterialDesc mDesc;
 	{

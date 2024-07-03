@@ -28,14 +28,14 @@ public:
 	{
 		return _indexBuffer;
 	}
-	sptr<Geometry<VertexTextureData>> GetGeometry()
+	sptr<Geometry<VertexTextureNormalData>> GetGeometry()
 	{
 		return _geometry;
 	}
 private:
 	void CreateBuffers();
 private:
-	sptr<Geometry<VertexTextureData>> _geometry;
+	sptr<Geometry<VertexTextureNormalData>> _geometry;
 private:
 	sptr<VertexBuffer> _vertexBuffer;
 	sptr<IndexBuffer>  _indexBuffer;

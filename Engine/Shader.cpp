@@ -345,10 +345,10 @@ void Shader::PushGlobalData(const matx& view, const matx& projection)
 		mGlobalEffectBuffer = GetConstantBuffer("GlobalBuffer");
 	}
 
-	mGlobalDesc.V = view;
-	mGlobalDesc.P = projection;
-	mGlobalDesc.VP = view * projection;
-	mGlobalDesc.VInv = view.Invert();
+	mGlobalDesc.V    = view;
+	mGlobalDesc.P    = projection;
+	mGlobalDesc.VP   = view * projection;
+	mGlobalDesc.CamW = view.Invert();
 	mGlobalBuffer->CopyData(mGlobalDesc);
 	mGlobalEffectBuffer->SetConstantBuffer(mGlobalBuffer->GetComPtr().Get());
 }
