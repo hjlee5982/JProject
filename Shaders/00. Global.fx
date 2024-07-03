@@ -24,6 +24,7 @@ cbuffer GlobalBuffer
 ////////////////////////////////////////////////////////////
 // Structures
 ////////////////////////////////////////////////////////////
+// Input
 struct VertexTexture
 {
     float4 position : POSITION;
@@ -36,7 +37,14 @@ struct VertexTextureNormal
     float2 uv       : TEXCOORD;
     float3 normal   : NORMAL;
 };
-
+// Output
+struct MeshOutput
+{
+    float4 position : SV_POSITION;
+    float4 worldPos : POSITION1;
+    float2 uv       : TEXCOORD;
+    float3 normal   : NORMAL;
+};
 
 
 

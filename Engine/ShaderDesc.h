@@ -32,7 +32,7 @@ struct MaterialDesc
 {
 	Color ambient  = Color(0.2f, 0.2f, 0.2f, 1.f);
 	Color diffuse  = Color(1.f, 1.f, 1.f, 1.f);
-	Color specular = Color(0.f, 0.f, 0.f, 1.f);
+	Color specular = Color(1.f, 1.f, 1.f, 1.f);
 	Color emissive = Color(0.f, 0.f, 0.f, 1.f);
 };
 
