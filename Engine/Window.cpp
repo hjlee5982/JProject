@@ -61,7 +61,7 @@ WPARAM Window::Run(WindowDesc& desc)
 
 	// RELEASE
 	{
-		//GUI->Shutdown();
+		GUI->Shutdown();
 		spdlog::shutdown();
 	}
 

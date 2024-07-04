@@ -141,12 +141,15 @@
     <ClCompile Include="DbgCamera.cpp" />
     <ClCompile Include="DbgGrid.cpp" />
     <ClCompile Include="DbgSphere.cpp" />
+    <ClCompile Include="Earth.cpp" />
     <ClCompile Include="JProject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Moon.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="Sun.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +157,12 @@
     <ClInclude Include="DbgCamera.h" />
     <ClInclude Include="DbgGrid.h" />
     <ClInclude Include="DbgSphere.h" />
+    <ClInclude Include="Earth.h" />
     <ClInclude Include="JProject.h" />
+    <ClInclude Include="Moon.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Skydome.h" />
+    <ClInclude Include="Sun.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

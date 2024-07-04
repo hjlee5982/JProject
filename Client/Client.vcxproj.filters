@@ -19,6 +19,9 @@
     <Filter Include="Client\01. GameObject\Skydome">
       <UniqueIdentifier>{f9bd669c-d68d-42d2-a8ee-ef396dc67aa4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\Planets">
+      <UniqueIdentifier>{d886fc5c-f67a-4f23-8069-af6e8c3df523}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +51,15 @@
     <ClCompile Include="DbgGrid.cpp">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClCompile>
+    <ClCompile Include="Earth.cpp">
+      <Filter>Client\Planets</Filter>
+    </ClCompile>
+    <ClCompile Include="Sun.cpp">
+      <Filter>Client\Planets</Filter>
+    </ClCompile>
+    <ClCompile Include="Moon.cpp">
+      <Filter>Client\Planets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="DbgGrid.h">
       <Filter>Client\01. GameObject\Dbg</Filter>
+    </ClInclude>
+    <ClInclude Include="Earth.h">
+      <Filter>Client\Planets</Filter>
+    </ClInclude>
+    <ClInclude Include="Sun.h">
+      <Filter>Client\Planets</Filter>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <Filter>Client\Planets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -20,8 +20,6 @@ void Skydome::Init()
 
 		auto material = RESOURCE->Get<Material>(L"Skydome");
 		GetMeshRenderer()->SetMaterial(material);
-
-		GetMeshRenderer()->SetTech(2);
 	}
 
 	GetTransform()->SetPosition(vec3(4.f, 2.f, 0.f));

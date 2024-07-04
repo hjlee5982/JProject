@@ -24,7 +24,7 @@ cbuffer GlobalBuffer
 ////////////////////////////////////////////////////////////
 // Structures
 ////////////////////////////////////////////////////////////
-// Input
+// Input = ShaderDesc.h의 struct들과 깔맞춤 해야됨, 이름은 상관없는듯
 struct VertexTexture
 {
     float4 position : POSITION;
@@ -37,6 +37,13 @@ struct VertexTextureNormal
     float2 uv       : TEXCOORD;
     float3 normal   : NORMAL;
 };
+struct VertexTextureNormalTangent
+{
+    float4 position : POSITION;
+    float2 uv       : TEXCOORD;
+    float3 normal   : NORMAL;
+    float3 tangent  : TANGENT;
+};
 // Output
 struct MeshOutput
 {
@@ -44,6 +51,7 @@ struct MeshOutput
     float4 worldPos : POSITION1;
     float2 uv       : TEXCOORD;
     float3 normal   : NORMAL;
+    float3 tangent  : TANGENT;
 };
 
 
@@ -77,16 +85,6 @@ RasterizerState CCW
     //FrontcounterClockwise = true   == CullMode = front
     //FrontcounterClockwise = false  == CullMode = Back
 };
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////
-// RasterizerState
-////////////////////////////////////////////////////////////
 SamplerState LinearSampler
 {
     Filter   = MIN_MAG_MIP_LINEAR;
@@ -95,13 +93,8 @@ SamplerState LinearSampler
 };
 
 
-
-
-
-
-
 ////////////////////////////////////////////////////////////
-// RasterizerState
+// Function
 ////////////////////////////////////////////////////////////
 float4 WVP(float4 pos)
 {
@@ -111,9 +104,10 @@ float4 WVP(float4 pos)
     
     return pos;
 }
-
-
-
+float3 CamPos()
+{
+    return CamW._41_42_43;
+}
 
 ////////////////////////////////////////////////////////////
 // Macro
@@ -132,11 +126,6 @@ pass name											 \
     SetVertexShader(CompileShader(vs_5_0, vs()));	 \
 	SetPixelShader(CompileShader(ps_5_0, ps()));	 \
 }
-
-
-
-
-
 
 
 #endif

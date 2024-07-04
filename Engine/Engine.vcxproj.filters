@@ -348,5 +348,8 @@
     <FxCompile Include="..\Shaders\00. Global.fx">
       <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\Skydome.fx">
+      <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
