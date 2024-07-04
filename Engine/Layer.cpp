@@ -29,3 +29,16 @@ void Layer::AddGameObject(sptr<GameObject> go)
 {
 	_gameObjects.push_back(std::move(go));
 }
+
+sptr<GameObject> Layer::GetGameObject(const string& name)
+{
+	for (auto& go : _gameObjects)
+	{
+		if (go->GetName() == name)
+		{
+			return go;
+		}
+	}
+
+	return nullptr;
+}

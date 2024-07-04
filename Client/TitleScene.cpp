@@ -72,10 +72,9 @@ void TitleScene::Init()
 	OBJECT->AddGameObject(makeSptr<Skydome>());
 	OBJECT->AddGameObject(makeSptr<DbgGrid>());
 
-	auto earth = makeSptr<Earth>();
-	OBJECT->AddGameObject(earth);
+	OBJECT->AddGameObject(makeSptr<Earth>());
 	OBJECT->AddGameObject(makeSptr<Moon>());
-	//OBJECT->AddGameObject(makeSptr<Sun>());
+	OBJECT->AddGameObject(makeSptr<Sun>());
 }
 
 void TitleScene::Update()

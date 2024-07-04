@@ -12,12 +12,8 @@ public:
 	void Render();
 public:
 	void AddGameObject(sptr<GameObject> go);
+	sptr<class GameObject> GetGameObject(const string& name, GameObject::ELayerType layer = GameObject::ELayerType::DEFAULT);
 private:
 	HashMap<GameObject::ELayerType, sptr<Layer>> _layers;
-
-	/////// Deferred Test
-private:
-	ComPtr<ID3D11RenderTargetView> _originRenderTargetView = nullptr;
-	ComPtr<ID3D11DepthStencilView> _originDepthStencilView = nullptr;
 };
 

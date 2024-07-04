@@ -39,6 +39,14 @@ public:
 	{
 		return _layerType;
 	}
+	const string& GetName()
+	{
+		return _name;
+	}
+	void SetName(const string& name)
+	{
+		_name = name;
+	}
 public:
 	sptr<class Transform>    GetTransform();
 	sptr<class Camera>       GetCamera();
@@ -49,6 +57,7 @@ private:
 	array<sptr<Component>, COMPONENT_TYPE_COUNT> _components;
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
+	string _name;
 public:
 	virtual void MakeJson(sptr<JsonData> data) override {};
 	virtual void LoadJson(sptr<JsonData> data) override {};

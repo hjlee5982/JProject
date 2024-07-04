@@ -12,6 +12,7 @@ public:
 	void Render();
 public:
 	void AddGameObject(sptr<GameObject> go);
+	sptr<GameObject> GetGameObject(const string& name);
 public:
 	bool IsValid()
 	{

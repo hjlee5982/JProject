@@ -60,3 +60,10 @@ void GameObjectManager::AddGameObject(sptr<GameObject> go)
 		findit->second->AddGameObject(go);
 	}
 }
+
+sptr<GameObject> GameObjectManager::GetGameObject(const string& name, GameObject::ELayerType layer)
+{
+	auto findit = _layers.find(layer);
+
+	return findit->second->GetGameObject(name);
+}
