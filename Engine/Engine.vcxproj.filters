@@ -198,6 +198,9 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Engine\00. Core\02. Resources</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredBuffer.h">
+      <Filter>Engine\00. Core\01. Rendering\Buffers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -332,6 +335,9 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Engine\00. Core\02. Resources</Filter>
     </ClCompile>
+    <ClCompile Include="DeferredBuffer.cpp">
+      <Filter>Engine\00. Core\01. Rendering\Buffers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -349,6 +355,9 @@
       <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\Skydome.fx">
+      <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\00. Deferred.fx">
       <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
     </FxCompile>
   </ItemGroup>

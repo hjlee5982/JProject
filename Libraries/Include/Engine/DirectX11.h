@@ -38,5 +38,16 @@ private:
 private:
 	WindowDesc _windowDesc;
 	Viewport   _viewport;
+private:
+	ComPtr<ID3D11ShaderResourceView> _srv;
+public:
+	ComPtr<ID3D11ShaderResourceView> GetSRV()
+	{
+		return _srv;
+	}
+	ComPtr<IDXGISwapChain> GetSwapChain()
+	{
+		return _swapChain;
+	}
 };
 

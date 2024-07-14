@@ -23,7 +23,64 @@ void DirectX11::RenderBegin()
 
 void DirectX11::RenderEnd()
 {
-	HRESULT hr = _swapChain->Present(1, 0);
+	HRESULT hr;
+
+	/*ComPtr<ID3D11Texture2D> backBuffer = nullptr;
+	_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
+
+	D3D11_TEXTURE2D_DESC backBufferDesc;
+	backBuffer->GetDesc(&backBufferDesc);
+
+	D3D11_TEXTURE2D_DESC desc = backBufferDesc;
+	desc.Usage = D3D11_USAGE_STAGING;
+	desc.BindFlags = 0;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+	desc.MiscFlags = 0;
+
+	ComPtr<ID3D11Texture2D> texture = nullptr;
+	hr = _device->CreateTexture2D(&desc, nullptr, texture.GetAddressOf());
+	CHECK(hr);
+
+	_context->CopyResource(texture.Get(), backBuffer.Get());
+
+
+
+
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	hr = _context->Map(texture.Get(), 0, D3D11_MAP_READ, 0, &mappedResource);
+	CHECK(hr);
+
+	BYTE* pData = reinterpret_cast<BYTE*>(mappedResource.pData);
+	vector<BYTE> imageData(backBufferDesc.Width * backBufferDesc.Height * 4);
+	memcpy(imageData.data(), pData, imageData.size());
+
+	_context->Unmap(texture.Get(), 0);
+
+
+	D3D11_TEXTURE2D_DESC textureDesc = {};
+	textureDesc.Width = backBufferDesc.Width;
+	textureDesc.Height = backBufferDesc.Height;
+	textureDesc.MipLevels = 1;
+	textureDesc.ArraySize = 1;
+	textureDesc.Format = backBufferDesc.Format;
+	textureDesc.SampleDesc.Count = 1;
+	textureDesc.Usage = D3D11_USAGE_DEFAULT;
+	textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	textureDesc.CPUAccessFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA initData = {};
+	initData.pSysMem = imageData.data();
+	initData.SysMemPitch = backBufferDesc.Width * 4;
+
+	ComPtr<ID3D11Texture2D> pTexture = nullptr;
+	hr = _device->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
+	CHECK(hr);
+
+	_srv = nullptr;
+	hr = _device->CreateShaderResourceView(pTexture.Get(), nullptr, _srv.GetAddressOf());
+	CHECK(hr);*/
+
+	hr = _swapChain->Present(1, 0);
 	CHECK(hr);
 }
 
@@ -77,6 +134,7 @@ void DirectX11::CreateRenderTargetView()
 
 	hr = _device->CreateRenderTargetView(backBuffer.Get(), nullptr, _renderTargetView.GetAddressOf());
 	CHECK(hr);
+
 }
 
 void DirectX11::CreateDepthStencilView(u32 width, u32 height)
