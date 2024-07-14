@@ -171,3 +171,9 @@ void DirectX11::CreateDepthStencilView(u32 width, u32 height)
 	hr = DEVICE->CreateDepthStencilView(_depthStencilTexture.Get(), &dsvDesc, _depthStencilView.GetAddressOf());
 	CHECK(hr);
 }
+
+void DirectX11::ClearRenderTarget()
+{
+	_context->ClearRenderTargetView(_renderTargetView.Get(), (float*)(&_windowDesc.clearColor));
+	_context->ClearDepthStencilView(_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+}

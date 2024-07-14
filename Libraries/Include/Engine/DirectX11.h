@@ -49,5 +49,7 @@ public:
 	{
 		return _swapChain;
 	}
+public:
+	void ClearRenderTarget();
 };
 

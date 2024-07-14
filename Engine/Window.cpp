@@ -82,11 +82,19 @@ void Window::Update()
 
 	ImGui::End();
 
+	ImGui::Begin("Test2");
+	ImGui::End();
 
+	ImGui::Begin("Test3");
+	ImGui::End();
+
+	DX->ClearRenderTarget();
 
 	GUI->Render();
 	
+
 	DX->RenderEnd();
+
 }
 
 WPARAM Window::Run(WindowDesc& desc)
