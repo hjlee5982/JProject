@@ -28,7 +28,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	catch (Exception& e)
 	{
-		LOG_ERROR(e.ToString());
+		JLOG_ERROR(e.ToString().c_str());
 	}
 	
 	return 0;

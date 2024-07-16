@@ -36,6 +36,8 @@ void ImGuiManager::Init()
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(WINDOW->GetGameDesc().hWnd);
     ImGui_ImplDX11_Init(DEVICE.Get(), CONTEXT.Get());
+
+    JLOG_INIT("GUI Init Complete");
 }
 
 void ImGuiManager::RenderBegin()

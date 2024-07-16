@@ -10,8 +10,7 @@ void DirectX11::Init(WindowDesc desc)
 	CreateDepthStencilView(static_cast<float>(_windowDesc.width), static_cast<float>(_windowDesc.height));
 	_viewport.SetViewport(static_cast<float>(_windowDesc.width), static_cast<float>(_windowDesc.height));
 
-	//LOG_INFO("Device Init Complete");
-	JLOG_INFO("Device Init Complete");
+	JLOG_INIT("Device Init Complete");
 }
 
 void DirectX11::RenderBegin()
@@ -125,7 +124,7 @@ void DirectX11::CreateRenderTargetTexture()
 
 	D3D11_TEXTURE2D_DESC backBufferDesc;
 	backBuffer->GetDesc(&backBufferDesc);
-
+	
 	D3D11_TEXTURE2D_DESC tempDesc = backBufferDesc;
 	{
 		tempDesc.Usage          = D3D11_USAGE_STAGING;
@@ -133,24 +132,24 @@ void DirectX11::CreateRenderTargetTexture()
 		tempDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 		tempDesc.MiscFlags      = 0;
 	}
-
+	
 	ComPtr<ID3D11Texture2D> tempTexture = nullptr;
 	hr = DEVICE->CreateTexture2D(&tempDesc, nullptr, tempTexture.GetAddressOf());
 	CHECK(hr);
-
+	
 	CONTEXT->CopyResource(tempTexture.Get(), backBuffer.Get());
-
+	
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	hr = CONTEXT->Map(tempTexture.Get(), 0, D3D11_MAP_READ, 0, &mappedResource);
 	CHECK(hr);
-
+	
 	BYTE* pData = reinterpret_cast<BYTE*>(mappedResource.pData);
 	vector<BYTE> imageData(backBufferDesc.Width * backBufferDesc.Height * 4);
 	memcpy(imageData.data(), pData, imageData.size());
-
+	
 	CONTEXT->Unmap(tempTexture.Get(), 0);
-
-
+	
+	
 	D3D11_TEXTURE2D_DESC textureDesc;
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 	{
@@ -164,18 +163,18 @@ void DirectX11::CreateRenderTargetTexture()
 		textureDesc.BindFlags        = D3D11_BIND_SHADER_RESOURCE;
 		textureDesc.CPUAccessFlags   = 0;
 	}
-
+	
 	D3D11_SUBRESOURCE_DATA initData;
 	ZeroMemory(&initData, sizeof(initData));
 	{
 		initData.pSysMem     = imageData.data();
 		initData.SysMemPitch = backBufferDesc.Width * 4;
 	}
-
+	
 	ComPtr<ID3D11Texture2D> pTexture = nullptr;
 	hr = DEVICE->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
 	CHECK(hr);
-
+	
 	hr = DEVICE->CreateShaderResourceView(pTexture.Get(), nullptr, _renderTargetShaderResourceView.GetAddressOf());
 	CHECK(hr);
 }

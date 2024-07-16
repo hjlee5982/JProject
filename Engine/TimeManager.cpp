@@ -29,7 +29,7 @@
 
 void TimeManager::Init()
 {
-	
+	JLOG_INIT("Timer Init Complete");
 }
 
 void TimeManager::Update()

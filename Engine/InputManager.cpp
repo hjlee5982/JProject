@@ -104,6 +104,8 @@ void InputManager::Init(HWND hWnd, HINSTANCE hInst)
 
 	hr = _mouse->Acquire();
 	CHECK(hr);
+
+	JLOG_INIT("Input Init Complete");
 }
 
 void InputManager::Update()

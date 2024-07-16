@@ -21,7 +21,7 @@ void Window::Update()
 		ImGui::Begin("Test");
 		ImVec2 size = ImGui::GetWindowSize();
 		ImGui::Image((void*)DX->GetShaderResourceView().Get(), ImVec2(size.x - 15, size.y - 36));
-
+		DX->GetShaderResourceView()->Release();
 		ImGui::End();
 
 		ImGui::Begin("Inspector");
@@ -40,7 +40,6 @@ void Window::Update()
 
 WPARAM Window::Run(WindowDesc& desc)
 {
-
 	_desc = desc;
 
 	MyRegisterClass();
@@ -61,6 +60,12 @@ WPARAM Window::Run(WindowDesc& desc)
 		TIME->Init();
 		//RENDERER->Init();
 	}
+
+	JLOG_INFO("Test");
+	JLOG_INFO("Test");
+	JLOG_INFO("Test");
+	JLOG_INFO("Test");
+	JLOG_INFO("Test");
 
 	_desc.app->Init();
 	

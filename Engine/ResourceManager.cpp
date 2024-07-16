@@ -8,6 +8,8 @@
 void ResourceManager::Init()
 {
 	CreateDefaultMesh();
+
+	JLOG_INIT("Resource Init Complete");
 }
 
 sptr<Texture> ResourceManager::GetOrAddTexture(const wstring& key, const wstring& path)
