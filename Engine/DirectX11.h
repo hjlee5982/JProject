@@ -22,6 +22,16 @@ public:
 	{
 		return _viewport;
 	}
+	ComPtr<ID3D11RenderTargetView> GetRenderTargetView()
+	{
+		return _renderTargetView;
+	}
+	ComPtr<ID3D11ShaderResourceView> GetShaderResourceView()
+	{
+		return _renderTargetShaderResourceView;
+	}
+public:
+	void CreateRenderTargetTexture();
 private:
 	void CreateDeviceAndSwapChain();
 	void CreateRenderTargetView();
@@ -32,24 +42,12 @@ private:
 	ComPtr<IDXGISwapChain>		_swapChain;
 private:
 	ComPtr<ID3D11RenderTargetView>   _renderTargetView;
+	ComPtr<ID3D11ShaderResourceView> _renderTargetShaderResourceView;
 private:
 	ComPtr<ID3D11Texture2D>        _depthStencilTexture;
 	ComPtr<ID3D11DepthStencilView> _depthStencilView;
 private:
 	WindowDesc _windowDesc;
 	Viewport   _viewport;
-private:
-	ComPtr<ID3D11ShaderResourceView> _srv;
-public:
-	ComPtr<ID3D11ShaderResourceView> GetSRV()
-	{
-		return _srv;
-	}
-	ComPtr<IDXGISwapChain> GetSwapChain()
-	{
-		return _swapChain;
-	}
-public:
-	void ClearRenderTarget();
 };
 

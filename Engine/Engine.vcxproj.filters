@@ -201,6 +201,9 @@
     <ClInclude Include="DeferredBuffer.h">
       <Filter>Engine\00. Core\01. Rendering\Buffers</Filter>
     </ClInclude>
+    <ClInclude Include="JLog.h">
+      <Filter>Engine\98. Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -337,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="DeferredBuffer.cpp">
       <Filter>Engine\00. Core\01. Rendering\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="JLog.cpp">
+      <Filter>Engine\98. Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

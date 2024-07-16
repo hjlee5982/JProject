@@ -38,7 +38,7 @@ void ImGuiManager::Init()
     ImGui_ImplDX11_Init(DEVICE.Get(), CONTEXT.Get());
 }
 
-void ImGuiManager::Update()
+void ImGuiManager::RenderBegin()
 {
     // Start the Dear ImGui frame
     ImGui_ImplDX11_NewFrame();
@@ -48,15 +48,15 @@ void ImGuiManager::Update()
     DockingSpace();
 }
 
-void ImGuiManager::Render()
+void ImGuiManager::RenderEnd()
 {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
     // Rendering
     ImGui::Render();
-    //const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
-    //g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
-    //g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
+    const f32 color[4] = { 0.f, 0.f, 0.f, 0.f };
+    CONTEXT->OMSetRenderTargets(1, DX->GetRenderTargetView().GetAddressOf(), nullptr);
+    CONTEXT->ClearRenderTargetView(DX->GetRenderTargetView().Get(), color);
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     // Update and Render additional Platform Windows

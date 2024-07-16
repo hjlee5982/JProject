@@ -6,99 +6,41 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 void Window::Update()
 {
-	TIME->Update();
+	TIME ->Update();
 	INPUT->Update();
 
-	DX->RenderBegin();
-	
-	GUI->Update();
+	DX ->RenderBegin();
+	GUI->RenderBegin();
 
-	_desc.app->Update();
-	_desc.app->LateUpdate();
-	_desc.app->Render();
+	_desc.app->Loop();
 
-	HRESULT hr;
+	// ImGui TODO
+	{
+		DX->CreateRenderTargetTexture();
 
-	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
-	DX->GetSwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
+		ImGui::Begin("Test");
+		ImVec2 size = ImGui::GetWindowSize();
+		ImGui::Image((void*)DX->GetShaderResourceView().Get(), ImVec2(size.x - 15, size.y - 36));
 
-	D3D11_TEXTURE2D_DESC backBufferDesc;
-	backBuffer->GetDesc(&backBufferDesc);
+		ImGui::End();
 
-	D3D11_TEXTURE2D_DESC desc = backBufferDesc;
-	desc.Usage = D3D11_USAGE_STAGING;
-	desc.BindFlags = 0;
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-	desc.MiscFlags = 0;
+		ImGui::Begin("Inspector");
+		ImGui::End();
 
-	ComPtr<ID3D11Texture2D> texture = nullptr;
-	hr = DEVICE->CreateTexture2D(&desc, nullptr, texture.GetAddressOf());
-	CHECK(hr);
+		ImGui::Begin("Test3");
+		ImGui::End();
 
-	CONTEXT->CopyResource(texture.Get(), backBuffer.Get());
+		JLOG->Draw();
+	}
 
-
-
-
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	hr = CONTEXT->Map(texture.Get(), 0, D3D11_MAP_READ, 0, &mappedResource);
-	CHECK(hr);
-
-	BYTE* pData = reinterpret_cast<BYTE*>(mappedResource.pData);
-	vector<BYTE> imageData(backBufferDesc.Width * backBufferDesc.Height * 4);
-	memcpy(imageData.data(), pData, imageData.size());
-
-	CONTEXT->Unmap(texture.Get(), 0);
-
-
-	D3D11_TEXTURE2D_DESC textureDesc = {};
-	textureDesc.Width = backBufferDesc.Width;
-	textureDesc.Height = backBufferDesc.Height;
-	textureDesc.MipLevels = 1;
-	textureDesc.ArraySize = 1;
-	textureDesc.Format = backBufferDesc.Format;
-	textureDesc.SampleDesc.Count = 1;
-	textureDesc.Usage = D3D11_USAGE_DEFAULT;
-	textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	textureDesc.CPUAccessFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA initData = {};
-	initData.pSysMem = imageData.data();
-	initData.SysMemPitch = backBufferDesc.Width * 4;
-
-	ComPtr<ID3D11Texture2D> pTexture = nullptr;
-	hr = DEVICE->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
-	CHECK(hr);
-
-	ComPtr<ID3D11ShaderResourceView> srv = nullptr;
-	hr = DEVICE->CreateShaderResourceView(pTexture.Get(), nullptr, srv.GetAddressOf());
-	CHECK(hr);
-
-
-
-	ImGui::Begin("Test");
-	ImVec2 size = ImGui::GetWindowSize();
-	ImGui::Image((void*)srv.Get(), ImVec2(size.x-15, size.y-36));
-
-	ImGui::End();
-
-	ImGui::Begin("Test2");
-	ImGui::End();
-
-	ImGui::Begin("Test3");
-	ImGui::End();
-
-	DX->ClearRenderTarget();
-
-	GUI->Render();
-	
-
-	DX->RenderEnd();
+	GUI->RenderEnd();
+	DX ->RenderEnd();
 
 }
 
 WPARAM Window::Run(WindowDesc& desc)
 {
+
 	_desc = desc;
 
 	MyRegisterClass();
@@ -110,7 +52,8 @@ WPARAM Window::Run(WindowDesc& desc)
 
 	// SINGLETON INIT
 	{
-		LOG->Init();
+		//LOG->Init();
+		JLOG->Init();
 		DX->Init(_desc);
 		RESOURCE->Init();
 		GUI->Init();
@@ -120,7 +63,7 @@ WPARAM Window::Run(WindowDesc& desc)
 	}
 
 	_desc.app->Init();
-
+	
 	MSG msg = { 0 };
 
 	while (msg.message != WM_QUIT)

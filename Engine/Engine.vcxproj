@@ -170,6 +170,7 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="JLog.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Log.h" />
@@ -234,6 +235,7 @@
     </ClCompile>
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="JLog.cpp" />
     <ClCompile Include="JsonData.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Log.cpp" />

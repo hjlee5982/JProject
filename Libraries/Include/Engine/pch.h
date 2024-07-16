@@ -90,6 +90,7 @@ using namespace Microsoft::WRL;
 
 // Utils *************************************************
 #include "Log.h"
+#include "JLog.h"
 #include "Exception.h"
 #include "Utils.h"
 

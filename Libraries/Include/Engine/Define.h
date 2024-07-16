@@ -25,6 +25,7 @@ public:										\
 #define GET_SINGLETON(classname)	classname::GetInstance()
 
 #define LOG		 GET_SINGLETON(Log)
+#define JLOG	 GET_SINGLETON(JLog)
 #define WINDOW	 GET_SINGLETON(Window)
 #define DX		 GET_SINGLETON(DirectX11)
 #define DEVICE	 GET_SINGLETON(DirectX11)->GetDevice()

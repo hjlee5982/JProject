@@ -5,8 +5,8 @@ class ImGuiManager
 	DECLARE_SINGLETON(ImGuiManager)
 public:
 	void Init();
-	void Update();
-	void Render();
+	void RenderBegin();
+	void RenderEnd();
 	void Shutdown();
 private:
 	void DockingSpace();

@@ -10,7 +10,8 @@ void DirectX11::Init(WindowDesc desc)
 	CreateDepthStencilView(static_cast<float>(_windowDesc.width), static_cast<float>(_windowDesc.height));
 	_viewport.SetViewport(static_cast<float>(_windowDesc.width), static_cast<float>(_windowDesc.height));
 
-	LOG_INFO("Device Init Complete");
+	//LOG_INFO("Device Init Complete");
+	JLOG_INFO("Device Init Complete");
 }
 
 void DirectX11::RenderBegin()
@@ -23,64 +24,7 @@ void DirectX11::RenderBegin()
 
 void DirectX11::RenderEnd()
 {
-	HRESULT hr;
-
-	/*ComPtr<ID3D11Texture2D> backBuffer = nullptr;
-	_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
-
-	D3D11_TEXTURE2D_DESC backBufferDesc;
-	backBuffer->GetDesc(&backBufferDesc);
-
-	D3D11_TEXTURE2D_DESC desc = backBufferDesc;
-	desc.Usage = D3D11_USAGE_STAGING;
-	desc.BindFlags = 0;
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-	desc.MiscFlags = 0;
-
-	ComPtr<ID3D11Texture2D> texture = nullptr;
-	hr = _device->CreateTexture2D(&desc, nullptr, texture.GetAddressOf());
-	CHECK(hr);
-
-	_context->CopyResource(texture.Get(), backBuffer.Get());
-
-
-
-
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	hr = _context->Map(texture.Get(), 0, D3D11_MAP_READ, 0, &mappedResource);
-	CHECK(hr);
-
-	BYTE* pData = reinterpret_cast<BYTE*>(mappedResource.pData);
-	vector<BYTE> imageData(backBufferDesc.Width * backBufferDesc.Height * 4);
-	memcpy(imageData.data(), pData, imageData.size());
-
-	_context->Unmap(texture.Get(), 0);
-
-
-	D3D11_TEXTURE2D_DESC textureDesc = {};
-	textureDesc.Width = backBufferDesc.Width;
-	textureDesc.Height = backBufferDesc.Height;
-	textureDesc.MipLevels = 1;
-	textureDesc.ArraySize = 1;
-	textureDesc.Format = backBufferDesc.Format;
-	textureDesc.SampleDesc.Count = 1;
-	textureDesc.Usage = D3D11_USAGE_DEFAULT;
-	textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	textureDesc.CPUAccessFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA initData = {};
-	initData.pSysMem = imageData.data();
-	initData.SysMemPitch = backBufferDesc.Width * 4;
-
-	ComPtr<ID3D11Texture2D> pTexture = nullptr;
-	hr = _device->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
-	CHECK(hr);
-
-	_srv = nullptr;
-	hr = _device->CreateShaderResourceView(pTexture.Get(), nullptr, _srv.GetAddressOf());
-	CHECK(hr);*/
-
-	hr = _swapChain->Present(1, 0);
+	HRESULT hr = _swapChain->Present(1, 0);
 	CHECK(hr);
 }
 
@@ -134,7 +78,6 @@ void DirectX11::CreateRenderTargetView()
 
 	hr = _device->CreateRenderTargetView(backBuffer.Get(), nullptr, _renderTargetView.GetAddressOf());
 	CHECK(hr);
-
 }
 
 void DirectX11::CreateDepthStencilView(u32 width, u32 height)
@@ -172,8 +115,67 @@ void DirectX11::CreateDepthStencilView(u32 width, u32 height)
 	CHECK(hr);
 }
 
-void DirectX11::ClearRenderTarget()
+void DirectX11::CreateRenderTargetTexture()
 {
-	_context->ClearRenderTargetView(_renderTargetView.Get(), (float*)(&_windowDesc.clearColor));
-	_context->ClearDepthStencilView(_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+	HRESULT hr;
+	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
+
+	hr = _swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf());
+	CHECK(hr);
+
+	D3D11_TEXTURE2D_DESC backBufferDesc;
+	backBuffer->GetDesc(&backBufferDesc);
+
+	D3D11_TEXTURE2D_DESC tempDesc = backBufferDesc;
+	{
+		tempDesc.Usage          = D3D11_USAGE_STAGING;
+		tempDesc.BindFlags      = 0;
+		tempDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		tempDesc.MiscFlags      = 0;
+	}
+
+	ComPtr<ID3D11Texture2D> tempTexture = nullptr;
+	hr = DEVICE->CreateTexture2D(&tempDesc, nullptr, tempTexture.GetAddressOf());
+	CHECK(hr);
+
+	CONTEXT->CopyResource(tempTexture.Get(), backBuffer.Get());
+
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	hr = CONTEXT->Map(tempTexture.Get(), 0, D3D11_MAP_READ, 0, &mappedResource);
+	CHECK(hr);
+
+	BYTE* pData = reinterpret_cast<BYTE*>(mappedResource.pData);
+	vector<BYTE> imageData(backBufferDesc.Width * backBufferDesc.Height * 4);
+	memcpy(imageData.data(), pData, imageData.size());
+
+	CONTEXT->Unmap(tempTexture.Get(), 0);
+
+
+	D3D11_TEXTURE2D_DESC textureDesc;
+	ZeroMemory(&textureDesc, sizeof(textureDesc));
+	{
+		textureDesc.Width			 = backBufferDesc.Width;
+		textureDesc.Height			 = backBufferDesc.Height;
+		textureDesc.MipLevels		 = 1;
+		textureDesc.ArraySize		 = 1;
+		textureDesc.Format			 = backBufferDesc.Format;
+		textureDesc.SampleDesc.Count = 1;
+		textureDesc.Usage            = D3D11_USAGE_DEFAULT;
+		textureDesc.BindFlags        = D3D11_BIND_SHADER_RESOURCE;
+		textureDesc.CPUAccessFlags   = 0;
+	}
+
+	D3D11_SUBRESOURCE_DATA initData;
+	ZeroMemory(&initData, sizeof(initData));
+	{
+		initData.pSysMem     = imageData.data();
+		initData.SysMemPitch = backBufferDesc.Width * 4;
+	}
+
+	ComPtr<ID3D11Texture2D> pTexture = nullptr;
+	hr = DEVICE->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
+	CHECK(hr);
+
+	hr = DEVICE->CreateShaderResourceView(pTexture.Get(), nullptr, _renderTargetShaderResourceView.GetAddressOf());
+	CHECK(hr);
 }
