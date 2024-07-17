@@ -108,7 +108,7 @@ float4 ComputeLight(float2 uv, float3 normal, float3 worldPos)
         emissiveColor = GlobalLight.emissive * Material.emissive * emissiveIntensity;
     }
     
-    return diffuseColor + ambientColor + specularColor + emissiveColor;
+    return diffuseColor + ambientColor + specularColor;// + emissiveColor;
 }
 
 #endif

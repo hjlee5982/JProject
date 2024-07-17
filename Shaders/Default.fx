@@ -14,7 +14,7 @@ MeshOutput VS_DEFAULT(VertexTextureNormalTangent input)
     return output;
 }
 
-float4 PS(MeshOutput input) : SV_TARGET
+float4 PS_DEFAULT(MeshOutput input) : SV_TARGET
 {
     return DiffuseMap.Sample(LinearSampler, input.uv);
 }
@@ -49,14 +49,14 @@ float4 PS_SOLID(MeshOutput input) : SV_TARGET
 
 technique11 NORMAL
 {
-    PASS   (P0, VS_DEFAULT, PS)
+    PASS   (P0, VS_DEFAULT, PS_DEFAULT)
     PASS   (P1, VS_DEFAULT, PS_LIGHT)
     PASS_RS(P2, VS_DEFAULT, PS_LIGHT, FillModeWireFrame)
 };
 
 technique11 GRID
 {
-    PASS   (P0, VS_DEFAULT, PS)
+    PASS   (P0, VS_DEFAULT, PS_DEFAULT)
     PASS_RS(P1, VS_DEFAULT, PS_SOLID, FillModeWireFrameEx)
 };
 

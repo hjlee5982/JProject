@@ -14,8 +14,7 @@ void Moon::Init()
 
 	AddComponent(makeSptr<Transform>());
 	{
-		GetTransform()->SetScale(vec3(3.1f));
-		GetTransform()->SetPosition(vec3(8.f, 2.f, 0.f));
+		GetTransform()->SetScale(vec3(0.75f));
 		GetTransform()->RotationAxis(vec3::Look, XMConvertToRadians(6.7));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
@@ -33,15 +32,14 @@ void Moon::Init()
 
 void Moon::Update()
 {
-
 	GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * _speed);
 
 	auto earth = OBJECT->GetGameObject("Earth")->GetTransform()->GetPosition();
 
 	static f32 orbitAngle  = 0.f;
-	static f32 orbitRadius = 2.f;
+	static f32 orbitRadius = 4.0f;
 
-	orbitAngle += TIME->GetDeltaTime() * 2.f;
+	orbitAngle += TIME->GetDeltaTime();
 
 	f32 x = earth.x + orbitRadius * cos(orbitAngle);
 	f32 z = earth.z + orbitRadius * sin(orbitAngle);
@@ -49,7 +47,9 @@ void Moon::Update()
 	matx translation = ::XMMatrixTranslation(x, earth.y, z);
 	matx rotation = ::XMMatrixRotationY(orbitAngle);
 
-	GetTransform()->SetWorld(rotation * translation);
+	matx scale = matx::CreateScale(GetTransform()->GetScale());
+
+	GetTransform()->SetWorld(scale * rotation * translation);
 
 }
 

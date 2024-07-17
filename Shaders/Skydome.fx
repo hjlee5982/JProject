@@ -6,7 +6,6 @@ VertexTexture VS_SKYDOME(VertexTexture input)
     VertexTexture output;
 
     output.position   = WVP(input.position);
-    output.position.z = output.position.w * 0.999999f;;
     output.uv         = input.uv;
     
     return output;
