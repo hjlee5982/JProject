@@ -8,6 +8,8 @@ DbgCamera::DbgCamera()
 
 void DbgCamera::Init()
 {
+	SetName("Camera");
+
 	AddComponent(makeSptr<Transform>());
 	AddComponent(makeSptr<Camera>(0.1f, 300.f, XMConvertToRadians(60.f)));
 

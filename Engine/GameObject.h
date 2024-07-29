@@ -59,7 +59,7 @@ private:
 	ELayerType _layerType = ELayerType::DEFAULT;
 	string _name;
 public:
-	virtual void MakeJson(sptr<JsonData> data) override {};
-	virtual void LoadJson(sptr<JsonData> data) override {};
+	virtual void MakeJson(sptr<JsonData> data) override;
+	virtual void LoadJson(sptr<JsonData> data) override;
 };
 

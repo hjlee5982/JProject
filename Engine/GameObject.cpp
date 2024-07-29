@@ -47,3 +47,19 @@ sptr<Component> GameObject::GetComponent(EComponentType type)
 
 	return _components[index];
 }
+
+void GameObject::MakeJson(sptr<JsonData> data)
+{
+	Document document;
+	document.SetObject();
+	Document::AllocatorType& allocator = document.GetAllocator();
+
+	Value object(kObjectType);
+	{
+		object.AddMember("name", StringRef(_name.c_str()), allocator);
+	}
+}
+
+void GameObject::LoadJson(sptr<JsonData> data)
+{
+}

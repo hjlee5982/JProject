@@ -17,7 +17,7 @@ void TitleScene::Init()
 
 	{
 		auto material = makeSptr<Material>();
-		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome.png");
+		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome2.jpg");
 
 		material->SetShader(defaultShader);
 		material->SetDiffuseMap(texture);
@@ -67,17 +67,35 @@ void TitleScene::Init()
 		RESOURCE->Add(L"Sun", material);
 	}
 
-	OBJECT->AddGameObject(makeSptr<DbgCamera>());
-	OBJECT->AddGameObject(makeSptr<Skydome>());
-	//OBJECT->AddGameObject(makeSptr<DbgGrid>());
-	//
-	//OBJECT->AddGameObject(makeSptr<Earth>());
-	//OBJECT->AddGameObject(makeSptr<Moon>());
-	//OBJECT->AddGameObject(makeSptr<Sun>());
+	auto obj1 = makeSptr<DbgCamera>();
+	auto obj2 = makeSptr<Skydome>();
+	auto obj3 = makeSptr<DbgGrid>();
+	auto obj4 = makeSptr<Earth>();
+	auto obj5 = makeSptr<Moon>();
+
+	auto name = typeid(obj5).name();
+
+	OBJECT->AddGameObject(obj1);
+	OBJECT->AddGameObject(obj2);
+	OBJECT->AddGameObject(obj3);
+	OBJECT->AddGameObject(obj4);
+	OBJECT->AddGameObject(obj5);
+
+	_gameObjects.push_back(obj1);
+	_gameObjects.push_back(obj2);
+	_gameObjects.push_back(obj3);
+	_gameObjects.push_back(obj4);
+	_gameObjects.push_back(obj5);
 }
 
 void TitleScene::Update()
 {
+	ImGui::Begin("JsonTest");
+	if (ImGui::Button("MakeJson"))
+	{
+		SaveScene();
+	}
+	ImGui::End();
 }
 
 void TitleScene::LateUpdate()
@@ -86,4 +104,50 @@ void TitleScene::LateUpdate()
 
 void TitleScene::Render()
 {
+}
+
+void TitleScene::SaveScene()
+{
+	Document document;
+	document.SetObject();
+	Document::AllocatorType& allocator = document.GetAllocator();
+
+	Value objects(kArrayType);
+	for (const auto& obj : _gameObjects)
+	{
+		Value object(kObjectType);
+		{
+			object.AddMember("name", StringRef(obj->GetName().c_str()), allocator);
+			object.AddMember("position", Vec3ToJsonArray(obj->GetTransform()->GetPosition(), allocator), allocator);
+			object.AddMember("scale",    Vec3ToJsonArray(obj->GetTransform()->GetScale(),    allocator), allocator);
+		}
+		objects.PushBack(object, allocator);
+	}
+	document.AddMember("objects", objects, allocator);
+
+	string filename = "defaultjson.json";
+	FILE* fp;
+	fopen_s(&fp, filename.c_str(), "wb");
+	char writeBuffer[4096];
+	FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+	PrettyWriter<FileWriteStream> writer(os);
+	document.Accept(writer);
+	fclose(fp);
+}
+
+void TitleScene::LoadScene()
+{
+	
+}
+
+Value TitleScene::Vec3ToJsonArray(vec3 vec, Document::AllocatorType& allocator)
+{
+	Value v(kArrayType);
+	{
+		v.PushBack(vec.x, allocator);
+		v.PushBack(vec.y, allocator);
+		v.PushBack(vec.z, allocator);
+	}
+
+	return v;
 }

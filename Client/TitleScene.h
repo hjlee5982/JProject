@@ -9,5 +9,11 @@ public:
 	virtual void Update()     override;
 	virtual void LateUpdate() override;
 	virtual void Render()     override;
+public:
+	void SaveScene();
+	void LoadScene();
+	Value Vec3ToJsonArray(vec3 vec, Document::AllocatorType& allocator);
+private:
+	vector<sptr<GameObject>> _gameObjects;
 };
 
