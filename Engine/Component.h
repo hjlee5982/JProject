@@ -17,6 +17,7 @@ enum class EComponentType : u8
 	CAMERA,
 	MESHRENDERER,
 
+	SCRIPT,
 	// etc..
 
 	END

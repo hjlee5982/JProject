@@ -1,5 +1,11 @@
 #include "pch.h"
 #include "ImGuiManager.h"
+#include "ImWindow.h"
+#include "ImScene.h"
+#include "ImInspector.h"
+#include "ImProject.h"
+#include "ImConsole.h"
+#include "Imhierarchy.h"
 
 void ImGuiManager::Init()
 {
@@ -37,6 +43,13 @@ void ImGuiManager::Init()
     ImGui_ImplWin32_Init(WINDOW->GetGameDesc().hWnd);
     ImGui_ImplDX11_Init(DEVICE.Get(), CONTEXT.Get());
 
+
+    _windows.push_back(makeSptr<ImScene>());
+    _windows.push_back(makeSptr<ImInspector>());
+    _windows.push_back(makeSptr<ImProject>());
+    _windows.push_back(makeSptr<ImConsole>());
+    _windows.push_back(makeSptr<Imhierarchy>());
+
     JLOG_INIT("GUI Init Complete");
 }
 
@@ -48,6 +61,14 @@ void ImGuiManager::RenderBegin()
     ImGui::NewFrame();
 
     DockingSpace();
+}
+
+void ImGuiManager::Update()
+{
+    for (auto& window : _windows)
+    {
+        window->Update();
+    }
 }
 
 void ImGuiManager::RenderEnd()

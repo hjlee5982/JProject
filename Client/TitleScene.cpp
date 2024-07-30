@@ -125,7 +125,10 @@ void TitleScene::SaveScene()
 	}
 	document.AddMember("objects", objects, allocator);
 
-	string filename = "defaultjson.json";
+	string directory = "../Json";
+	CreateDirectoryIfNotExists(directory);
+	string filename = directory + "/defaultjson.json";
+
 	FILE* fp;
 	fopen_s(&fp, filename.c_str(), "wb");
 	char writeBuffer[4096];
@@ -133,6 +136,8 @@ void TitleScene::SaveScene()
 	PrettyWriter<FileWriteStream> writer(os);
 	document.Accept(writer);
 	fclose(fp);
+
+	JLOG_INFO("Scene Save Complete");
 }
 
 void TitleScene::LoadScene()
@@ -150,4 +155,32 @@ Value TitleScene::Vec3ToJsonArray(vec3 vec, Document::AllocatorType& allocator)
 	}
 
 	return v;
+}
+
+bool TitleScene::CreateDirectoryIfNotExists(const string& dir)
+{
+	if (false == DirectoryExists(dir))
+	{
+		return _mkdir(dir.c_str()) == 0;
+	}
+
+	return true;
+}
+
+bool TitleScene::DirectoryExists(const string& dir)
+{
+	struct stat info;
+
+	if (stat(dir.c_str(), &info) != 0)
+	{
+		// 경로가 존재하지 않으면
+		return false;
+	}
+	if (info.st_mode & S_IFDIR)
+	{
+		// 경로가 존재하면
+		return true;
+	}
+
+	return false;
 }

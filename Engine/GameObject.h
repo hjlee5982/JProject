@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-class IGameObject : public IJson
+class IGameObject : public IObject
 {
 public:
 	virtual ~IGameObject() = default;

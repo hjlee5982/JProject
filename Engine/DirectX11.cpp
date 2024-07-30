@@ -116,6 +116,11 @@ void DirectX11::CreateDepthStencilView(u32 width, u32 height)
 
 void DirectX11::CreateRenderTargetTexture()
 {
+	if (nullptr != _renderTargetShaderResourceView)
+	{
+		_renderTargetShaderResourceView->Release();
+	}
+
 	HRESULT hr;
 	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
 
@@ -174,7 +179,9 @@ void DirectX11::CreateRenderTargetTexture()
 	ComPtr<ID3D11Texture2D> pTexture = nullptr;
 	hr = DEVICE->CreateTexture2D(&textureDesc, &initData, pTexture.GetAddressOf());
 	CHECK(hr);
-	
+
 	hr = DEVICE->CreateShaderResourceView(pTexture.Get(), nullptr, _renderTargetShaderResourceView.GetAddressOf());
 	CHECK(hr);
+
+	backBuffer->Release();
 }

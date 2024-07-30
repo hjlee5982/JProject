@@ -106,6 +106,7 @@ using namespace Microsoft::WRL;
 #include "ConstantBuffer.h"
 #include "Shader.h"
 
+#include "IObject.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "Camera.h"

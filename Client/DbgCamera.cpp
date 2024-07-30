@@ -42,9 +42,9 @@ void DbgCamera::Update()
 	if (INPUT->KeyPress(RBTN))
 	{
 		// 마우스 중앙 고정
-		//POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };
-		//ClientToScreen(WINDOW->GetGameDesc().hWnd, &pos);
-		//SetCursorPos(pos.x, pos.y);
+		POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };
+		ClientToScreen(WINDOW->GetGameDesc().hWnd, &pos);
+		SetCursorPos(pos.x, pos.y);
 
 		if (INPUT->KeyPress(KEY_W))
 		{

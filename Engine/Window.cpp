@@ -11,31 +11,15 @@ void Window::Update()
 
 	DX ->RenderBegin();
 	GUI->RenderBegin();
-
-	_desc.app->Loop();
-
-	// ImGui TODO
 	{
-		DX->CreateRenderTargetTexture();
+		// 게임 루프
+		_desc.app->Loop();
 
-		ImGui::Begin("Test");
-		ImVec2 size = ImGui::GetWindowSize();
-		ImGui::Image((void*)DX->GetShaderResourceView().Get(), ImVec2(size.x - 15, size.y - 36));
-		DX->GetShaderResourceView()->Release();
-		ImGui::End();
-
-		ImGui::Begin("Inspector");
-		ImGui::End();
-
-		ImGui::Begin("Test3");
-		ImGui::End();
-
-		JLOG->Draw();
+		// ImGui 루프
+		GUI->Update();
 	}
-
 	GUI->RenderEnd();
 	DX ->RenderEnd();
-
 }
 
 WPARAM Window::Run(WindowDesc& desc)
