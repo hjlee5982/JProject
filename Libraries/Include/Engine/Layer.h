@@ -18,6 +18,7 @@ public:
 	{
 		return _isValid;
 	}
+	void Release();
 private:
 	vector<sptr<GameObject>> _gameObjects;
 	GameObject::ELayerType _layerType = GameObject::ELayerType::DEFAULT;

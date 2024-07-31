@@ -35,6 +35,7 @@ public:										\
 #define TIME	 GET_SINGLETON(TimeManager)
 #define SCENE    GET_SINGLETON(SceneManager)
 #define OBJECT	 GET_SINGLETON(GameObjectManager)
+#define FACTORY  GET_SINGLETON(ObjectFactory)
 //#define RENDERER GET_SINGLETON(Renderer)
 #define RESOURCE GET_SINGLETON(ResourceManager)
 //

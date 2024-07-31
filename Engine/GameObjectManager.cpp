@@ -39,9 +39,10 @@ void GameObjectManager::Render()
 	}
 }
 
-void GameObjectManager::AddGameObject(sptr<GameObject> go)
+void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 {
 	go->Init();
+	go->SetName(name);
 	
 	GameObject::ELayerType layerType = go->GetLayerType();
 	
@@ -59,6 +60,8 @@ void GameObjectManager::AddGameObject(sptr<GameObject> go)
 	{
 		findit->second->AddGameObject(go);
 	}
+
+	_gameObjectRef.push_back(go);
 }
 
 sptr<GameObject> GameObjectManager::GetGameObject(const string& name, GameObject::ELayerType layer)
@@ -66,4 +69,21 @@ sptr<GameObject> GameObjectManager::GetGameObject(const string& name, GameObject
 	auto findit = _layers.find(layer);
 
 	return findit->second->GetGameObject(name);
+}
+
+void GameObjectManager::Release()
+{
+	i32 size = static_cast<int>(GameObject::ELayerType::END);
+
+	for (i32 i = 0; i < size; ++i)
+	{
+		auto& layer = _layers[static_cast<GameObject::ELayerType>(i)];
+		
+		if (nullptr != layer)
+		{
+			layer->Release();
+		}
+	}
+
+	_layers.clear();
 }

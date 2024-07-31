@@ -10,8 +10,6 @@ Moon::Moon()
 
 void Moon::Init()
 {
-	SetName("Moon");
-
 	AddComponent(makeSptr<Transform>());
 	{
 		GetTransform()->SetScale(vec3(0.75f));

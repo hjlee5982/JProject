@@ -2,21 +2,14 @@
 
 class ObjectFactory
 {
-	using CreateObjectFunc = std::function<uptr<IObject>()>;
+	DECLARE_SINGLETON(ObjectFactory);
 public:
-	void RegisterObject(const string& type, CreateObjectFunc func)
-	{
-		_factoryMap[type] = func;
-	}
-	uptr<IObject> CreateObject(const string& type)
-	{
-		auto iter = _factoryMap.find(type);
-		if (iter != _factoryMap.end())
-		{
-			return iter->second();
-		}
-		return nullptr;
-	}
+	using CreateObjectFunc = std::function<sptr<GameObject>()>;
+public:
+	void Init();
+public:
+	sptr<GameObject> CreateObject(const string& type);
+	void RegisterObject(const string& type, CreateObjectFunc func);
 private:
 	HashMap<string, CreateObjectFunc> _factoryMap;
 };

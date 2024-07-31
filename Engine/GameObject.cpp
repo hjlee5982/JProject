@@ -18,21 +18,21 @@ void GameObject::AddComponent(sptr<Component> component)
 	_components[index] = component;
 }
 
-sptr<class Transform> GameObject::GetTransform()
+sptr<Transform> GameObject::GetTransform()
 {
 	auto component = GetComponent(EComponentType::TRANSFORM);
 
 	return static_pointer_cast<Transform>(component);
 }
 
-sptr<class Camera> GameObject::GetCamera()
+sptr<Camera> GameObject::GetCamera()
 {
 	auto component = GetComponent(EComponentType::CAMERA);
 
 	return static_pointer_cast<Camera>(component);
 }
 
-sptr<class MeshRenderer> GameObject::GetMeshRenderer()
+sptr<MeshRenderer> GameObject::GetMeshRenderer()
 {
 	auto component = GetComponent(EComponentType::MESHRENDERER);
 

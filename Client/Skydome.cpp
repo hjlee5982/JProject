@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Skydome.h"
-#include "Camera.h"
+#include "FreeCamera.h"
 #include "MeshRenderer.h"
 
 Skydome::Skydome()
@@ -9,8 +9,6 @@ Skydome::Skydome()
 
 void Skydome::Init()
 {
-	SetName("Skydome");
-
 	AddComponent(makeSptr<Transform>());
 	{
 

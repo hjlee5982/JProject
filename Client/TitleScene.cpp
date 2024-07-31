@@ -5,8 +5,7 @@
 #include "DbgBox.h"
 #include "DbgSphere.h"
 #include "DbgGrid.h"
-#include "DbgCamera.h"
-
+#include "FreeCamera.h"
 #include "Earth.h"
 #include "Moon.h"
 #include "Sun.h"
@@ -67,33 +66,50 @@ void TitleScene::Init()
 		RESOURCE->Add(L"Sun", material);
 	}
 
-	auto obj1 = makeSptr<DbgCamera>();
-	auto obj2 = makeSptr<Skydome>();
-	auto obj3 = makeSptr<DbgGrid>();
-	auto obj4 = makeSptr<Earth>();
-	auto obj5 = makeSptr<Moon>();
+	//OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Camera");
+	//OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
+	//OBJECT->AddGameObject(makeSptr<DbgGrid>(), "Grid");
+	//OBJECT->AddGameObject(makeSptr<Earth>(), "Earth");
+	//OBJECT->AddGameObject(makeSptr<Moon>(), "Moon");
 
-	auto name = typeid(obj5).name();
-
-	OBJECT->AddGameObject(obj1);
-	OBJECT->AddGameObject(obj2);
-	OBJECT->AddGameObject(obj3);
-	OBJECT->AddGameObject(obj4);
-	OBJECT->AddGameObject(obj5);
-
-	_gameObjects.push_back(obj1);
-	_gameObjects.push_back(obj2);
-	_gameObjects.push_back(obj3);
-	_gameObjects.push_back(obj4);
-	_gameObjects.push_back(obj5);
+	FACTORY->RegisterObject("Camera",  []()->sptr<GameObject> { return makeSptr<FreeCamera>(); });
+	FACTORY->RegisterObject("Skydome", []()->sptr<GameObject> { return makeSptr<Skydome>();    });
+	FACTORY->RegisterObject("Grid",    []()->sptr<GameObject> { return makeSptr<DbgGrid>();    });
+	FACTORY->RegisterObject("Earth",   []()->sptr<GameObject> { return makeSptr<Earth>();      });
+	FACTORY->RegisterObject("Moon",    []()->sptr<GameObject> { return makeSptr<Moon>();       });
 }
 
 void TitleScene::Update()
 {
-	ImGui::Begin("JsonTest");
+	ImGui::Begin("TestWindow");
 	if (ImGui::Button("MakeJson"))
 	{
 		SaveScene();
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("LoadJson"))
+	{
+		OBJECT->Release();
+
+		Document document = LoadScene("defaultjson.scene");
+
+		const Value& objects = document["objects"];
+		for (i32 i = 0; i < objects.Size(); ++i)
+		{
+			const Value& object = objects[i];
+			{
+				string name     = object["name"].GetString();
+				vec3   position = JsonArrayToVec3(object["position"]);
+				vec3   scale    = JsonArrayToVec3(object["scale"]);
+
+				sptr<GameObject> go = FACTORY->CreateObject(name);
+				OBJECT->AddGameObject(go, name);
+				go->GetTransform()->SetPosition(position);
+				go->GetTransform()->SetScale(scale);
+			}
+		}
+
+		JLOG_INFO("Scene Load Complete");
 	}
 	ImGui::End();
 }
@@ -113,7 +129,10 @@ void TitleScene::SaveScene()
 	Document::AllocatorType& allocator = document.GetAllocator();
 
 	Value objects(kArrayType);
-	for (const auto& obj : _gameObjects)
+
+	auto& gameObjects = OBJECT->GetGameObjects();
+
+	for (const auto& obj : gameObjects)
 	{
 		Value object(kObjectType);
 		{
@@ -127,7 +146,7 @@ void TitleScene::SaveScene()
 
 	string directory = "../Json";
 	CreateDirectoryIfNotExists(directory);
-	string filename = directory + "/defaultjson.json";
+	string filename = directory + "/defaultjson.scene";
 
 	FILE* fp;
 	fopen_s(&fp, filename.c_str(), "wb");
@@ -140,9 +159,22 @@ void TitleScene::SaveScene()
 	JLOG_INFO("Scene Save Complete");
 }
 
-void TitleScene::LoadScene()
+Document TitleScene::LoadScene(const string& filename)
 {
-	
+	string directory = "../Json/";
+	string fullname = directory + filename;
+
+	FILE* fp;
+	fopen_s(&fp, fullname.c_str(), "rb");
+
+	char readBuffer[4096];
+	FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+
+	Document document;
+	document.ParseStream(is);
+	fclose(fp);
+
+	return document;
 }
 
 Value TitleScene::Vec3ToJsonArray(vec3 vec, Document::AllocatorType& allocator)
@@ -155,6 +187,11 @@ Value TitleScene::Vec3ToJsonArray(vec3 vec, Document::AllocatorType& allocator)
 	}
 
 	return v;
+}
+
+vec3 TitleScene::JsonArrayToVec3(const Value& array)
+{
+	return vec3(array[0].GetFloat(), array[1].GetFloat(), array[2].GetFloat());
 }
 
 bool TitleScene::CreateDirectoryIfNotExists(const string& dir)

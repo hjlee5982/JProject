@@ -8,8 +8,6 @@ Sun::Sun()
 
 void Sun::Init()
 {
-	SetName("Sun");
-
 	AddComponent(makeSptr<Transform>());
 	{
 		GetTransform()->SetScale(vec3(3.f));

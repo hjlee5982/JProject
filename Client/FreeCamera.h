@@ -1,10 +1,10 @@
 #pragma once
 
-class DbgCamera : public GameObject
+class FreeCamera : public GameObject
 {
 public:
-	DbgCamera();
-	virtual ~DbgCamera() = default;
+	FreeCamera();
+	virtual ~FreeCamera() = default;
 public:
 	void Init()       override;
 	void Update()     override;

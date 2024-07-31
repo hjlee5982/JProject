@@ -186,9 +186,6 @@
     <ClInclude Include="IObject.h">
       <Filter>Engine\01. Game</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectFactory.h">
-      <Filter>Engine\01. Game</Filter>
-    </ClInclude>
     <ClInclude Include="imconfig.h">
       <Filter>Engine\98. Utils\ImGui\Lib</Filter>
     </ClInclude>
@@ -230,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="Imhierarchy.h">
       <Filter>Engine\98. Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>Engine\01. Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,9 +353,6 @@
     <ClCompile Include="IObject.cpp">
       <Filter>Engine\01. Game</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectFactory.cpp">
-      <Filter>Engine\01. Game</Filter>
-    </ClCompile>
     <ClCompile Include="imgui.cpp">
       <Filter>Engine\98. Utils\ImGui\Lib</Filter>
     </ClCompile>
@@ -394,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="Imhierarchy.cpp">
       <Filter>Engine\98. Utils\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectFactory.cpp">
+      <Filter>Engine\01. Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

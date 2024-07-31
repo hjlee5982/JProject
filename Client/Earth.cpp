@@ -9,8 +9,6 @@ Earth::Earth()
 
 void Earth::Init()
 {
-	SetName("Earth");
-
 	AddComponent(makeSptr<Transform>());
 	{
 		GetTransform()->SetScale(vec3(3.0f));

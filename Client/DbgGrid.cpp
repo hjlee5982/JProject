@@ -8,8 +8,6 @@ DbgGrid::DbgGrid()
 
 void DbgGrid::Init()
 {
-	SetName("Grid");
-
 	i32 x = 30;
 	i32 z = 30;
 

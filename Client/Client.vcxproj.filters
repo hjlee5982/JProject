@@ -19,7 +19,7 @@
     <Filter Include="Client\01. GameObject\Skydome">
       <UniqueIdentifier>{f9bd669c-d68d-42d2-a8ee-ef396dc67aa4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Client\Planets">
+    <Filter Include="Client\01. GameObject\Planets">
       <UniqueIdentifier>{d886fc5c-f67a-4f23-8069-af6e8c3df523}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -39,9 +39,6 @@
     <ClCompile Include="DbgBox.cpp">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClCompile>
-    <ClCompile Include="DbgCamera.cpp">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClCompile>
     <ClCompile Include="Skydome.cpp">
       <Filter>Client\01. GameObject\Skydome</Filter>
     </ClCompile>
@@ -52,13 +49,16 @@
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClCompile>
     <ClCompile Include="Earth.cpp">
-      <Filter>Client\Planets</Filter>
+      <Filter>Client\01. GameObject\Planets</Filter>
     </ClCompile>
     <ClCompile Include="Sun.cpp">
-      <Filter>Client\Planets</Filter>
+      <Filter>Client\01. GameObject\Planets</Filter>
     </ClCompile>
     <ClCompile Include="Moon.cpp">
-      <Filter>Client\Planets</Filter>
+      <Filter>Client\01. GameObject\Planets</Filter>
+    </ClCompile>
+    <ClCompile Include="FreeCamera.cpp">
+      <Filter>Client\01. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +74,6 @@
     <ClInclude Include="DbgBox.h">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClInclude>
-    <ClInclude Include="DbgCamera.h">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClInclude>
     <ClInclude Include="Skydome.h">
       <Filter>Client\01. GameObject\Skydome</Filter>
     </ClInclude>
@@ -87,13 +84,16 @@
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClInclude>
     <ClInclude Include="Earth.h">
-      <Filter>Client\Planets</Filter>
+      <Filter>Client\01. GameObject\Planets</Filter>
     </ClInclude>
     <ClInclude Include="Sun.h">
-      <Filter>Client\Planets</Filter>
+      <Filter>Client\01. GameObject\Planets</Filter>
     </ClInclude>
     <ClInclude Include="Moon.h">
-      <Filter>Client\Planets</Filter>
+      <Filter>Client\01. GameObject\Planets</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeCamera.h">
+      <Filter>Client\01. GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

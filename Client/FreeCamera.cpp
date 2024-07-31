@@ -1,15 +1,12 @@
 #include "pch.h"
-#include "DbgCamera.h"
-#include "Camera.h"
+#include "FreeCamera.h"
 
-DbgCamera::DbgCamera()
+FreeCamera::FreeCamera()
 {
 }
 
-void DbgCamera::Init()
+void FreeCamera::Init()
 {
-	SetName("Camera");
-
 	AddComponent(makeSptr<Transform>());
 	AddComponent(makeSptr<Camera>(0.1f, 300.f, XMConvertToRadians(60.f)));
 
@@ -35,16 +32,16 @@ void DbgCamera::Init()
 	GetCamera()->Update();
 }
 
-void DbgCamera::Update()
+void FreeCamera::Update()
 {
 	auto transform = GetTransform();
 
 	if (INPUT->KeyPress(RBTN))
 	{
 		// 마우스 중앙 고정
-		POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };
-		ClientToScreen(WINDOW->GetGameDesc().hWnd, &pos);
-		SetCursorPos(pos.x, pos.y);
+		//POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };
+		//ClientToScreen(WINDOW->GetGameDesc().hWnd, &pos);
+		//SetCursorPos(pos.x, pos.y);
 
 		if (INPUT->KeyPress(KEY_W))
 		{
@@ -117,10 +114,10 @@ void DbgCamera::Update()
 	GetCamera()->Update();
 }
 
-void DbgCamera::LateUpdate()
+void FreeCamera::LateUpdate()
 {
 }
 
-void DbgCamera::Render()
+void FreeCamera::Render()
 {
 }

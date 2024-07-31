@@ -42,3 +42,13 @@ sptr<GameObject> Layer::GetGameObject(const string& name)
 
 	return nullptr;
 }
+
+void Layer::Release()
+{
+	for (auto& go : _gameObjects)
+	{
+		go.reset();
+	}
+
+	_gameObjects.clear();
+}

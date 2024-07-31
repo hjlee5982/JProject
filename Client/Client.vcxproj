@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DbgBox.cpp" />
-    <ClCompile Include="DbgCamera.cpp" />
+    <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="DbgGrid.cpp" />
     <ClCompile Include="DbgSphere.cpp" />
     <ClCompile Include="Earth.cpp" />
@@ -156,7 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DbgBox.h" />
-    <ClInclude Include="DbgCamera.h" />
+    <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="DbgGrid.h" />
     <ClInclude Include="DbgSphere.h" />
     <ClInclude Include="Earth.h" />

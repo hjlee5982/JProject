@@ -42,6 +42,7 @@ WPARAM Window::Run(WindowDesc& desc)
 		GUI->Init();
 		INPUT->Init(_desc.hWnd, _desc.hInstance);
 		TIME->Init();
+		FACTORY->Init();
 		//RENDERER->Init();
 	}
 
