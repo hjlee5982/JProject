@@ -15,17 +15,16 @@ void Skydome::Init()
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		auto mesh = RESOURCE->Get<Mesh>(L"Sphere");
+		auto mesh = RESOURCE->Get<Mesh>(L"Cube");
 		GetMeshRenderer()->SetMesh(mesh);
 
 		auto material = RESOURCE->Get<Material>(L"Skydome");
 		GetMeshRenderer()->SetMaterial(material);
 
+		GetMeshRenderer()->SetTech(2);
 		GetMeshRenderer()->SetPass(0);
 	}
 
-	GetTransform()->SetPosition(vec3(4.f, 2.f, 0.f));
-	GetTransform()->RotationAxis(vec3::Up, XMConvertToRadians(90.f));
 
 	D3D11_RASTERIZER_DESC cullDesc;
 	ZeroMemory(&cullDesc, sizeof(cullDesc));

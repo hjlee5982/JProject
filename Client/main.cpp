@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			desc.vsync      = false;
 			desc.width      = 1920;
 			desc.height     = 1080;
-			desc.clearColor = Color(Colors::White);
+			desc.clearColor = Color(Colors::Black);
 			desc.app        = makeSptr<JProject>();
 		}
 

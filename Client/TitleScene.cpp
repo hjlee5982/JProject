@@ -15,11 +15,19 @@ void TitleScene::Init()
 	auto defaultShader = makeSptr<Shader>(L"Default.fx"); RESOURCE->Add(L"Default.fx", defaultShader);
 
 	{
+		//auto material = makeSptr<Material>();
+		//auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome2.jpg");
+		//
+		//material->SetShader(defaultShader);
+		//material->SetDiffuseMap(texture);
+		//
+		//RESOURCE->Add(L"Skydome", material);
+
 		auto material = makeSptr<Material>();
-		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome2.jpg");
+		auto texture = RESOURCE->LoadEx<Texture>(L"Skydome", L"../Resources/Textures/Sky");
 
 		material->SetShader(defaultShader);
-		material->SetDiffuseMap(texture);
+		material->SetCubeMap(texture);
 
 		RESOURCE->Add(L"Skydome", material);
 	}
@@ -66,9 +74,9 @@ void TitleScene::Init()
 		RESOURCE->Add(L"Sun", material);
 	}
 
-	//OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Camera");
-	//OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
-	//OBJECT->AddGameObject(makeSptr<DbgGrid>(), "Grid");
+	OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Camera");
+	OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
+	OBJECT->AddGameObject(makeSptr<DbgGrid>(), "Grid");
 	//OBJECT->AddGameObject(makeSptr<Earth>(), "Earth");
 	//OBJECT->AddGameObject(makeSptr<Moon>(), "Moon");
 

@@ -55,10 +55,6 @@ struct MeshOutput
 };
 
 
-
-
-
-
 ////////////////////////////////////////////////////////////
 // RasterizerState
 ////////////////////////////////////////////////////////////
@@ -88,10 +84,9 @@ RasterizerState CCW
 SamplerState LinearSampler
 {
     Filter   = MIN_MAG_MIP_LINEAR;
-    AddressU = Wrap;
-    AddressV = Wrap;
+    AddressU = Mirror;
+    AddressV = Mirror;
 };
-
 
 ////////////////////////////////////////////////////////////
 // Function

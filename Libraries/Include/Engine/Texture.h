@@ -11,6 +11,8 @@ public:
 	virtual void Load(const wstring& path) override;
 	virtual void Save(const wstring& path) override {}
 public:
+	virtual void LoadEx(const wstring& path) override;
+public:
 	ComPtr<ID3D11Texture2D> GetTexture2D()
 	{
 		ComPtr<ID3D11Texture2D> texture;

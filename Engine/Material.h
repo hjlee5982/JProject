@@ -8,39 +8,48 @@ class Material : public Resource
 public:
 	Material();
 	virtual ~Material() = default;
+protected:
+	virtual void Load(const wstring& path) override {}
+	virtual void Save(const wstring& path) override {}
+public:
+	virtual void LoadEx(const wstring& path) override {}
 public:
 	MaterialDesc& GetMaterialDesc()
 	{
 		return _desc;
 	}
-	shared_ptr<Shader> GetShader()
+	sptr<Shader> GetShader()
 	{
 		return _shader;
 	}
-	shared_ptr<Texture> GetDiffuseMap()
+	sptr<Texture> GetDiffuseMap()
 	{
 		return _diffuseMap;
 	}
-	shared_ptr<Texture> GetNormalMap()
+	sptr<Texture> GetNormalMap()
 	{
 		return _normalMap;
 	}
-	shared_ptr<Texture> GetSpecularMap()
+	sptr<Texture> GetSpecularMap()
 	{
 		return _specularMap;
 	}
 public:
-	void SetDiffuseMap(shared_ptr<Texture> diffuseMap)
+	void SetDiffuseMap(sptr<Texture> diffuseMap)
 	{
 		_diffuseMap = diffuseMap;
 	}
-	void SetNormalMap(shared_ptr<Texture> normalMap)
+	void SetNormalMap(sptr<Texture> normalMap)
 	{
 		_normalMap = normalMap;
 	}
-	void SetSpecularMap(shared_ptr<Texture> specuarlMap)
+	void SetSpecularMap(sptr<Texture> specuarlMap)
 	{
 		_specularMap = specuarlMap;
+	}
+	void SetCubeMap(sptr<Texture> cubeMap)
+	{
+		_cubeMap = cubeMap;
 	}
 public:
 	void Update();
@@ -48,16 +57,15 @@ public:
 private:
 	MaterialDesc _desc;
 private:
-	shared_ptr<Shader>  _shader;
-	shared_ptr<Texture> _diffuseMap;
-	shared_ptr<Texture> _normalMap;
-	shared_ptr<Texture> _specularMap;
+	sptr<Shader>  _shader;
+	sptr<Texture> _diffuseMap;
+	sptr<Texture> _normalMap;
+	sptr<Texture> _specularMap;
+	sptr<Texture> _cubeMap;
 private:
 	ComPtr<ID3DX11EffectShaderResourceVariable> _diffuseEffectBuffer;
 	ComPtr<ID3DX11EffectShaderResourceVariable> _normalEffectBuffer;
 	ComPtr<ID3DX11EffectShaderResourceVariable> _specularEffectBuffer;
-protected:
-	virtual void Load(const wstring& path) override {}
-	virtual void Save(const wstring& path) override {}
+	ComPtr<ID3DX11EffectShaderResourceVariable> _cubeEffectBuffer;
 };
 

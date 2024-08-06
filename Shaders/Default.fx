@@ -19,6 +19,15 @@ float4 PS_DEFAULT(MeshOutput input) : SV_TARGET
     return DiffuseMap.Sample(LinearSampler, input.uv);
 }
 
+TextureCube  cubeMap;
+
+float4 PS_SKYBOX(MeshOutput input) : SV_TARGET
+{
+    float3 reflectedDir = reflect((float3) input.worldPos, float3(0, 0, 1));
+    float4 color = cubeMap.Sample(LinearSampler, (float3)input.worldPos);
+    return color;
+}
+
 float4 PS_LIGHT(MeshOutput input) : SV_TARGET
 {
     //float4 Nmap = NormalMap.Sample(LinearSampler, input.uv);
@@ -60,3 +69,9 @@ technique11 GRID
     PASS_RS(P1, VS_DEFAULT, PS_SOLID, FillModeWireFrameEx)
 };
 
+technique11 SKYBOX
+{
+    PASS(P0, VS_DEFAULT, PS_SKYBOX)
+    PASS_RS(P1, VS_DEFAULT, PS_SKYBOX, FillModeWireFrameEx)
+
+};

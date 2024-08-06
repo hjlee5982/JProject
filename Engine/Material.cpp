@@ -27,6 +27,10 @@ void Material::Update()
 	{
 		_specularEffectBuffer->SetResource(_specularMap->GetSRV().Get());
 	}
+	if (nullptr != _cubeMap)
+	{
+		_cubeEffectBuffer->SetResource(_cubeMap->GetSRV().Get());
+	}
 }
 
 void Material::SetShader(shared_ptr<Shader> shader)
@@ -36,4 +40,5 @@ void Material::SetShader(shared_ptr<Shader> shader)
 	_diffuseEffectBuffer  = _shader->GetSRV("DiffuseMap");
 	_normalEffectBuffer   = _shader->GetSRV("NormalMap");
 	_specularEffectBuffer = _shader->GetSRV("SpecularMap");
+	_cubeEffectBuffer     = _shader->GetSRV("cubeMap");
 }

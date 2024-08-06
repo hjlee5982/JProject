@@ -15,6 +15,8 @@ public:
 	virtual void Load(const wstring& path) override {}
 	virtual void Save(const wstring& path) override {}
 public:
+	virtual void LoadEx(const wstring& path) override {}
+public:
 	void CreateQuad();
 	void CreateCube();
 	void CreateGrid(i32 sizeX, i32 sizeY);

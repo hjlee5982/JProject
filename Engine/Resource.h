@@ -24,6 +24,8 @@ class IResource
 protected:
 	virtual void Load(const wstring& path) = 0;
 	virtual void Save(const wstring& path) = 0;
+protected:
+	virtual void LoadEx(const wstring& path) = 0;
 };
 
 
