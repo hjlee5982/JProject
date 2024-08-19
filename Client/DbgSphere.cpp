@@ -22,8 +22,8 @@ void DbgSphere::Init()
 		auto material = RESOURCE->Get<Material>(L"Earth");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetPass(1);
-
+		//GetMeshRenderer()->SetTech(0);
+		//GetMeshRenderer()->SetPass(2);
 	}
 }
 

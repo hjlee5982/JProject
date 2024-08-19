@@ -22,7 +22,7 @@ void Sun::Init()
 		auto material = RESOURCE->Get<Material>(L"Sun");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetPass(1);
+		//GetMeshRenderer()->SetPass(1);
 
 	}
 }

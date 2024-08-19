@@ -15,21 +15,21 @@ void TitleScene::Init()
 	auto defaultShader = makeSptr<Shader>(L"Default.fx"); RESOURCE->Add(L"Default.fx", defaultShader);
 
 	{
+		auto material = makeSptr<Material>();
+		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome2.jpg");
+		
+		material->SetShader(defaultShader);
+		material->SetDiffuseMap(texture);
+		
+		RESOURCE->Add(L"Skydome", material);
+
 		//auto material = makeSptr<Material>();
-		//auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome2.jpg");
+		//auto texture = RESOURCE->LoadEx<Texture>(L"Skydome", L"../Resources/Textures/Sky");
 		//
 		//material->SetShader(defaultShader);
-		//material->SetDiffuseMap(texture);
+		//material->SetCubeMap(texture);
 		//
 		//RESOURCE->Add(L"Skydome", material);
-
-		auto material = makeSptr<Material>();
-		auto texture = RESOURCE->LoadEx<Texture>(L"Skydome", L"../Resources/Textures/Sky");
-
-		material->SetShader(defaultShader);
-		material->SetCubeMap(texture);
-
-		RESOURCE->Add(L"Skydome", material);
 	}
 	{
 		auto material = makeSptr<Material>();
@@ -45,13 +45,13 @@ void TitleScene::Init()
 	{
 		auto material = makeSptr<Material>();
 		auto textureD = RESOURCE->Load<Texture>(L"Earth_Diffuse", L"../Resources/Textures/Earth_Diffuse.jpg");
-		auto textureN = RESOURCE->Load<Texture>(L"Earth_Normal", L"../Resources/Textures/Earth_Normal.tif");
-		auto textureS = RESOURCE->Load<Texture>(L"Earth_Specular", L"../Resources/Textures/Earth_Specular.tif");
+		//auto textureN = RESOURCE->Load<Texture>(L"Earth_Normal", L"../Resources/Textures/Earth_Normal.tif");
+		//auto textureS = RESOURCE->Load<Texture>(L"Earth_Specular", L"../Resources/Textures/Earth_Specular.tif");
 
 		material->SetShader(defaultShader);
 		material->SetDiffuseMap(textureD);
-		material->SetNormalMap(textureN);
-		material->SetSpecularMap(textureS);
+		//material->SetNormalMap(textureN);
+		//material->SetSpecularMap(textureS);
 
 		RESOURCE->Add(L"Earth", material);
 	}
@@ -77,8 +77,9 @@ void TitleScene::Init()
 	OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Camera");
 	OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
 	OBJECT->AddGameObject(makeSptr<DbgGrid>(), "Grid");
-	//OBJECT->AddGameObject(makeSptr<Earth>(), "Earth");
-	//OBJECT->AddGameObject(makeSptr<Moon>(), "Moon");
+	//OBJECT->AddGameObject(makeSptr<DbgSphere>(), "Sphere");
+	OBJECT->AddGameObject(makeSptr<Earth>(), "Earth");
+	OBJECT->AddGameObject(makeSptr<Moon>(), "Moon");
 
 	FACTORY->RegisterObject("Camera",  []()->sptr<GameObject> { return makeSptr<FreeCamera>(); });
 	FACTORY->RegisterObject("Skydome", []()->sptr<GameObject> { return makeSptr<Skydome>();    });

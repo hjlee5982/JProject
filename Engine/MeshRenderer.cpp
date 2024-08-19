@@ -24,11 +24,6 @@ void MeshRenderer::Render()
 	}
 
 	auto ownerWorld = GetOwnerTransform()->GetWorld();
-
-	_shader->PushTransformData(TransformDesc{ ownerWorld });
-	_shader->PushGlobalData(Camera::SView, Camera::SProj);
-	
-	
 	LightDesc lDesc;
 	{
 		lDesc.direction = vec3(1.f, -1.f, 1.f);
@@ -38,6 +33,10 @@ void MeshRenderer::Render()
 		//mDesc.ambient = vec4(1.f);
 	}
 
+	_shader->PushSwitchData(_lightSwitch);
+	_shader->PushColorData(_color);
+	_shader->PushTransformData(TransformDesc{ ownerWorld });
+	_shader->PushGlobalData(Camera::SView, Camera::SProj);
 	_shader->PushLightData(lDesc);
 	_shader->PushMaterialData(mDesc);
 

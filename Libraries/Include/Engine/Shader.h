@@ -56,6 +56,8 @@ private:
 	shared_ptr<StateBlock> _initialStateBlock;
 	vector<Technique> _techniques;
 public:
+	void PushSwitchData(i32 value);
+	void PushColorData(const Color& color);
 	void PushGlobalData(const matx& view, const matx& projection);
 	void PushTransformData(const TransformDesc& desc);
 	void PushMaterialData(const MaterialDesc& desc);
@@ -66,6 +68,14 @@ public:
 	//void PushSnowData(const SnowBillboardDesc& desc);
 private:
 	sptr<Shader> mShader;
+private:
+	SwitchDesc							mSwitchDesc;
+	sptr<ConstantBuffer<SwitchDesc>>    mSwitchBuffer;
+	ComPtr<ID3DX11EffectConstantBuffer> mSwitchEffectBuffer;
+private:
+	ColorDesc							mColorDesc;
+	sptr<ConstantBuffer<ColorDesc>>     mColorBuffer;
+	ComPtr<ID3DX11EffectConstantBuffer> mColorEffectBuffer;
 private:
 	GlobalDesc							mGlobalDesc;
 	sptr<ConstantBuffer<GlobalDesc>>    mGlobalBuffer;

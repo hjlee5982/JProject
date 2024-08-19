@@ -23,8 +23,10 @@ void Moon::Init()
 		auto material = RESOURCE->Get<Material>(L"Moon");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetPass(1);
-
+		GetMeshRenderer()->SetTech(TECH::COLOR);
+		GetMeshRenderer()->SetColor(Color(0.529411793f, 0.807843208f, 0.980392218f, 1.f));
+		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
+		GetMeshRenderer()->LightSwitch(true);
 	}
 }
 

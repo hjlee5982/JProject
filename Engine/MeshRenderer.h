@@ -29,13 +29,21 @@ public:
 	{
 		_material = material;
 	}
-	void SetTech(u8 tech)
+	void SetTech(TECH tech)
 	{
-		_tech = tech;
+		_tech = static_cast<u8>(tech);
 	}
-	void SetPass(u8 pass)
+	void SetPass(PASS pass)
 	{
-		_pass = pass;
+		_pass = static_cast<u8>(pass);
+	}
+	void SetColor(Color color)
+	{
+		_color = color;
+	}
+	void LightSwitch(bool Switch)
+	{
+		_lightSwitch = static_cast<i32>(Switch);
 	}
 public:
 	virtual void Init()       override {};
@@ -50,5 +58,7 @@ private:
 private:
 	u8 _tech = 0;
 	u8 _pass = 0;
+	Color _color = Color(1.f, 1.f, 1.f, 1.f);
+	i32 _lightSwitch = 1;
 };
 

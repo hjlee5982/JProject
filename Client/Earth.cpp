@@ -23,8 +23,10 @@ void Earth::Init()
 		auto material = RESOURCE->Get<Material>(L"Earth");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetPass(1);
-
+		GetMeshRenderer()->SetTech(TECH::COLOR);
+		GetMeshRenderer()->SetColor(Color(1.f, 0.713725507f, 0.756862819f, 1.f));
+		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
+		GetMeshRenderer()->LightSwitch(true);
 	}
 }
 

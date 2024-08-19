@@ -336,6 +336,34 @@ ShaderDesc ShaderManager::GetEffect(wstring fileName)
 	return ShaderDesc{desc.blob, effect};
 }
 
+void Shader::PushSwitchData(i32 value)
+{
+	if (nullptr == mSwitchEffectBuffer)
+	{
+		mSwitchBuffer = makeSptr<ConstantBuffer<SwitchDesc>>();
+		mSwitchBuffer->Create();
+		mSwitchEffectBuffer = GetConstantBuffer("SwitchBuffer");
+	}
+
+	mSwitchDesc.lightSwitch = static_cast<bool>(value);
+	mSwitchBuffer->CopyData(mSwitchDesc);
+	mSwitchEffectBuffer->SetConstantBuffer(mSwitchBuffer->GetComPtr().Get());
+}
+
+void Shader::PushColorData(const Color& color)
+{
+	if (nullptr == mColorEffectBuffer)
+	{
+		mColorBuffer = makeSptr<ConstantBuffer<ColorDesc>>();
+		mColorBuffer->Create();
+		mColorEffectBuffer = GetConstantBuffer("ColorBuffer");
+	}
+
+	mColorDesc.color = color;
+	mColorBuffer->CopyData(mColorDesc);
+	mColorEffectBuffer->SetConstantBuffer(mColorBuffer->GetComPtr().Get());
+}
+
 void Shader::PushGlobalData(const matx& view, const matx& projection)
 {
 	if (nullptr == mGlobalEffectBuffer)

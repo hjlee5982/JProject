@@ -14,13 +14,31 @@ MeshOutput VS_DEFAULT(VertexTextureNormalTangent input)
     return output;
 }
 
-float4 PS_DEFAULT(MeshOutput input) : SV_TARGET
+float4 PS_MONO(MeshOutput input) : SV_TARGET
 {
-    return DiffuseMap.Sample(LinearSampler, input.uv);
+    if (lightSwitch == 1)
+    {
+        return ComputeMonoLight(input.uv, input.normal, (float3) input.worldPos);
+    }
+    else
+    {
+        return inputColor;
+    }
+}
+
+float4 PS_DIFFUSE(MeshOutput input) : SV_TARGET
+{
+    if (lightSwitch == 1)
+    {
+        return ComputeDiffuseLight(input.uv, input.normal, (float3)input.worldPos);
+    }
+    else
+    {
+        return DiffuseMap.Sample(LinearSampler, input.uv);
+    }
 }
 
 TextureCube  cubeMap;
-
 float4 PS_SKYBOX(MeshOutput input) : SV_TARGET
 {
     float3 reflectedDir = reflect((float3) input.worldPos, float3(0, 0, 1));
@@ -28,50 +46,44 @@ float4 PS_SKYBOX(MeshOutput input) : SV_TARGET
     return color;
 }
 
-float4 PS_LIGHT(MeshOutput input) : SV_TARGET
+technique11 MONO
 {
-    //float4 Nmap = NormalMap.Sample(LinearSampler, input.uv);
-    //
-    //if(true == any(Nmap.rgb))
-    //{
-    //    float3 N = normalize(input.normal);
-    //    float3 T = normalize(input.tangent);
-    //    float3 B = normalize(cross(N, T));
-    //
-    //    float3x3 TBN = float3x3(T, B, N);
-    //    
-    //    float3 tangentSpaceNormal = (Nmap.rgb * 2.f - 1.f);
-    //    float3 worldNormal        = mul(tangentSpaceNormal, TBN);
-    //
-    //    input.normal = worldNormal;
-    //}
-    
-    float4 color = ComputeLight(input.uv, input.normal, (float3)input.worldPos);
-
-    return color;
-}
-
-float4 PS_SOLID(MeshOutput input) : SV_TARGET
-{
-    return float4(1.f, 1.f, 1.f, 1.f);
-}
-
-technique11 NORMAL
-{
-    PASS   (P0, VS_DEFAULT, PS_DEFAULT)
-    PASS   (P1, VS_DEFAULT, PS_LIGHT)
-    PASS_RS(P2, VS_DEFAULT, PS_LIGHT, FillModeWireFrame)
+    PASS   (P0, VS_DEFAULT, PS_MONO)
+    PASS_RS(P1, VS_DEFAULT, PS_MONO, FillModeWireFrameEx)
 };
 
-technique11 GRID
+technique11 DIFFUSE
 {
-    PASS   (P0, VS_DEFAULT, PS_DEFAULT)
-    PASS_RS(P1, VS_DEFAULT, PS_SOLID, FillModeWireFrameEx)
+    PASS   (P0, VS_DEFAULT, PS_DIFFUSE)
+    PASS_RS(P1, VS_DEFAULT, PS_DIFFUSE, FillModeWireFrameEx)
 };
 
 technique11 SKYBOX
 {
-    PASS(P0, VS_DEFAULT, PS_SKYBOX)
+    PASS   (P0, VS_DEFAULT, PS_SKYBOX)
     PASS_RS(P1, VS_DEFAULT, PS_SKYBOX, FillModeWireFrameEx)
-
 };
+
+
+//float4 PS_LIGHT(MeshOutput input) : SV_TARGET
+//{
+//    float4 Nmap = NormalMap.Sample(LinearSampler, input.uv);
+    
+//    if (true == any(Nmap.rgb))
+//    {
+//        float3 N = normalize(input.normal);
+//        float3 T = normalize(input.tangent);
+//        float3 B = normalize(cross(N, T));
+    
+//        float3x3 TBN = float3x3(T, B, N);
+        
+//        float3 tangentSpaceNormal = (Nmap.rgb * 2.f - 1.f);
+//        float3 worldNormal = mul(tangentSpaceNormal, TBN);
+    
+//        input.normal = worldNormal;
+//    }
+    
+//    float4 color = ComputeDiffuseLight(input.uv, input.normal, (float3) input.worldPos);
+
+//    return color;
+//}

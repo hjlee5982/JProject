@@ -42,3 +42,15 @@ public:										\
 //#define CHECK(p)	assert(SUCCEEDED(p))
 //
 //#define ToRad(value) XMConvertToRadians(value)
+
+enum class TECH
+{
+	MONO,
+	DIFFUSE,
+};
+
+enum class PASS
+{
+	NONE,
+	WIREFRAME
+};

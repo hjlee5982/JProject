@@ -4,6 +4,18 @@
 
 class Shader;
 
+struct SwitchDesc
+{
+	i32 lightSwitch = 1;
+	i32 padding1;
+	i32 padding2;
+	i32 padding3;
+};
+struct ColorDesc
+{
+	Color color = Color(0.f, 0.f, 0.f, 1.f);
+};
+
 struct GlobalDesc
 {
 	matx V    = matx::Identity;

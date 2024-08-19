@@ -88,7 +88,4 @@ void Texture::LoadEx(const wstring& path)
 
 	hr = DEVICE->CreateShaderResourceView(cubeMapTexture.Get(), &srvDesc, _srv.GetAddressOf());
 	CHECK(hr);
-
-	D3D11_BLEND_DESC desc;
-
 }

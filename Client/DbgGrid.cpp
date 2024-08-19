@@ -24,8 +24,10 @@ void DbgGrid::Init()
 		auto shader = RESOURCE->Get(L"Default.fx");
 		GetMeshRenderer()->SetShader(shader);
 
-		GetMeshRenderer()->SetTech(1);
-		GetMeshRenderer()->SetPass(1);
+		GetMeshRenderer()->SetTech(TECH::COLOR);
+		GetMeshRenderer()->SetPass(PASS::WIREFRAME);
+		GetMeshRenderer()->SetColor(Color(1.f, 1.f, 1.f, 1.f));
+		//GetMeshRenderer()->SetPass(1);
 	}
 }
 

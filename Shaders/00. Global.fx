@@ -4,6 +4,13 @@
 ////////////////////////////////////////////////////////////
 // ConstantBuffer
 ////////////////////////////////////////////////////////////
+cbuffer SwitchBuffer
+{
+    int lightSwitch;
+    int padding1;
+    int padding2;
+    int padding3;
+};
 cbuffer TransformBuffer
 {
     matrix W;

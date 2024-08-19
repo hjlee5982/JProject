@@ -15,14 +15,16 @@ void Skydome::Init()
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		auto mesh = RESOURCE->Get<Mesh>(L"Cube");
+		auto mesh = RESOURCE->Get<Mesh>(L"Sphere");
 		GetMeshRenderer()->SetMesh(mesh);
 
 		auto material = RESOURCE->Get<Material>(L"Skydome");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetTech(2);
-		GetMeshRenderer()->SetPass(0);
+		GetMeshRenderer()->SetTech(TECH::DIFFUSE);
+		GetMeshRenderer()->LightSwitch(false);
+		//GetMeshRenderer()->SetColor(Color(0.94f, 0.97f, 1.f, 1.f));
+		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
 	}
 
 
