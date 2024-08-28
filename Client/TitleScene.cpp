@@ -16,7 +16,7 @@ void TitleScene::Init()
 
 	{
 		auto material = makeSptr<Material>();
-		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome2.jpg");
+		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome.png");
 		
 		material->SetShader(defaultShader);
 		material->SetDiffuseMap(texture);

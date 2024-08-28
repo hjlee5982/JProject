@@ -14,8 +14,8 @@ private:
 	// 회전 각도 제한
 	f32 _restriction = 0.f;
 	// 회전 속도
-	f32 _rotateSpeed = 0.2f;
+	f32 _rotateSpeed = 10.f;
 	// 이동 속도
-	f32 _moveSpeed = 3.f;
+	f32 _moveSpeed = 10.f;
 };
 

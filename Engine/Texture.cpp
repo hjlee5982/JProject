@@ -8,12 +8,51 @@ Texture::Texture()
 
 void Texture::Load(const wstring& path)
 {
+	
+
+
 	HRESULT hr;
 
 	DirectX::TexMetadata md;
 
-	hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _img);
+	hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_IGNORE_SRGB, &md, _img);
 	CHECK(hr);
+
+	/*D3D11_TEXTURE2D_DESC textureDesc = {};
+	{
+		textureDesc.Width            = static_cast<u32>(md.width);
+		textureDesc.Height           = static_cast<u32>(md.height);
+		textureDesc.MipLevels        = static_cast<u32>(md.mipLevels);
+		textureDesc.ArraySize        = static_cast<u32>(md.arraySize);
+		textureDesc.Format			 = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+		textureDesc.SampleDesc.Count = 1;
+		textureDesc.Usage			 = D3D11_USAGE_DEFAULT;
+		textureDesc.BindFlags		 = D3D11_BIND_SHADER_RESOURCE;
+		textureDesc.CPUAccessFlags   = 0;
+		textureDesc.MiscFlags		 = 0;
+	}
+
+	const Image* image = _img.GetImage(0, 0, 0);
+
+	D3D11_SUBRESOURCE_DATA initData = {};
+	{
+		initData.pSysMem     = image->pixels;
+		initData.SysMemPitch = static_cast<u32>(image->rowPitch);
+	}
+
+	hr = DEVICE->CreateTexture2D(&textureDesc, &initData, _texture.GetAddressOf());
+	CHECK(hr);
+
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+	{
+		srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = static_cast<u32>(md.mipLevels);
+	}
+
+	hr = DEVICE->CreateShaderResourceView(_texture.Get(), &srvDesc, _srv.GetAddressOf());
+	CHECK(hr);*/
 
 	hr = ::CreateShaderResourceView(DEVICE.Get(), _img.GetImages(), _img.GetImageCount(), md, _srv.GetAddressOf());
 	CHECK(hr);

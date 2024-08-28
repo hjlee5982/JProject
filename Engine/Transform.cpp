@@ -32,11 +32,13 @@ void Transform::SetScale(vec3 scale)
 
 void Transform::RotationAxis(vec3 axis, f32 deltaTime)
 {
+	f32 rad = XMConvertToRadians(deltaTime);
+
 	vec3 right = GetRight();
 	vec3 up    = GetUp();
 	vec3 look  = GetLook();
 
-	matx rotation = XMMatrixRotationAxis(axis, deltaTime);
+	matx rotation = XMMatrixRotationAxis(axis, rad);
 
 	SetState(ETransformState::RIGHT, XMVector3TransformNormal(right, rotation));
 	SetState(ETransformState::UP,    XMVector3TransformNormal(up,    rotation));

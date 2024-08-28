@@ -38,6 +38,7 @@ public:
 		return _img;
 	}
 private:
+	ComPtr<ID3D11Texture2D> _texture;
 	ComPtr<ID3D11ShaderResourceView> _srv;
 	DirectX::ScratchImage _img = {};
 	vec2 _size = { 0.f, 0.f };
