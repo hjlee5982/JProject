@@ -154,10 +154,12 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="DirectX11.h" />
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryHelper.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="IExecute.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="ImConsole.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderDesc.h" />
     <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="Skydome.h" />
     <ClInclude Include="Technique.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
@@ -212,10 +215,12 @@
     <ClCompile Include="DeferredBuffer.cpp" />
     <ClCompile Include="DirectX11.cpp" />
     <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryHelper.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="IExecute.cpp" />
     <ClCompile Include="ImConsole.cpp" />
     <ClCompile Include="imgui.cpp">
@@ -269,6 +274,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderDesc.cpp" />
     <ClCompile Include="SimpleMath.cpp" />
+    <ClCompile Include="Skydome.cpp" />
     <ClCompile Include="Technique.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />

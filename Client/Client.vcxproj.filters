@@ -39,9 +39,6 @@
     <ClCompile Include="DbgBox.cpp">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClCompile>
-    <ClCompile Include="Skydome.cpp">
-      <Filter>Client\01. GameObject\Skydome</Filter>
-    </ClCompile>
     <ClCompile Include="DbgSphere.cpp">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClCompile>
@@ -57,7 +54,7 @@
     <ClCompile Include="Moon.cpp">
       <Filter>Client\01. GameObject\Planets</Filter>
     </ClCompile>
-    <ClCompile Include="FreeCamera.cpp">
+    <ClCompile Include="Sphere.cpp">
       <Filter>Client\01. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,9 +71,6 @@
     <ClInclude Include="DbgBox.h">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClInclude>
-    <ClInclude Include="Skydome.h">
-      <Filter>Client\01. GameObject\Skydome</Filter>
-    </ClInclude>
     <ClInclude Include="DbgSphere.h">
       <Filter>Client\01. GameObject\Dbg</Filter>
     </ClInclude>
@@ -92,7 +86,7 @@
     <ClInclude Include="Moon.h">
       <Filter>Client\01. GameObject\Planets</Filter>
     </ClInclude>
-    <ClInclude Include="FreeCamera.h">
+    <ClInclude Include="Sphere.h">
       <Filter>Client\01. GameObject</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,7 @@ public:
 	{
 		return _stride;
 	}
-	u32 GetIndexCount()
+	u32 GetCount()
 	{
 		return _indexCount;
 	}

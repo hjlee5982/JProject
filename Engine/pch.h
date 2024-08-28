@@ -120,4 +120,5 @@ using namespace Microsoft::WRL;
 #include "TimeManager.h"
 //#include "SceneManager.h"
 #include "ResourceManager.h"
+#include "GameObjectManager.h"
 #include "ObjectFactory.h"

@@ -1,57 +1,43 @@
 #include "pch.h"
 #include "TitleScene.h"
 #include "GameObjectManager.h"
-#include "Skydome.h"
 #include "DbgBox.h"
 #include "DbgSphere.h"
 #include "DbgGrid.h"
-#include "FreeCamera.h"
 #include "Earth.h"
 #include "Moon.h"
 #include "Sun.h"
+#include "Sphere.h"
+
+#include "FreeCamera.h"
+#include "Grid.h"
+//#include "Skydome.h"
 
 void TitleScene::Init()
 {
-	auto defaultShader = makeSptr<Shader>(L"Default.fx"); RESOURCE->Add(L"Default.fx", defaultShader);
+	//auto defaultShader = makeSptr<Shader>(L"Default.fx");
+	//RESOURCE->Add(L"Default.fx", defaultShader);
 
-	{
+	/*{
 		auto material = makeSptr<Material>();
 		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome.png");
-		
+
 		material->SetShader(defaultShader);
 		material->SetDiffuseMap(texture);
-		
-		RESOURCE->Add(L"Skydome", material);
 
-		//auto material = makeSptr<Material>();
-		//auto texture = RESOURCE->LoadEx<Texture>(L"Skydome", L"../Resources/Textures/Sky");
-		//
-		//material->SetShader(defaultShader);
-		//material->SetCubeMap(texture);
-		//
-		//RESOURCE->Add(L"Skydome", material);
-	}
-	{
+		RESOURCE->Add(L"Skydome", material);
+	}*/
+
+	/*{
 		auto material = makeSptr<Material>();
-		auto textureD = RESOURCE->Load<Texture>(L"Block_Diffuse", L"../Resources/Textures/Block_Diffuse.png");
-		auto textureN = RESOURCE->Load<Texture>(L"Block_Normal", L"../Resources/Textures/Block_Normal.png");
+		auto textureD = RESOURCE->Load<Texture>(L"Earth_Diffuse", L"../Resources/Textures/Earth_Diffuse.jpg");
+		auto textureN = RESOURCE->Load<Texture>(L"Earth_Normal", L"../Resources/Textures/Earth_Normal.tif");
+		auto textureS = RESOURCE->Load<Texture>(L"Earth_Specular", L"../Resources/Textures/Earth_Specular.tif");
 
 		material->SetShader(defaultShader);
 		material->SetDiffuseMap(textureD);
 		material->SetNormalMap(textureN);
-
-		RESOURCE->Add(L"Block", material);
-	}
-	{
-		auto material = makeSptr<Material>();
-		auto textureD = RESOURCE->Load<Texture>(L"Earth_Diffuse", L"../Resources/Textures/Earth_Diffuse.jpg");
-		//auto textureN = RESOURCE->Load<Texture>(L"Earth_Normal", L"../Resources/Textures/Earth_Normal.tif");
-		//auto textureS = RESOURCE->Load<Texture>(L"Earth_Specular", L"../Resources/Textures/Earth_Specular.tif");
-
-		material->SetShader(defaultShader);
-		material->SetDiffuseMap(textureD);
-		//material->SetNormalMap(textureN);
-		//material->SetSpecularMap(textureS);
+		material->SetSpecularMap(textureS);
 
 		RESOURCE->Add(L"Earth", material);
 	}
@@ -77,15 +63,21 @@ void TitleScene::Init()
 	OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Camera");
 	OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
 	OBJECT->AddGameObject(makeSptr<DbgGrid>(), "Grid");
-	//OBJECT->AddGameObject(makeSptr<DbgSphere>(), "Sphere");
 	OBJECT->AddGameObject(makeSptr<Earth>(), "Earth");
 	OBJECT->AddGameObject(makeSptr<Moon>(), "Moon");
 
-	FACTORY->RegisterObject("Camera",  []()->sptr<GameObject> { return makeSptr<FreeCamera>(); });
+	OBJECT->AddGameObject(makeSptr<Sphere>(), "Earth");
+	OBJECT->AddGameObject(makeSptr<Sphere>(), "Moon");*/
+
+	/*FACTORY->RegisterObject("Camera",  []()->sptr<GameObject> { return makeSptr<FreeCamera>(); });
 	FACTORY->RegisterObject("Skydome", []()->sptr<GameObject> { return makeSptr<Skydome>();    });
 	FACTORY->RegisterObject("Grid",    []()->sptr<GameObject> { return makeSptr<DbgGrid>();    });
 	FACTORY->RegisterObject("Earth",   []()->sptr<GameObject> { return makeSptr<Earth>();      });
-	FACTORY->RegisterObject("Moon",    []()->sptr<GameObject> { return makeSptr<Moon>();       });
+	FACTORY->RegisterObject("Moon",    []()->sptr<GameObject> { return makeSptr<Moon>();       });*/
+
+	//OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Camera");
+	//OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
+	//OBJECT->AddGameObject(makeSptr<Grid>(), "Grid");
 }
 
 void TitleScene::Update()

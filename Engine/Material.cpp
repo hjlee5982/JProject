@@ -6,6 +6,42 @@ Material::Material()
 {
 }
 
+void Material::MakeJson(sptr<JsonData> data)
+{
+	// 얘가 저장해야 할 거는 뭐지
+	// 0. 나는 누구인가?
+	// 0. 나는 어떠한 Shader를 통해 그려질 것이다
+	// 1. 나는 어떠한 DiffuseMap을   가지고 있다
+	// 2. 나는 어떠한 SpecularMap을  가지고 있다
+	// 3. 나는 어떠한 NormalMap을	 가지고 있다
+
+	/*Document document;
+	document.SetObject();
+	Document::AllocatorType& allocator = document.GetAllocator();
+
+	Value object(kObjectType);
+	{
+		object.AddMember("type",        , allocator);
+		object.AddMember("shader",      StringRef("default.fx"), allocator);
+		object.AddMember("diffuseMap",  , allocator);
+		object.AddMember("normalmap",   , allocator);
+		object.AddMember("SpecularMap", , allocator);
+	}
+	document.AddMember("material", object, allocator);
+
+	string directory = "../Json";
+	Utils::CreateDirectoryIfNotExists(directory);
+	string filename = directory + "/defaultjson.Jmaterial";
+
+	FILE* fp;
+	fopen_s(&fp, filename.c_str(), "wb");
+	char writeBuffer[4096];
+	FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+	PrettyWriter<FileWriteStream> writer(os);
+	document.Accept(writer);
+	fclose(fp);*/
+}
+
 void Material::Update()
 {
 	if (nullptr == _shader)

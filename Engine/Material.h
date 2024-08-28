@@ -14,6 +14,8 @@ protected:
 public:
 	virtual void LoadEx(const wstring& path) override {}
 public:
+	virtual void MakeJson(sptr<JsonData> data) override;
+public:
 	MaterialDesc& GetMaterialDesc()
 	{
 		return _desc;

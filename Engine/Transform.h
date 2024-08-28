@@ -62,15 +62,15 @@ public:
 	}
 	void SetUp(vec3 up)
 	{
-		SetState(ETransformState::RIGHT, up);
+		SetState(ETransformState::UP, up);
 	}
 	void SetLook(vec3 look)
 	{
-		SetState(ETransformState::RIGHT, look);
+		SetState(ETransformState::LOOK, look);
 	}
 	void SetPosition(vec3 pos)
 	{
-		SetState(ETransformState::RIGHT, pos);
+		SetState(ETransformState::POSITION, pos);
 	}
 	void SetScale(vec3 scale);
 private:

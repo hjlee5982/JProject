@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Window.h"
 #include "IExecute.h"
-
+#include "FreeCamera.h"
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 void Window::Update()
@@ -43,6 +43,7 @@ WPARAM Window::Run(WindowDesc& desc)
 		INPUT->Init(_desc.hWnd, _desc.hInstance);
 		TIME->Init();
 		FACTORY->Init();
+		OBJECT->Init();
 		//RENDERER->Init();
 	}
 
@@ -53,7 +54,7 @@ WPARAM Window::Run(WindowDesc& desc)
 	JLOG_INFO("Test");
 
 	_desc.app->Init();
-	
+
 	MSG msg = { 0 };
 
 	while (msg.message != WM_QUIT)

@@ -231,6 +231,15 @@
     <ClInclude Include="ObjectFactory.h">
       <Filter>Engine\01. Game</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeCamera.h">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Skydome.h">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -394,6 +403,15 @@
     </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Engine\01. Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FreeCamera.cpp">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Skydome.cpp">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

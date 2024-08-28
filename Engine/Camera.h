@@ -12,6 +12,19 @@ public:
 	virtual void Update()     override;
 	virtual void LateUpdate() override {};
 	virtual void Render()     override {};
+public:
+	void SetNear(f32 __near)
+	{
+		_near = __near;
+	}
+	void SetFar(f32 __far)
+	{
+		_far = __far;
+	}
+	void SetFov(f32 fov)
+	{
+		_fov = fov;
+	}
 private:
 	matx _view = matx::Identity;
 	matx _proj = matx::Identity;

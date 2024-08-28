@@ -13,7 +13,7 @@ void Earth::Init()
 	{
 		GetTransform()->SetScale(vec3(3.0f));
 		GetTransform()->SetPosition(vec3(0.f, 2.f, 0.f));
-		GetTransform()->RotationAxis(vec3::Look, XMConvertToRadians(23.4f));
+		GetTransform()->RotationAxis(vec3::Look, 23.4f);
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
@@ -23,7 +23,7 @@ void Earth::Init()
 		auto material = RESOURCE->Get<Material>(L"Earth");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetTech(TECH::COLOR);
+		GetMeshRenderer()->SetTech(TECH::DIFFUSE);
 		GetMeshRenderer()->SetColor(Color(1.f, 0.713725507f, 0.756862819f, 1.f));
 		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
 		GetMeshRenderer()->LightSwitch(true);
@@ -32,7 +32,7 @@ void Earth::Init()
 
 void Earth::Update()
 {
-	GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * _speed);
+	GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * 20.f);
 
 	//auto sun = OBJECT->GetGameObject("Sun")->GetTransform()->GetPosition();
 	//

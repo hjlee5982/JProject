@@ -1,9 +1,16 @@
 #include "pch.h"
 #include "GameObjectManager.h"
 #include "Layer.h"
+ 
+#include "FreeCamera.h"
+#include "Skydome.h"
+#include "Grid.h"
 
 void GameObjectManager::Init()
 {
+	AddGameObject(makeSptr<FreeCamera>(), "Camera");
+	AddGameObject(makeSptr<Skydome>(), "Skydome");
+	AddGameObject(makeSptr<Grid>(), "Grid");
 }
 
 void GameObjectManager::Update()

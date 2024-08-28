@@ -103,7 +103,7 @@
 #define LBTN  0x00000100
 #define RBTN  0x00000200
 
-enum class MOUSE_STATE
+enum class EMouseState
 {
 	X,
 	Y,
@@ -123,7 +123,7 @@ public:
 	bool KeyDown(DWORD key);
 	bool KeyPress(DWORD key);
 public:
-	i32 MouseMove(MOUSE_STATE state)
+	i32 MouseMove(EMouseState state)
 	{
 		return ((i32*)&_mouseState)[(u32)state];
 	}

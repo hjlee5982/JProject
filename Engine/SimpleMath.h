@@ -529,8 +529,8 @@ namespace DirectX
             Vector3 Look() const noexcept { return Vector3(_31, _32, _33); }
             void Look(const Vector3& v) noexcept { _31 = v.x; _32 = v.y; _33 = v.z; }
 
-            Vector3 Translation() const  noexcept { return Vector3(_41, _42, _43); }
-            void Translation(const Vector3& v) noexcept { _41 = v.x; _42 = v.y; _43 = v.z; }
+            Vector3 Position() const  noexcept { return Vector3(_41, _42, _43); }
+            void Position(const Vector3& v) noexcept { _41 = v.x; _42 = v.y; _43 = v.z; }
 
             // Matrix operations
             bool Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept;

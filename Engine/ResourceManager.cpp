@@ -7,7 +7,7 @@
 
 void ResourceManager::Init()
 {
-	CreateDefaultMesh();
+	CreateDefaultResources();
 
 	JLOG_INIT("Resource Init Complete");
 }
@@ -33,8 +33,13 @@ sptr<Texture> ResourceManager::GetOrAddTexture(const wstring& key, const wstring
 	return texture;
 }
 
-void ResourceManager::CreateDefaultMesh()
+void ResourceManager::CreateDefaultResources()
 {
+	// Default Shader
+	auto defaultShader = makeSptr<Shader>(L"Default.fx");
+	RESOURCE->Add(L"Default.fx", defaultShader);
+
+	// Default Mesh
 	{
 		sptr<Mesh> mesh = makeSptr<Mesh>();
 		mesh->CreateQuad();
@@ -49,5 +54,16 @@ void ResourceManager::CreateDefaultMesh()
 		sptr<Mesh> mesh = makeSptr<Mesh>();
 		mesh->CreateSphere();
 		Add(L"Sphere", mesh);
+	}
+
+	// Default Material
+	{
+		auto material = makeSptr<Material>();
+		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome.png");
+
+		material->SetShader(defaultShader);
+		material->SetDiffuseMap(texture);
+
+		RESOURCE->Add(L"Skydome", material);
 	}
 }

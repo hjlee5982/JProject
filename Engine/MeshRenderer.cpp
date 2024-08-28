@@ -22,7 +22,7 @@ void MeshRenderer::Render()
 			return;
 		}
 	}
-
+	
 	auto ownerWorld = GetOwnerTransform()->GetWorld();
 	LightDesc lDesc;
 	{

@@ -30,7 +30,7 @@ public:
 
 	sptr<Texture> GetOrAddTexture(const wstring& key, const wstring& path);
 private:
-	void CreateDefaultMesh();
+	void CreateDefaultResources();
 private:
 	wstring _resourcePath;
 private:
