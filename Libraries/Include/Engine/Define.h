@@ -54,3 +54,10 @@ enum class PASS
 	NONE,
 	WIREFRAME
 };
+
+#define JCLASS(classType)																			 \
+		bool registered_##classType =																 \
+		ObjectFactory::GetInstance()->RegisterObject												 \
+		(																							 \
+			#classType, []()-> std::shared_ptr<GameObject> { return std::make_shared<classType>(); } \
+		)																							 \

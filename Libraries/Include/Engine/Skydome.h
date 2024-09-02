@@ -2,6 +2,7 @@
 
 class Skydome : public GameObject
 {
+	JCLASS(Skydome);
 public:
 public:
 	Skydome();

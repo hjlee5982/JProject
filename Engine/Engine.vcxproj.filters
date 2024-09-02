@@ -240,6 +240,9 @@
     <ClInclude Include="Skydome.h">
       <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -411,6 +414,9 @@
       <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Skydome.cpp">
+      <Filter>Engine\01. Game\02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
       <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClCompile>
   </ItemGroup>

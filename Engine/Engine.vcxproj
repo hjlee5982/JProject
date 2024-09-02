@@ -197,6 +197,7 @@
     <ClInclude Include="ShaderDesc.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="Skydome.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Technique.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="ShaderDesc.cpp" />
     <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Technique.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />

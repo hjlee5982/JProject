@@ -2,6 +2,7 @@
 
 class Grid : public GameObject
 {
+	JCLASS(Grid);
 public:
 	Grid();
 	virtual ~Grid() = default;

@@ -5,12 +5,14 @@
 #include "FreeCamera.h"
 #include "Skydome.h"
 #include "Grid.h"
+#include "Sphere.h"
 
 void GameObjectManager::Init()
 {
-	AddGameObject(makeSptr<FreeCamera>(), "Camera");
-	AddGameObject(makeSptr<Skydome>(), "Skydome");
-	AddGameObject(makeSptr<Grid>(), "Grid");
+	//AddGameObject(makeSptr<FreeCamera>(), "Camera");
+	//AddGameObject(makeSptr<Skydome>(), "Skydome");
+	//AddGameObject(makeSptr<Grid>(), "Grid");
+	//AddGameObject(makeSptr<Sphere>(), "Sphere");
 }
 
 void GameObjectManager::Update()
@@ -49,6 +51,7 @@ void GameObjectManager::Render()
 void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 {
 	go->Init();
+	go->SetClass(Utils::ExtractClassName(typeid(*go).name()));
 	go->SetName(name);
 	
 	GameObject::ELayerType layerType = go->GetLayerType();
@@ -93,4 +96,5 @@ void GameObjectManager::Release()
 	}
 
 	_layers.clear();
+	_gameObjectRef.clear();
 }

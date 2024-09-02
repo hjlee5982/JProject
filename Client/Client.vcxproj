@@ -120,6 +120,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Libraries\Lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,7 +150,6 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Sun.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
@@ -161,7 +161,6 @@
     <ClInclude Include="JProject.h" />
     <ClInclude Include="Moon.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Sun.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>

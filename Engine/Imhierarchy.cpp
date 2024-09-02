@@ -1,43 +1,58 @@
 #include "pch.h"
 #include "Imhierarchy.h"
 
+void Imhierarchy::Init()
+{
+}
+
 void Imhierarchy::Update()
 {
-	ImGui::Begin("hierarchy");
+	auto gameObjects = OBJECT->GetGameObjects();
 
-	if (ImGui::TreeNode("hierarchyTest_1"))
+	ImGui::Begin("Hierarchy");
+
+	if (_once == false)
 	{
-		if (ImGui::TreeNode("hierarchyTest_1_1"))
-		{
-			ImGui::TreePop();
-		}
-		if (ImGui::TreeNode("hierarchyTest_1_2"))
-		{
-			ImGui::TreePop();
-		}
-		ImGui::TreePop();
+		SetPlags();
+		_once = true;
 	}
-	if (ImGui::TreeNode("hierarchyTest_2"))
+	for (auto& go : gameObjects)
 	{
-		if (ImGui::TreeNode("hierarchyTest_2_1"))
+		string name = go->GetName();
+
+		if (ImGui::TreeNodeEx(name.c_str(), _plags[name].first))
 		{
-			if (ImGui::TreeNode("hierarchyTest_2_1_1"))
+			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 			{
-				ImGui::TreePop();
+				Deselect();
+				_plags[name].second = !_plags[name].second;
+				SetPlags();
+				JLOG_INFO(name.c_str());
 			}
+
 			ImGui::TreePop();
 		}
-		ImGui::TreePop();
 	}
-	if (ImGui::TreeNode("hierarchyTest_3"))
-	{
-		ImGui::TreePop();
-	}
-	if (ImGui::TreeNode("hierarchyTest_4"))
-	{
-		ImGui::TreePop();
-	}
-	//ImGui::TreePop();
 
 	ImGui::End();
+}
+
+void Imhierarchy::SetPlags()
+{
+	auto gameObjects = OBJECT->GetGameObjects();
+
+	for (auto& go : gameObjects)
+	{
+		ImGuiTreeNodeFlags nodeFlags = _plags[go->GetName()].second ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None;
+		nodeFlags |= ImGuiTreeNodeFlags_Bullet;
+		_plags[go->GetName()].first = nodeFlags;
+	}
+}
+
+void Imhierarchy::Deselect()
+{
+	for (auto& plag : _plags)
+	{
+		plag.second.second = false;
+	}
 }

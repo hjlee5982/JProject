@@ -20,5 +20,30 @@ public:
 	static vec3  JsonArrayToVec3(const Value& array);
 	static bool  DirectoryExists(const string& dir);
 	static bool  CreateDirectoryIfNotExists(const string& dir);
+public:
+	static string ExtractClassName(string typeID)
+	{
+		string type = typeID;
+		string className = "";
+		i32 size = type.size();
+
+		for (i32 i = 0; i < size; ++i)
+		{
+			if (type[i] == ' ')
+			{
+				for (i32 j = i + 1; j < size; ++j)
+				{
+					className.push_back(type[j]);
+				}
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+		return className;
+	}
 };
 

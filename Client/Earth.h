@@ -1,7 +1,9 @@
 #pragma once
 
+
 class Earth : public GameObject
 {
+	JCLASS(Earth);
 public:
 	Earth();
 	virtual ~Earth() = default;

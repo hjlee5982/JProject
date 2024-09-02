@@ -2,6 +2,7 @@
 
 class FreeCamera : public GameObject
 {
+	JCLASS(FreeCamera);
 public:
 	FreeCamera();
 	virtual ~FreeCamera() = default;

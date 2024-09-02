@@ -118,7 +118,7 @@ using namespace Microsoft::WRL;
 #include "ImGuiManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"
-//#include "SceneManager.h"
+#include "SceneManager.h"
 #include "ResourceManager.h"
 #include "GameObjectManager.h"
 #include "ObjectFactory.h"

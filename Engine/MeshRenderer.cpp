@@ -15,8 +15,10 @@ void MeshRenderer::Render()
 	}
 	if (nullptr == _shader)
 	{
-		_shader = _material->GetShader();
-
+		if (nullptr != _material)
+		{
+			_shader = _material->GetShader();
+		}
 		if (nullptr == _shader)
 		{
 			return;

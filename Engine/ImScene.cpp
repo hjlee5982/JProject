@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "ImScene.h"
 
+void ImScene::Init()
+{
+}
+
 void ImScene::Update()
 {
 	DX->CreateRenderTargetTexture();

@@ -44,6 +44,7 @@ WPARAM Window::Run(WindowDesc& desc)
 		TIME->Init();
 		FACTORY->Init();
 		OBJECT->Init();
+		SCENE->Init();
 		//RENDERER->Init();
 	}
 

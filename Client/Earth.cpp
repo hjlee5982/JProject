@@ -12,16 +12,19 @@ void Earth::Init()
 	AddComponent(makeSptr<Transform>());
 	{
 		GetTransform()->SetScale(vec3(3.0f));
-		GetTransform()->SetPosition(vec3(0.f, 2.f, 0.f));
+		GetTransform()->SetPosition(vec3(4.f, 2.f, 0.f));
 		GetTransform()->RotationAxis(vec3::Look, 23.4f);
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
+		auto shader = RESOURCE->Get(L"Default.fx");
+		GetMeshRenderer()->SetShader(shader);
+
 		auto mesh = RESOURCE->Get<Mesh>(L"Sphere");
 		GetMeshRenderer()->SetMesh(mesh);
 
-		auto material = RESOURCE->Get<Material>(L"Earth");
-		GetMeshRenderer()->SetMaterial(material);
+		//auto material = RESOURCE->Get<Material>(L"Earth");
+		//GetMeshRenderer()->SetMaterial(material);
 
 		GetMeshRenderer()->SetTech(TECH::DIFFUSE);
 		GetMeshRenderer()->SetColor(Color(1.f, 0.713725507f, 0.756862819f, 1.f));

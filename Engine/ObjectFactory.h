@@ -9,7 +9,8 @@ public:
 	void Init();
 public:
 	sptr<GameObject> CreateObject(const string& type);
-	void RegisterObject(const string& type, CreateObjectFunc func);
+	bool RegisterObject(const string& type, CreateObjectFunc func);
+	void RegisterObjectType(const string& path);
 private:
 	HashMap<string, CreateObjectFunc> _factoryMap;
 };

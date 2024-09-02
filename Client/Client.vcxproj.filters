@@ -54,9 +54,6 @@
     <ClCompile Include="Moon.cpp">
       <Filter>Client\01. GameObject\Planets</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Client\01. GameObject</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -85,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="Moon.h">
       <Filter>Client\01. GameObject\Planets</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Client\01. GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

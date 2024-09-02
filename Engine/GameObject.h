@@ -39,6 +39,14 @@ public:
 	{
 		return _layerType;
 	}
+	const string& GetClass()
+	{
+		return _class;
+	}
+	void SetClass(const string& name)
+	{
+		_class = name;
+	}
 	const string& GetName()
 	{
 		return _name;
@@ -57,6 +65,7 @@ private:
 	array<sptr<Component>, COMPONENT_TYPE_COUNT> _components;
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
+	string _class;
 	string _name;
 public:
 	virtual void MakeJson(sptr<JsonData> data) override;
