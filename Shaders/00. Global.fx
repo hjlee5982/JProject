@@ -1,9 +1,12 @@
 #ifndef __GLOBAL_FX__
 #define __GLOBAL_FX__
 
+
 ////////////////////////////////////////////////////////////
 // ConstantBuffer
 ////////////////////////////////////////////////////////////
+// 상수버퍼는 ShaderDesc.h에 정의되어 있고 struct의 이름과 cbuffer의 이름이 같을 필요는 없음
+// 단, 셰이더에 바인딩 할 때는 cbuffer의 이름을 똑같이 적어야됨
 cbuffer SwitchBuffer
 {
     int lightSwitch;
@@ -23,15 +26,13 @@ cbuffer GlobalBuffer
     matrix CamW;
 };
 
-
-
-
-
-
 ////////////////////////////////////////////////////////////
 // Structures
 ////////////////////////////////////////////////////////////
-// Input = ShaderDesc.h의 struct들과 깔맞춤 해야됨, 이름은 상관없는듯
+/*  인풋값은 VertexData.h에 정의되어 있고
+    GeometryHelper에서 정점,인덱스 등의 값을 설정하고
+    그 값을 바탕으로 Mesh에서 버텍스버퍼, 인덱스버퍼를 만듬
+*/
 struct VertexTexture
 {
     float4 position : POSITION;

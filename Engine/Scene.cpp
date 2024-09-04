@@ -72,7 +72,7 @@ void Scene::LoadJson(sptr<JsonData> data)
 	fclose(fp);
 
 	const Value& objects = document["objects"];
-	for (i32 i = 0; i < objects.Size(); ++i)
+	for (u32 i = 0; i < objects.Size(); ++i)
 	{
 		const Value& object = objects[i];
 		{

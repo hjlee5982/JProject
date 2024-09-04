@@ -103,17 +103,19 @@ float4 ComputeMonoLight(float2 uv, float3 normal, float3 worldPos)
     }
     // Emissive
     {
+        float emissivePower = 10;
+        
         float3 viewDirection = normalize(CamPos() - worldPos);
         
         float emissiveIntensity = 1.f - saturate(dot(viewDirection, normal));
         
         emissiveIntensity = smoothstep(0.f, 1.f, emissiveIntensity);
-        emissiveIntensity = pow(emissiveIntensity, 2);
+        emissiveIntensity = pow(emissiveIntensity, emissivePower);
 
         emissiveColor = GlobalLight.emissive * Material.emissive * emissiveIntensity;
     }
     
-    return diffuseColor + ambientColor + specularColor;// + emissiveColor;
+    return diffuseColor + ambientColor + specularColor + emissiveColor;
 }
 
 float4 ComputeDiffuseLight(float2 uv, float3 normal, float3 worldPos)
@@ -156,12 +158,14 @@ float4 ComputeDiffuseLight(float2 uv, float3 normal, float3 worldPos)
     }
     // Emissive
     {
+        float emissivePower = 2;
+        
         float3 viewDirection = normalize(CamPos() - worldPos);
         
         float emissiveIntensity = 1.f - saturate(dot(viewDirection, normal));
         
         emissiveIntensity = smoothstep(0.f, 1.f, emissiveIntensity);
-        emissiveIntensity = pow(emissiveIntensity, 2);
+        emissiveIntensity = pow(emissiveIntensity, emissivePower);
 
         emissiveColor = GlobalLight.emissive * Material.emissive * emissiveIntensity;
     }

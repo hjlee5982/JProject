@@ -4,7 +4,35 @@
 
 void TitleScene::Init()
 {
-	//OBJECT->AddGameObject<Earth>("Earth");
+	// TODO
+
+	// Texture : Refraction SRV 
+	// Texture : Reflection SRV
+
+	sptr<Texture> reflactionTexture = makeSptr<Texture>();
+	reflactionTexture->CreateTexture(1920, 1080);
+
+	sptr<Texture> reflectionTexture = makeSptr<Texture>();
+	reflectionTexture->CreateTexture(1920, 1080);
+
+	RESOURCE->Load<Texture>(L"BoxIcon", L"../Resources/Icon/box.png");
+
+
+	// Default Shader
+	auto waterShader = makeSptr<Shader>(L"Water.fx");
+	RESOURCE->Add(L"Water.fx", waterShader);
+
+	OBJECT->AddGameObject<Earth>("Earth");
+	
+	for (i32 i = 0; i < 5; ++i)
+	{
+		string s = to_string(10000 * (i + 1));
+
+		sptr<Earth> e = makeSptr<Earth>();
+		OBJECT->AddGameObject(e, s);
+		e->GetTransform()->SetPosition(vec3(Utils::Random(-10.f, 10.f), Utils::Random(2.f, 8.f), Utils::Random(-10.f, 10.f)));
+		e->GetTransform()->RotationAxis(vec3::Look, Utils::Random(0.f, 180.f));
+	}
 }
 
 void TitleScene::Update()
@@ -30,60 +58,4 @@ void TitleScene::LateUpdate()
 
 void TitleScene::Render()
 {
-}
-
-void TitleScene::SaveScene()
-{
-	Document document;
-	document.SetObject();
-	Document::AllocatorType& allocator = document.GetAllocator();
-
-	Value objects(kArrayType);
-
-	auto gameObjects = OBJECT->GetGameObjects();
-
-	for (const auto& obj : gameObjects)
-	{
-		Value object(kObjectType);
-		{
-			object.AddMember("name", StringRef(obj->GetName().c_str()), allocator);
-			object.AddMember("class", StringRef(obj->GetClass().c_str()), allocator);
-			object.AddMember("position", Utils::Vec3ToJsonArray(obj->GetTransform()->GetPosition(), allocator), allocator);
-			object.AddMember("scale", Utils::Vec3ToJsonArray(obj->GetTransform()->GetScale(),    allocator), allocator);
-		}
-		objects.PushBack(object, allocator);
-	}
-	document.AddMember("objects", objects, allocator);
-
-	string directory = "../Data/Scene";
-	Utils::CreateDirectoryIfNotExists(directory);
-	string filename = directory + "/Defaultjson.Jscene";
-
-	FILE* fp;
-	fopen_s(&fp, filename.c_str(), "wb");
-	char writeBuffer[4096];
-	FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-	PrettyWriter<FileWriteStream> writer(os);
-	document.Accept(writer);
-	fclose(fp);
-
-	JLOG_INFO("Scene Save Complete");
-}
-
-Document TitleScene::LoadScene(const string& filename)
-{
-	string directory = "../Data/Scene/";
-	string fullname = directory + filename;
-
-	FILE* fp;
-	fopen_s(&fp, fullname.c_str(), "rb");
-
-	char readBuffer[4096];
-	FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-
-	Document document;
-	document.ParseStream(is);
-	fclose(fp);
-
-	return document;
 }

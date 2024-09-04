@@ -20,9 +20,9 @@ void Sphere::Init()
 
 		auto mesh = RESOURCE->Get<Mesh>(L"Sphere");
 		GetMeshRenderer()->SetMesh(mesh);
-
+		DirectX::Colors::LightSteelBlue;
 		GetMeshRenderer()->SetTech(TECH::COLOR);
-		GetMeshRenderer()->SetColor(Color(0.941176534f, 0.972549081f, 1.f, 1.f));
+		GetMeshRenderer()->SetColor(Color(0.690196097f, 0.768627524f, 0.870588303f, 1.f));
 		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
 		GetMeshRenderer()->LightSwitch(true);
 	}

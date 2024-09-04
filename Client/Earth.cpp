@@ -20,22 +20,25 @@ void Earth::Init()
 		auto shader = RESOURCE->Get(L"Default.fx");
 		GetMeshRenderer()->SetShader(shader);
 
-		auto mesh = RESOURCE->Get<Mesh>(L"Sphere");
+		//auto waterShader = RESOURCE->Get(L"Water.fx");
+		//GetMeshRenderer()->SetShader(waterShader);
+
+		auto mesh = RESOURCE->Get<Mesh>(L"Quad");
 		GetMeshRenderer()->SetMesh(mesh);
 
 		//auto material = RESOURCE->Get<Material>(L"Earth");
 		//GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetTech(TECH::DIFFUSE);
+		GetMeshRenderer()->SetTech(TECH::COLOR);
 		GetMeshRenderer()->SetColor(Color(1.f, 0.713725507f, 0.756862819f, 1.f));
-		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
+		GetMeshRenderer()->SetPass(PASS::WIREFRAME);
 		GetMeshRenderer()->LightSwitch(true);
 	}
 }
 
 void Earth::Update()
 {
-	GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * 20.f);
+	//GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * 20.f);
 
 	//auto sun = OBJECT->GetGameObject("Sun")->GetTransform()->GetPosition();
 	//

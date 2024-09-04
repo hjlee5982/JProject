@@ -11,48 +11,27 @@ void Imhierarchy::Update()
 
 	ImGui::Begin("Hierarchy");
 
-	if (_once == false)
-	{
-		SetPlags();
-		_once = true;
-	}
 	for (auto& go : gameObjects)
 	{
 		string name = go->GetName();
 
-		if (ImGui::TreeNodeEx(name.c_str(), _plags[name].first))
+		auto icon = RESOURCE->Get<Texture>(L"BoxIcon")->GetSRV();
+
+		ImGui::Image(reinterpret_cast<void*>(icon.Get()), ImVec2(16, 16));
+		ImGui::SameLine();
+
+		if (ImGui::Selectable(name.c_str(), _selected[name]))
 		{
-			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+			for (auto& select : _selected)
 			{
-				Deselect();
-				_plags[name].second = !_plags[name].second;
-				SetPlags();
-				JLOG_INFO(name.c_str());
+				select.second = false;
 			}
 
-			ImGui::TreePop();
+			_selected[name] = !_selected[name];
+
+			JLOG_INFO(name.c_str());
 		}
 	}
 
 	ImGui::End();
-}
-
-void Imhierarchy::SetPlags()
-{
-	auto gameObjects = OBJECT->GetGameObjects();
-
-	for (auto& go : gameObjects)
-	{
-		ImGuiTreeNodeFlags nodeFlags = _plags[go->GetName()].second ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None;
-		nodeFlags |= ImGuiTreeNodeFlags_Bullet;
-		_plags[go->GetName()].first = nodeFlags;
-	}
-}
-
-void Imhierarchy::Deselect()
-{
-	for (auto& plag : _plags)
-	{
-		plag.second.second = false;
-	}
 }

@@ -141,7 +141,7 @@ void DirectX11::CreateRenderTargetTexture()
 	ComPtr<ID3D11Texture2D> tempTexture = nullptr;
 	hr = DEVICE->CreateTexture2D(&tempDesc, nullptr, tempTexture.GetAddressOf());
 	CHECK(hr);
-	
+
 	CONTEXT->CopyResource(tempTexture.Get(), backBuffer.Get());
 	
 	D3D11_MAPPED_SUBRESOURCE mappedResource;

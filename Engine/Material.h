@@ -12,8 +12,6 @@ protected:
 	virtual void Load(const wstring& path) override {}
 	virtual void Save(const wstring& path) override {}
 public:
-	virtual void LoadEx(const wstring& path) override {}
-public:
 	virtual void MakeJson(sptr<JsonData> data) override;
 public:
 	MaterialDesc& GetMaterialDesc()

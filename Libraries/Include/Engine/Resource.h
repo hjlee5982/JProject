@@ -24,8 +24,6 @@ class IResource : public IJson
 protected:
 	virtual void Load(const wstring& path) = 0;
 	virtual void Save(const wstring& path) = 0;
-protected:
-	virtual void LoadEx(const wstring& path) = 0;
 public:
 	virtual void MakeJson(sptr<JsonData> data) override {};
 	virtual void LoadJson(sptr<JsonData> data) override {};

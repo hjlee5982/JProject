@@ -48,6 +48,19 @@ struct MaterialDesc
 	Color emissive = Color(0.f, 0.5f, 1.f, 1.f);
 };
 
+struct ReflectionDesc
+{
+	matx reflectionMatrix = matx::Identity;
+};
+
+struct WaterDesc
+{
+	f32 waterTranslation    = 0.f;
+	f32 reflectRefractScale = 0.f;
+	f32 padding1;
+	f32 padding2;
+};
+
 //#define MAX_MODEL_TRANSFORMS 250
 //#define MAX_MODEL_KEYFRAMES  500
 //#define MAX_MODEL_INSTANCE 500

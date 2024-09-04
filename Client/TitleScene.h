@@ -9,8 +9,5 @@ public:
 	virtual void Update()     override;
 	virtual void LateUpdate() override;
 	virtual void Render()     override;
-public:
-	void SaveScene();
-	Document LoadScene(const string& filename);
 };
 
