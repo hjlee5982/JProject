@@ -39,7 +39,7 @@ void DbgBox::Init()
 
 void DbgBox::Update()
 {
-	GetTransform()->RotationAxis(vec3::Up, TIME->GetDeltaTime() * -1.f);
+	//GetTransform()->RotationAxis(vec3::Up, TIME->GetDeltaTime() * -1.f);
 }
 
 void DbgBox::LateUpdate()

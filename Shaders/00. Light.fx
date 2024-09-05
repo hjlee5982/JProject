@@ -103,7 +103,7 @@ float4 ComputeMonoLight(float2 uv, float3 normal, float3 worldPos)
     }
     // Emissive
     {
-        float emissivePower = 10;
+        float emissivePower = 1;
         
         float3 viewDirection = normalize(CamPos() - worldPos);
         
@@ -115,7 +115,7 @@ float4 ComputeMonoLight(float2 uv, float3 normal, float3 worldPos)
         emissiveColor = GlobalLight.emissive * Material.emissive * emissiveIntensity;
     }
     
-    return diffuseColor + ambientColor + specularColor + emissiveColor;
+    return diffuseColor + ambientColor + specularColor;// + emissiveColor;
 }
 
 float4 ComputeDiffuseLight(float2 uv, float3 normal, float3 worldPos)

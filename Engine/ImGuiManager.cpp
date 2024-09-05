@@ -50,6 +50,11 @@ void ImGuiManager::Init()
     _windows.push_back(makeSptr<ImConsole>());
     _windows.push_back(makeSptr<Imhierarchy>());
 
+    for (auto& window : _windows)
+    {
+        window->Init();
+    }
+
     JLOG_INIT("GUI Init Complete");
 }
 
@@ -128,4 +133,18 @@ void ImGuiManager::DockingSpace()
     }
 
     ImGui::End();
+}
+
+void ImGuiManager::SetState(sptr<GameObject> go)
+{
+    _go = go;
+    Notify();
+}
+
+void ImGuiManager::Notify()
+{
+    for (auto& window : _windows)
+    {
+        window->StateUpdate(_go);
+    }
 }

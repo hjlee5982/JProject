@@ -55,6 +55,9 @@ enum class PASS
 	WIREFRAME
 };
 
+#define ToDeg(x) x * 180.f / 3.14f
+#define ToRad(x) x * 3.14f / 180.f
+
 #define JCLASS(classType)																			 \
 		bool registered_##classType =																 \
 		ObjectFactory::GetInstance()->RegisterObject												 \

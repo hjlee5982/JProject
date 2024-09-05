@@ -13,7 +13,7 @@ void Earth::Init()
 	{
 		GetTransform()->SetScale(vec3(3.0f));
 		GetTransform()->SetPosition(vec3(4.f, 2.f, 0.f));
-		GetTransform()->RotationAxis(vec3::Look, 23.4f);
+		//GetTransform()->RotationAxis(vec3::Look, 23.4f);
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{

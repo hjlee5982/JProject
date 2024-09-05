@@ -9,6 +9,15 @@ void ResourceManager::Init()
 {
 	CreateDefaultResources();
 
+
+	// 엔진에서 사용될 리소스들 로드
+	RESOURCE->Load<Texture>(L"BoxIcon",   L"../Resources/Icon/box.png");
+	RESOURCE->Load<Texture>(L"SceneIcon", L"../Resources/Icon/scene.png");
+
+
+
+
+
 	JLOG_INIT("Resource Init Complete");
 }
 

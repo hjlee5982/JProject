@@ -18,5 +18,8 @@ private:
 	f32 _rotateSpeed = 10.f;
 	// 이동 속도
 	f32 _moveSpeed = 10.f;
+private:
+	f32 yaw   = 0.f;
+	f32 pitch = 0.f;
 };
 

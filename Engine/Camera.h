@@ -25,7 +25,7 @@ public:
 	{
 		_fov = fov;
 	}
-private:
+public:
 	matx _view = matx::Identity;
 	matx _proj = matx::Identity;
 private:

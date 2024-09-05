@@ -26,10 +26,11 @@ void FreeCamera::Init()
 	vec3 up = lookAt.Cross(right);
 	up.Normalize();
 	
-	transform->SetRight(right);
-	transform->SetUp(up);
-	transform->SetLook(lookAt);
+	//transform->SetRight(right);
+	//transform->SetUp(up);
+	//transform->SetLook(lookAt);
 	
+	matx world = matx::CreateWorld(right, up, lookAt);
 
 	GetCamera()->Update();
 }
@@ -93,8 +94,18 @@ void FreeCamera::Update()
 		i32 dx = INPUT->MouseMove(EMouseState::X);
 		i32 dy = INPUT->MouseMove(EMouseState::Y);
 
-		_restriction = transform->GetLook().Dot(vec3::Up);
+		vec3 rotation = GetTransform()->GetRotation();
 
+		rotation.x += ToRad(dy * 0.1f);
+		rotation.y += ToRad(dx * 0.1f);
+
+		if (rotation.x >= 1.57f) rotation.x = 1.57f;
+		if (rotation.x <= -1.57f) rotation.x = -1.57f;
+
+		GetTransform()->SetRotation(rotation);
+
+		/*_restriction = transform->GetLook().Dot(vec3::Up);
+		
 		if (0 != dx)
 		{
 			transform->RotationAxis(vec3::Up, TIME->GetDeltaTime() * dx * _rotateSpeed);
@@ -102,15 +113,15 @@ void FreeCamera::Update()
 		if (0 < dy && _restriction > -0.99f)
 		{
 			vec3 right = transform->GetRight();
-
+		
 			transform->RotationAxis(right, TIME->GetDeltaTime() * dy * _rotateSpeed);
 		}
 		if (0 > dy && _restriction < 0.99f)
 		{
 			vec3 right = transform->GetRight();
-
+		
 			transform->RotationAxis(right, TIME->GetDeltaTime() * dy * _rotateSpeed);
-		}
+		}*/
 	}
 
 	ImGui::Begin("CameraTest");

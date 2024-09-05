@@ -12,7 +12,7 @@ void DbgSphere::Init()
 	{
 		GetTransform()->SetScale(vec3(3.f));
 		GetTransform()->SetPosition(vec3(0.f, 2.f, 0.f));
-		GetTransform()->RotationAxis(vec3::Look, XMConvertToRadians(23.4f));
+		//GetTransform()->RotationAxis(vec3::Look, XMConvertToRadians(23.4f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
@@ -29,7 +29,7 @@ void DbgSphere::Init()
 
 void DbgSphere::Update()
 {
-	GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * 0.5f);
+	//GetTransform()->RotationAxis(GetTransform()->GetUp(), TIME->GetDeltaTime() * -1.f * 0.5f);
 }
 
 void DbgSphere::LateUpdate()
