@@ -11,7 +11,7 @@ void Skydome::Init()
 {
 	AddComponent(makeSptr<Transform>());
 	{
-		//GetTransform()->RotationAxis(vec3::Up, 90.f);
+		GetTransform()->SetRotation(vec3(0.f, 90.f, 0.f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{

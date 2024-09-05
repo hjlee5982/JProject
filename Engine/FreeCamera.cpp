@@ -96,11 +96,11 @@ void FreeCamera::Update()
 
 		vec3 rotation = GetTransform()->GetRotation();
 
-		rotation.x += ToRad(dy * 0.1f);
-		rotation.y += ToRad(dx * 0.1f);
+		rotation.x += dy * _sensitivity;
+		rotation.y += dx * _sensitivity;
 
-		if (rotation.x >= 1.57f) rotation.x = 1.57f;
-		if (rotation.x <= -1.57f) rotation.x = -1.57f;
+		if (rotation.x >= 90.f) rotation.x = 90.f;
+		if (rotation.x <= -90.f) rotation.x = -90.f;
 
 		GetTransform()->SetRotation(rotation);
 
@@ -124,7 +124,7 @@ void FreeCamera::Update()
 		}*/
 	}
 
-	ImGui::Begin("CameraTest");
+	/*ImGui::Begin("CameraTest");
 
 	static f32 n = 0.1f;
 	static f32 f = 300.f;
@@ -137,7 +137,7 @@ void FreeCamera::Update()
 
 	GetCamera()->SetNear(n);
 	GetCamera()->SetFar(f);
-	GetCamera()->SetFov(::XMConvertToRadians(v));
+	GetCamera()->SetFov(::XMConvertToRadians(v));*/
 
 	GetCamera()->Update();
 }

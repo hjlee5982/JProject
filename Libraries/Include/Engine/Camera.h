@@ -13,6 +13,19 @@ public:
 	virtual void LateUpdate() override {};
 	virtual void Render()     override {};
 public:
+	f32 GetNear()
+	{
+		return _near;
+	}
+	f32 GetFar()
+	{
+		return _far;
+	}
+	f32 GetFov()
+	{
+		return ToDeg(_fov);
+	}
+public:
 	void SetNear(f32 __near)
 	{
 		_near = __near;
@@ -23,7 +36,7 @@ public:
 	}
 	void SetFov(f32 fov)
 	{
-		_fov = fov;
+		_fov = ToRad(fov);
 	}
 public:
 	matx _view = matx::Identity;

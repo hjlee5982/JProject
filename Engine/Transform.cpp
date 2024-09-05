@@ -34,7 +34,7 @@ void Transform::SetPosition(const vec3& position)
 
 void Transform::SetRotation(const vec3& rotation)
 {
-	_rotation = rotation;
+	_rotation = vec3(ToRad(rotation.x), ToRad(rotation.y), ToRad(rotation.z));
 	TransformUpdate();
 }
 

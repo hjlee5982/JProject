@@ -54,7 +54,7 @@ public:
 	}
 	vec3 GetRotation()
 	{
-		return _rotation;
+		return vec3(ToDeg(_rotation.x), ToDeg(_rotation.y), ToDeg(_rotation.z));
 	}
 	vec3 GetScale()
 	{

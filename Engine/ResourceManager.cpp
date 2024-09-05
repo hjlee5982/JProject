@@ -11,12 +11,11 @@ void ResourceManager::Init()
 
 
 	// 엔진에서 사용될 리소스들 로드
-	RESOURCE->Load<Texture>(L"BoxIcon",   L"../Resources/Icon/box.png");
-	RESOURCE->Load<Texture>(L"SceneIcon", L"../Resources/Icon/scene.png");
-
-
-
-
+	RESOURCE->Load<Texture>(L"BoxIcon",          L"../Resources/Icon/box.png");
+	RESOURCE->Load<Texture>(L"SceneIcon",        L"../Resources/Icon/scene.png");
+	RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Resources/Icon/coordinate.png");
+	RESOURCE->Load<Texture>(L"CameraIcon",       L"../Resources/Icon/camera.png");
+	RESOURCE->Load<Texture>(L"MeshRendererIcon", L"../Resources/Icon/meshrenderer.png");
 
 	JLOG_INIT("Resource Init Complete");
 }

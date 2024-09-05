@@ -15,7 +15,6 @@ private:
 	ComPtr<ID3D11ShaderResourceView> _icon;
 private:
 	HashMap<string, bool> _selected;
-	HashMap<string, ComPtr<ID3D11ShaderResourceView>> _icons;
 	bool _on = true;
 };
 

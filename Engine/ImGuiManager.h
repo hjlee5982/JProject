@@ -10,13 +10,9 @@ public:
 	void RenderEnd();
 	void Shutdown();
 private:
-	void DockingSpace();
-public:
-	void SetState(sptr<GameObject> go);
-public:
-	void Notify();
-private:
 	vector<sptr<class ImWindow>> _windows;
+public:
+	void Notify(sptr<GameObject> go);
 private:
 	sptr<GameObject> _go;
 };
