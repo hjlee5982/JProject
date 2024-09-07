@@ -85,7 +85,7 @@ void ImGuiManager::RenderBegin()
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
     ImGui::Begin("DockingSpace", nullptr, window_flags);
-    ImGui::PopStyleVar();
+    ImGui::PopStyleVar(1);
     ImGui::PopStyleVar(2);
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -93,6 +93,47 @@ void ImGuiManager::RenderBegin()
     {
         ImGuiID dockspace_id = ImGui::GetID("DockSpace");
         ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+    }
+
+    if (ImGui::BeginMenuBar())
+    {
+        if (ImGui::BeginMenu("Menu1"))
+        {
+            ImGui::MenuItem("Item1");
+            ImGui::MenuItem("Item2");
+            ImGui::MenuItem("Item3");
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Menu2"))
+        {
+            ImGui::MenuItem("Item4");
+            ImGui::MenuItem("Item5");
+            ImGui::MenuItem("Item6");
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Menu3"))
+        {
+            ImGui::MenuItem("Item7");
+            ImGui::MenuItem("Item8");
+            ImGui::MenuItem("Item9");
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Menu4"))
+        {
+            ImGui::MenuItem("Item10");
+            ImGui::MenuItem("Item20");
+            ImGui::MenuItem("Item30");
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Menu5"))
+        {
+            ImGui::MenuItem("Item100");
+            ImGui::MenuItem("Item200");
+            ImGui::MenuItem("Item300");
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMenuBar();
     }
 
     ImGui::End();

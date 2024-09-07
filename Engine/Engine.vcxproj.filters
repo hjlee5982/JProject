@@ -13,9 +13,6 @@
     <Filter Include="Engine\98. Utils">
       <UniqueIdentifier>{655c7455-88bf-4c62-a286-e2dbf3a6af9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\98. Utils\ImGui">
-      <UniqueIdentifier>{77f9a00d-33e8-411b-9e4d-b97ce1926dc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\01. Game">
       <UniqueIdentifier>{bbe6a555-bb73-4cf1-bb73-4b83d8d3b903}</UniqueIdentifier>
     </Filter>
@@ -52,11 +49,26 @@
     <Filter Include="Engine\00. Core\02. Resources">
       <UniqueIdentifier>{17d69611-ec43-4f3c-89c8-0deb1c289fe2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\98. Utils\rapidjson">
+    <Filter Include="Engine\98. Utils\External">
+      <UniqueIdentifier>{08ad95bc-f0e4-44d4-bffa-5e196e600b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\98. Utils\External\ImGui">
+      <UniqueIdentifier>{77f9a00d-33e8-411b-9e4d-b97ce1926dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\98. Utils\External\ImGui\Lib">
+      <UniqueIdentifier>{e98310a8-a053-494d-935e-14b37f32fb67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\98. Utils\External\ImGui\User">
+      <UniqueIdentifier>{82ce8db4-a704-4f40-8018-66cef61237df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\98. Utils\External\rapidjson">
       <UniqueIdentifier>{f6f3a1a6-7ad9-40a1-9a26-dac67fb4687e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\98. Utils\ImGui\Lib">
-      <UniqueIdentifier>{e98310a8-a053-494d-935e-14b37f32fb67}</UniqueIdentifier>
+    <Filter Include="Engine\98. Utils\Internal">
+      <UniqueIdentifier>{96da6c96-75de-4940-8e98-e176ffc15e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\98. Utils\External\SimpleMath">
+      <UniqueIdentifier>{13c3aa6a-ece9-4ed3-bab7-754474f5cf34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,21 +80,6 @@
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Engine\99. Header</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleMath.h">
-      <Filter>Engine\98. Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Engine\98. Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Exception.h">
-      <Filter>Engine\98. Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Engine\98. Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGuiManager.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="DirectX11.h">
       <Filter>Engine\00. Core</Filter>
@@ -166,7 +163,7 @@
       <Filter>Engine\00. Core\02. Resources</Filter>
     </ClInclude>
     <ClInclude Include="JsonData.h">
-      <Filter>Engine\98. Utils\rapidjson</Filter>
+      <Filter>Engine\98. Utils\External\rapidjson</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderer.h">
       <Filter>Engine\01. Game\01. Component</Filter>
@@ -180,53 +177,32 @@
     <ClInclude Include="DeferredBuffer.h">
       <Filter>Engine\00. Core\01. Rendering\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="JLog.h">
-      <Filter>Engine\98. Utils</Filter>
-    </ClInclude>
     <ClInclude Include="IObject.h">
       <Filter>Engine\01. Game</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imgui.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_win32.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imstb_rectpack.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imstb_textedit.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="ImWindow.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImScene.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImConsole.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImInspector.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImProject.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Imhierarchy.h">
-      <Filter>Engine\98. Utils\ImGui</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">
       <Filter>Engine\01. Game</Filter>
@@ -243,25 +219,46 @@
     <ClInclude Include="Sphere.h">
       <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="ImConsole.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiManager.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="Imhierarchy.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="ImInspector.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="ImProject.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="ImScene.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="ImWindow.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="JLog.h">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Engine\98. Utils\External\SimpleMath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Pch</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleMath.cpp">
-      <Filter>Engine\98. Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Engine\98. Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Exception.cpp">
-      <Filter>Engine\98. Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Engine\98. Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuiManager.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="DirectX11.cpp">
       <Filter>Engine\00. Core</Filter>
@@ -345,7 +342,7 @@
       <Filter>Engine\00. Core\02. Resources</Filter>
     </ClCompile>
     <ClCompile Include="JsonData.cpp">
-      <Filter>Engine\98. Utils\rapidjson</Filter>
+      <Filter>Engine\98. Utils\External\rapidjson</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>Engine\01. Game\01. Component</Filter>
@@ -359,50 +356,29 @@
     <ClCompile Include="DeferredBuffer.cpp">
       <Filter>Engine\00. Core\01. Rendering\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="JLog.cpp">
-      <Filter>Engine\98. Utils</Filter>
-    </ClCompile>
     <ClCompile Include="IObject.cpp">
       <Filter>Engine\01. Game</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="imgui_tables.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Engine\98. Utils\ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="ImWindow.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImConsole.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImInspector.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImProject.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImScene.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Imhierarchy.cpp">
-      <Filter>Engine\98. Utils\ImGui</Filter>
+      <Filter>Engine\98. Utils\External\ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Engine\01. Game</Filter>
@@ -419,11 +395,42 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Engine\01. Game\02. GameObject</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SimpleMath.inl">
-      <Filter>Engine\98. Utils</Filter>
-    </None>
+    <ClCompile Include="ImConsole.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiManager.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="Imhierarchy.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="ImInspector.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="ImProject.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="ImScene.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="ImWindow.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="JLog.cpp">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Engine\98. Utils\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>Engine\98. Utils\External\SimpleMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\Default.fx">
@@ -438,5 +445,10 @@
     <FxCompile Include="..\Shaders\Water.fx">
       <Filter>Engine\00. Core\01. Rendering\Shaders\FX</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl">
+      <Filter>Engine\98. Utils\External\SimpleMath</Filter>
+    </None>
   </ItemGroup>
 </Project>

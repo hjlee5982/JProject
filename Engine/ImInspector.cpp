@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ImInspector.h"
+#include "MeshRenderer.h"
 
 void ImInspector::Init()
 {
@@ -139,7 +140,90 @@ void ImInspector::RenderMeshRendererInspector()
 
 	if (ImGui::TreeNodeEx("MeshRenderer", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::Text("This is MeshRendrer Component");
+		{
+			ImGui::Text("RenderType");
+			ImGui::SameLine();
+			ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+
+			const i8* items[] = { "Color", "Diffuse"};
+			i32 item_current_idx = static_cast<i32>(_go->GetMeshRenderer()->GetTechnique());
+			
+			const i8* combo_preview_value = items[item_current_idx];
+
+			if (ImGui::BeginCombo("Color", combo_preview_value))
+			{
+				for (i32 n = 0; n < IM_ARRAYSIZE(items); n++)
+				{
+					const bool is_selected = (item_current_idx == n);
+
+					if (ImGui::Selectable(items[n], is_selected))
+					{
+						item_current_idx = n;
+						
+						_go->GetMeshRenderer()->SetTech(static_cast<TECH>(item_current_idx));
+
+						
+					}
+					if (is_selected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+				ImGui::EndCombo();
+			}
+		}
+		{
+			i32 item_current_idx = static_cast<i32>(_go->GetMeshRenderer()->GetTechnique());
+
+			bool disable = true;
+
+			// 0 == false
+			// 1 == true
+			ImGui::BeginDisabled(static_cast<bool>(static_cast<i32>(_go->GetMeshRenderer()->GetTechnique())));
+
+			Color color = _go->GetMeshRenderer()->GetColor();
+			float fColor[4] = { color.x,color.y ,color.z ,color.w };
+
+			ImGui::Text("Color");
+			ImGui::SameLine();
+			ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+			ImGui::ColorEdit4("##Color", fColor);
+
+			_go->GetMeshRenderer()->SetColor(Color(fColor[0], fColor[1], fColor[2], fColor[3]));
+
+			ImGui::EndDisabled();
+		}
+		{
+			ImGui::Text("FillMode");
+			ImGui::SameLine();
+			ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+
+			const i8* items[] = { "None", "WireFrame"};
+			i32 item_current_idx = static_cast<i32>(_go->GetMeshRenderer()->GetPass());
+
+			const i8* combo_preview_value = items[item_current_idx];
+
+			if (ImGui::BeginCombo("FillMode", combo_preview_value))
+			{
+				for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+				{
+					const bool is_selected = (item_current_idx == n);
+
+					if (ImGui::Selectable(items[n], is_selected))
+					{
+						item_current_idx = n;
+
+						_go->GetMeshRenderer()->SetPass(static_cast<PASS>(item_current_idx));
+					}
+					if (is_selected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+				ImGui::EndCombo();
+			}
+		}
+
 		ImGui::TreePop();
 	}
 }

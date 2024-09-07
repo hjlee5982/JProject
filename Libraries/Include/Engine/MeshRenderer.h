@@ -13,6 +13,39 @@ public:
 	MeshRenderer();
 	virtual ~MeshRenderer() = default;
 public:
+	sptr<Mesh> GetMesh()
+	{
+		return _mesh;
+	}
+	sptr<Shader> GetShader()
+	{
+		return _shader;
+	}
+	sptr<Texture> GetTexture()
+	{
+		return _texture;
+	}
+	sptr<Material> GetMaterial()
+	{
+		return _material;
+	}
+	TECH GetTechnique()
+	{
+		return static_cast<TECH>(_tech);
+	}
+	PASS GetPass()
+	{
+		return static_cast<PASS>(_pass);
+	}
+	Color GetColor()
+	{
+		return _color;
+	}
+	bool GetLightSwitch()
+	{
+		return static_cast<bool>(_lightSwitch);
+	}
+public:
 	void SetMesh(sptr<Mesh> mesh)
 	{
 		_mesh = mesh;

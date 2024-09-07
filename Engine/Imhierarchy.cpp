@@ -30,10 +30,14 @@ void Imhierarchy::Update()
 
 			if (ImGui::Selectable(name.c_str(), _selected[name]))
 			{
-				for (auto& select : _selected)
+				for (auto& [name, select] : _selected)
+				{
+					select = false;
+				}
+				/*for (auto& select : _selected)
 				{
 					select.second = false;
-				}
+				}*/
 
 				_selected[name] = !_selected[name];
 

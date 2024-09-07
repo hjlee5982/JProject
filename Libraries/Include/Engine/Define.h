@@ -38,25 +38,12 @@ public:										\
 #define OBJECT   GET_SINGLETON(GameObjectManager)
 //#define RENDERER GET_SINGLETON(Renderer)
 #define RESOURCE GET_SINGLETON(ResourceManager)
-//
+
+
 //#define CHECK(p)	assert(SUCCEEDED(p))
-//
-//#define ToRad(value) XMConvertToRadians(value)
 
-enum class TECH
-{
-	COLOR,
-	DIFFUSE,
-};
-
-enum class PASS
-{
-	NONE,
-	WIREFRAME
-};
-
-#define ToDeg(x) x * 180.f / 3.14f
-#define ToRad(x) x * 3.14f / 180.f
+#define ToDeg(value) XMConvertToDegrees(value)
+#define ToRad(value) XMConvertToRadians(value)
 
 #define JCLASS(classType)																			 \
 		bool registered_##classType =																 \
