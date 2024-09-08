@@ -16,9 +16,9 @@ Camera::Camera(f32 Near, f32 Far, f32 Fov)
 
 void Camera::Update()
 {
+	_view = SView = GetOwnerTransform()->GetWorldInv();
 	_proj = SProj = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
 
-	_view = SView = GetOwnerTransform()->GetWorldInv();
 
 	//auto owner = GetOwnerTransform();
 	//_view = SView = ::XMMatrixLookAtLH(owner->GetPosition(),owner->GetPosition() + owner->GetLook(), owner->GetUp());

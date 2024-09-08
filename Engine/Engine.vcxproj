@@ -152,6 +152,7 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DeferredBuffer.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DirectX11.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="FreeCamera.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="JLog.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
@@ -214,6 +216,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DeferredBuffer.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DirectX11.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
@@ -259,6 +262,7 @@
     <ClCompile Include="JLog.cpp" />
     <ClCompile Include="JsonData.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />

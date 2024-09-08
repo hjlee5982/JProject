@@ -7,6 +7,7 @@ class Shader;
 struct SwitchDesc
 {
 	i32 lightSwitch = 1;
+private:
 	i32 padding1;
 	i32 padding2;
 	i32 padding3;
@@ -37,6 +38,7 @@ struct LightDesc
 	Color emissive = Color(1.f, 1.f, 1.f, 1.f);
 
 	vec3  direction;
+private:
 	float padding0;
 };
 
@@ -57,6 +59,7 @@ struct WaterDesc
 {
 	f32 waterTranslation    = 0.f;
 	f32 reflectRefractScale = 0.f;
+private:
 	f32 padding1;
 	f32 padding2;
 };

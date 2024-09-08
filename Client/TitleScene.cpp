@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "Earth.h"
 #include "Sphere.h"
+#include "DirectionalLight.h"
 
 void TitleScene::Init()
 {
@@ -23,17 +24,13 @@ void TitleScene::Init()
 
 
 
-
-
-
-
-
-	OBJECT->AddGameObject<Earth>("Earth");
-
+	OBJECT->AddGameObject<Earth>("Rectangle");
+	
 	sptr<Sphere> s = makeSptr<Sphere>();
-	OBJECT->AddGameObject(s, "TestObj");
+	OBJECT->AddGameObject(s, "TestSphere");
 	s->GetTransform()->SetPosition(vec3(-5.f, 2.f, 0.f));
 
+	OBJECT->AddGameObject(makeSptr<DirectionalLight>(), "DirectionalLight");
 }
 
 void TitleScene::Update()

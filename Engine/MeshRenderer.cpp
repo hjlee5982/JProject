@@ -26,9 +26,25 @@ void MeshRenderer::Render()
 	}
 	
 	auto ownerWorld = GetOwnerTransform()->GetWorld();
+
+	auto& lightObjs = OBJECT->GetLightObj();
+
 	LightDesc lDesc;
 	{
-		lDesc.direction = vec3(1.f, -1.f, 1.f);
+		for (auto& lightObj : lightObjs)
+		{
+			auto light = lightObj->GetLight();
+
+			if (light->GetLightType() == Light::ELightType::DIRECTION)
+			{
+				lDesc.ambient  = light->GetAmbient();
+				lDesc.diffuse  = light->GetDiffuse();
+				lDesc.specular = light->GetSpecular();
+				lDesc.emissive = light->GetEmissive();
+				
+				lDesc.direction = light->GetDirection();
+			}
+		}
 	}
 	MaterialDesc mDesc;
 	{

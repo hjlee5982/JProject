@@ -41,7 +41,8 @@ void ImInspector::Update()
 				case EComponentType::SCRIPT:
 					RenderScriptInspector();
 					break;
-
+				case EComponentType::LIGHT:
+					RenderLightInspector();
 					// Component 종류마다 추가
 					// RenderXXXInspector();
 
@@ -65,13 +66,13 @@ void ImInspector::RenderTransformInspector()
 	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		auto pos = _go->GetTransform()->GetPosition();
-		float fpos[3] = { pos.x, pos.y, pos.z };
+		f32 fpos[3] = { pos.x, pos.y, pos.z };
 
 		auto rotation = _go->GetTransform()->GetRotation();
-		float frot[3] = { rotation.x, rotation.y, rotation.z };
+		f32 frot[3] = { rotation.x, rotation.y, rotation.z };
 
 		auto scale = _go->GetTransform()->GetScale();
-		float fscale[3] = { scale.x, scale.y, scale.z };
+		f32 fscale[3] = { scale.x, scale.y, scale.z };
 
 		ImGui::Text("Position");
 		ImGui::SameLine();
@@ -110,20 +111,21 @@ void ImInspector::RenderCameraInspector()
 		ImGui::Text("Near");
 		ImGui::SameLine();
 		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat("##Near", &Near, 0.01f, 0.01f, 10.f);
+		ImGui::DragFloat("##Near", &Near, 0.01f, 0.01f, 0.5f, "%.2f");
 
 		ImGui::Text("Far");
 		ImGui::SameLine();
 		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat("##Far",  &Far, 1.f, 1.f, 3000.f);
+		ImGui::DragFloat("##Far",  &Far, 1.f, 1.f, 3000.f, "%.0f");
 
 		ImGui::Text("Fov");
 		ImGui::SameLine();
 		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat("##Fov",  &Fov);
+		ImGui::DragFloat("##Fov",  &Fov, 1.f, 1.f, 720.f, "%.0f");
 		
 		if (Near <= 0.01f) Near = 0.01f;
 		if (Far  <= 1.f)   Far  = 1.f;
+		if (Fov  <= 1.f)   Fov  = 1.f;
 
 		_go->GetCamera()->SetNear(Near);
 		_go->GetCamera()->SetFar(Far);
@@ -182,7 +184,7 @@ void ImInspector::RenderMeshRendererInspector()
 			ImGui::BeginDisabled(static_cast<bool>(static_cast<i32>(_go->GetMeshRenderer()->GetTechnique())));
 
 			Color color = _go->GetMeshRenderer()->GetColor();
-			float fColor[4] = { color.x,color.y ,color.z ,color.w };
+			f32 fColor[4] = { color.x,color.y ,color.z ,color.w };
 
 			ImGui::Text("Color");
 			ImGui::SameLine();
@@ -236,6 +238,63 @@ void ImInspector::RenderScriptInspector()
 	if (ImGui::TreeNodeEx("Script", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::Text("This is Script Component");
+		ImGui::TreePop();
+	}
+}
+
+void ImInspector::RenderLightInspector()
+{
+	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"LightIcon")->GetSRV().Get()), ImVec2(16, 16));
+	ImGui::SameLine();
+
+	if (ImGui::TreeNodeEx("Light", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		auto light = _go->GetLight();
+
+		auto direction = light->GetDirection();
+		auto diffuse   = light->GetDiffuse();
+		auto ambient   = light->GetAmbient();
+		auto specular  = light->GetSpecular();
+		auto emissive  = light->GetEmissive();
+
+		f32 fdirection[3] = { direction.x, direction.y, direction.z };
+		f32 fdiffuse  [4] = { diffuse  .x * 255.f, diffuse.  y * 255.f, diffuse.  z * 255.f, diffuse. w * 255.f };
+		f32 fambient  [4] = { ambient  .x * 255.f, ambient.  y * 255.f, ambient.  z * 255.f, ambient. w * 255.f };
+		f32 fspecular [4] = { specular .x * 255.f, specular. y * 255.f, specular. z * 255.f, specular.w * 255.f };
+		f32 femissive [4] = { emissive .x * 255.f, emissive. y * 255.f, emissive. z * 255.f, emissive.w * 255.f };
+
+		ImGui::Text("Direction");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat3("##Direction", fdirection, 0.1f);
+
+		ImGui::Text("Diffuse");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat4("##Diffuse", fdiffuse, 1.f, 0.f, 255.f, "%.0f");
+
+		ImGui::Text("Ambient");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat4("##Ambient", fambient, 1.f, 0.f, 255.f, "%.0f");
+
+		ImGui::Text("Specular");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat4("##Specular", fspecular, 1.f, 0.f, 255.f, "%.0f");
+
+		ImGui::Text("Emissive");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat4("##Scale", femissive, 1.f, 0.f, 255.f, "%.0f");
+		
+
+		light->SetDirection(vec3 (fdirection[0], fdirection[1], fdirection[2]));
+		light->SetDiffuse  (Color(fdiffuse  [0] / 255.f, fdiffuse  [1] / 255.f, fdiffuse  [2] / 255.f, fdiffuse [3] / 255.f));
+		light->SetAmbient  (Color(fambient  [0] / 255.f, fambient  [1] / 255.f, fambient  [2] / 255.f, fambient [3] / 255.f));
+		light->SetSpecular (Color(fspecular [0] / 255.f, fspecular [1] / 255.f, fspecular [2] / 255.f, fspecular[3] / 255.f));
+		light->SetEmissive (Color(femissive [0] / 255.f, femissive [1] / 255.f, femissive [2] / 255.f, femissive[3] / 255.f));
+
 		ImGui::TreePop();
 	}
 }

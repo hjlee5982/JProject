@@ -53,7 +53,13 @@ void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 	go->Init();
 	go->SetClass(Utils::ExtractClassName(typeid(*go).name()));
 	go->SetName(name);
-	
+
+	// Light Ä³½Ì
+	if (go->GetLight() != nullptr)
+	{
+		_lights.push_back(go);
+	}
+
 	GameObject::ELayerType layerType = go->GetLayerType();
 	
 	auto findit = _layers.find(layerType);

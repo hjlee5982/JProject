@@ -32,6 +32,13 @@ sptr<Camera> GameObject::GetCamera()
 	return static_pointer_cast<Camera>(component);
 }
 
+sptr<class Light> GameObject::GetLight()
+{
+	auto component = GetComponent(EComponentType::LIGHT);
+
+	return static_pointer_cast<Light>(component);
+}
+
 sptr<MeshRenderer> GameObject::GetMeshRenderer()
 {
 	auto component = GetComponent(EComponentType::MESHRENDERER);

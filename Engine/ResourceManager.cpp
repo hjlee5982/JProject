@@ -16,6 +16,7 @@ void ResourceManager::Init()
 	RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Resources/Icon/coordinate.png");
 	RESOURCE->Load<Texture>(L"CameraIcon",       L"../Resources/Icon/camera.png");
 	RESOURCE->Load<Texture>(L"MeshRendererIcon", L"../Resources/Icon/meshrenderer.png");
+	RESOURCE->Load<Texture>(L"LightIcon",		 L"../Resources/Icon/bulb.png");
 
 	JLOG_INIT("Resource Init Complete");
 }

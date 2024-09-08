@@ -2,6 +2,7 @@
 
 #include "ObjectFactory.h"
 #include "Layer.h"
+#include "Light.h"
 
 class GameObjectManager
 {
@@ -27,8 +28,16 @@ public:
 private:
 	HashMap<GameObject::ELayerType, sptr<Layer>> _layers;
 	vector<sptr<GameObject>> _gameObjectRef;
+private:
+	// Light Ä³½Ì
+	vector<sptr<GameObject>> _lights;
+public:
+	vector<sptr<GameObject>>& GetLightObj()
+	{
+		return _lights;
+	}
 };
-//
+
 template<class T>
 void GameObjectManager::AddGameObject(const string& name)
 {

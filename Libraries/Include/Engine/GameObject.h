@@ -58,6 +58,7 @@ public:
 public:
 	sptr<class Transform>    GetTransform();
 	sptr<class Camera>       GetCamera();
+	sptr<class Light>		 GetLight();
 	sptr<class MeshRenderer> GetMeshRenderer();
 public:
 	array<sptr<Component>, COMPONENT_TYPE_COUNT>& GetComponents()

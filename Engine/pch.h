@@ -113,7 +113,7 @@ using namespace Microsoft::WRL;
 #include "Texture.h"
 #include "Mesh.h"
 #include "Material.h"
-//#include "Light.h"
+#include "Light.h"
 
 #include "ImGuiManager.h"
 #include "InputManager.h"

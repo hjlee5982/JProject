@@ -2,8 +2,16 @@
 
 #include "Component.h"
 
+
+
 class Camera : public Component
 {
+public:
+	enum class ECameraType
+	{
+		PERSPECTIVE,
+		ORTHOGONAL
+	};
 public:
 	Camera(f32 Near, f32 Far, f32 Fov);
 	virtual ~Camera() = default;

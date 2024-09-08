@@ -13,14 +13,8 @@
     <Filter Include="Client\01. GameObject">
       <UniqueIdentifier>{5e418c14-dbaf-43b9-857e-c60e0ebb6468}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Client\01. GameObject\Dbg">
-      <UniqueIdentifier>{9851ffd3-a4b8-40cf-a793-4ec295639676}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Client\01. GameObject\Skydome">
+    <Filter Include="Client\01. GameObject\Temp">
       <UniqueIdentifier>{f9bd669c-d68d-42d2-a8ee-ef396dc67aa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Client\01. GameObject\Planets">
-      <UniqueIdentifier>{d886fc5c-f67a-4f23-8069-af6e8c3df523}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,23 +30,23 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Client\00. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="DbgBox.cpp">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClCompile>
-    <ClCompile Include="DbgSphere.cpp">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClCompile>
-    <ClCompile Include="DbgGrid.cpp">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClCompile>
     <ClCompile Include="Earth.cpp">
-      <Filter>Client\01. GameObject\Planets</Filter>
-    </ClCompile>
-    <ClCompile Include="Sun.cpp">
-      <Filter>Client\01. GameObject\Planets</Filter>
+      <Filter>Client\01. GameObject\Temp</Filter>
     </ClCompile>
     <ClCompile Include="Moon.cpp">
-      <Filter>Client\01. GameObject\Planets</Filter>
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="Sun.cpp">
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgBox.cpp">
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgGrid.cpp">
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="DbgSphere.cpp">
+      <Filter>Client\01. GameObject\Temp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,23 +59,23 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Client\00. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DbgBox.h">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClInclude>
-    <ClInclude Include="DbgSphere.h">
-      <Filter>Client\01. GameObject\Dbg</Filter>
-    </ClInclude>
-    <ClInclude Include="DbgGrid.h">
-      <Filter>Client\01. GameObject\Dbg</Filter>
+    <ClInclude Include="Sun.h">
+      <Filter>Client\01. GameObject\Temp</Filter>
     </ClInclude>
     <ClInclude Include="Earth.h">
-      <Filter>Client\01. GameObject\Planets</Filter>
-    </ClInclude>
-    <ClInclude Include="Sun.h">
-      <Filter>Client\01. GameObject\Planets</Filter>
+      <Filter>Client\01. GameObject\Temp</Filter>
     </ClInclude>
     <ClInclude Include="Moon.h">
-      <Filter>Client\01. GameObject\Planets</Filter>
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgSphere.h">
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgBox.h">
+      <Filter>Client\01. GameObject\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="DbgGrid.h">
+      <Filter>Client\01. GameObject\Temp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,9 @@ enum class EComponentType : u8
 {
 	TRANSFORM,
 	CAMERA,
+	LIGHT,
 	MESHRENDERER,
+
 
 	SCRIPT,
 	// etc..
