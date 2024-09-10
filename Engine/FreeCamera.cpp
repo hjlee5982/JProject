@@ -37,9 +37,12 @@ void FreeCamera::Init()
 
 void FreeCamera::Update()
 {
+	
+
+
 	auto transform = GetTransform();
 
-	if (INPUT->KeyPress(RBTN))
+	if (INPUT->KeyPress(RBTN) && GUI->GetFocusedWindow() == "Scene")
 	{
 		// 마우스 중앙 고정
 		//POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };

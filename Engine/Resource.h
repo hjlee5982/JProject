@@ -27,6 +27,8 @@ protected:
 public:
 	virtual void MakeJson(sptr<JsonData> data) override {};
 	virtual void LoadJson(sptr<JsonData> data) override {};
+public:
+	virtual Value MakeJson(Document::AllocatorType& allocator) override { return Value(); };
 };
 
 

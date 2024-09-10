@@ -9,6 +9,7 @@ void ImInspector::Init()
 void ImInspector::Update()
 {
 	ImGui::Begin("Inspector");
+	IMFOCUS("Inspector");
 
 	if (_go != nullptr)
 	{
@@ -43,7 +44,9 @@ void ImInspector::Update()
 					break;
 				case EComponentType::LIGHT:
 					RenderLightInspector();
+
 					// Component 종류마다 추가
+					// case EComponentType::COMPONENT
 					// RenderXXXInspector();
 
 				default:
@@ -181,19 +184,22 @@ void ImInspector::RenderMeshRendererInspector()
 
 			// 0 == false
 			// 1 == true
-			ImGui::BeginDisabled(static_cast<bool>(static_cast<i32>(_go->GetMeshRenderer()->GetTechnique())));
+			//ImGui::BeginDisabled(static_cast<bool>(static_cast<i32>(_go->GetMeshRenderer()->GetTechnique())));
+			
+			if (static_cast<i32>(_go->GetMeshRenderer()->GetTechnique()) == 0)
+			{
+				Color color = _go->GetMeshRenderer()->GetColor();
+				f32 fColor[4] = { color.x,color.y ,color.z ,color.w };
 
-			Color color = _go->GetMeshRenderer()->GetColor();
-			f32 fColor[4] = { color.x,color.y ,color.z ,color.w };
+				ImGui::Text("Color");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::ColorEdit4("##Color", fColor);
 
-			ImGui::Text("Color");
-			ImGui::SameLine();
-			ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-			ImGui::ColorEdit4("##Color", fColor);
+				_go->GetMeshRenderer()->SetColor(Color(fColor[0], fColor[1], fColor[2], fColor[3]));
+			}
 
-			_go->GetMeshRenderer()->SetColor(Color(fColor[0], fColor[1], fColor[2], fColor[3]));
-
-			ImGui::EndDisabled();
+			//ImGui::EndDisabled();
 		}
 		{
 			ImGui::Text("FillMode");

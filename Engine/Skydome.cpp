@@ -90,3 +90,39 @@ void Skydome::Render()
 	CONTEXT->RSSetState(nullptr);
 	CONTEXT->OMSetDepthStencilState(nullptr, 1);
 }
+
+Value Skydome::MakeJson(Document::AllocatorType& allocator)
+{
+	Value object(kObjectType);
+	{
+		// 모두가 공통으로 가지고 있는 정보
+		object.AddMember("class",    StringRef(GetClass().c_str()), allocator);
+		object.AddMember("name",     StringRef(GetName().c_str()), allocator);
+		object.AddMember("position", Utils::Vec3ToJsonArray(GetTransform()->GetPosition(), allocator), allocator);
+		object.AddMember("rotation", Utils::Vec3ToJsonArray(GetTransform()->GetRotation(), allocator), allocator);
+		object.AddMember("scale",    Utils::Vec3ToJsonArray(GetTransform()->GetScale(), allocator), allocator);
+
+		// 해당 클래스가 고유하게 가지고 있는 정보
+
+		// MeshRenderer
+		// 1. 어떤 모양으로 그릴 것인가 (Mesh)
+		// 2. 어떤 옵션으로 그릴 것인가 (Material)
+		//  ㄴ Material 안에는 Texture도 들어있다
+		//  ㄴ Shader도 들어있다
+		GetMeshRenderer()->GetMesh();
+		GetMeshRenderer()->GetMaterial();
+
+		// 이 객체는 조명연산을 할 것인가
+		// Solid하게 그릴 것인가 WireFrame으로 그릴 것인가
+		GetMeshRenderer()->GetLightSwitch();
+		GetMeshRenderer()->GetPass();
+		GetMeshRenderer()->GetTechnique();
+
+
+		// 이제 뭘 저장함?
+		// 그냥 변수야 저장하면 되는데 클래스를 저장할 수가 있나?
+		// object.AddMember("Mesh", )
+	}
+
+	return object;
+}

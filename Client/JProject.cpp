@@ -5,7 +5,7 @@
 
 void JProject::Init()
 {
-	SCENE->Init(makeSptr<TitleScene>());
+	SCENE->Init(makeSptr<TitleScene>(), "MainScene");
 }
 
 void JProject::Update()

@@ -1,0 +1,50 @@
+{
+    "objects": [
+        {
+            "class": "FreeCamera",
+            "name": "Camera",
+            "position": [
+                0.0,
+                3.0,
+                -10.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "Near": 0.10000000149011612,
+            "Far": 300.0,
+            "FOV": 60.0
+        },
+        {
+            "class": "Skydome",
+            "name": "Skydome",
+            "position": [
+                0.0,
+                3.0,
+                -10.0
+            ],
+            "rotation": [
+                0.0,
+                90.0,
+                0.0
+            ],
+            "scale": [
+                0.9999998807907104,
+                1.0,
+                0.9999998807907104
+            ]
+        },
+        null,
+        null,
+        null,
+        null,
+        null
+    ]
+}

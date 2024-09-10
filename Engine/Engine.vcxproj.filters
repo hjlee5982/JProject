@@ -207,7 +207,7 @@
     <ClInclude Include="ImGuiManager.h">
       <Filter>Engine\98. Utils\External\ImGui\User</Filter>
     </ClInclude>
-    <ClInclude Include="Imhierarchy.h">
+    <ClInclude Include="ImHierarchy.h">
       <Filter>Engine\98. Utils\External\ImGui\User</Filter>
     </ClInclude>
     <ClInclude Include="ImInspector.h">
@@ -275,6 +275,9 @@
     </ClInclude>
     <ClInclude Include="DirectionalLight.h">
       <Filter>Engine\01. Game\02. GameObject\02. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="ImDockSpace.h">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -389,7 +392,7 @@
     <ClCompile Include="ImGuiManager.cpp">
       <Filter>Engine\98. Utils\External\ImGui\User</Filter>
     </ClCompile>
-    <ClCompile Include="Imhierarchy.cpp">
+    <ClCompile Include="ImHierarchy.cpp">
       <Filter>Engine\98. Utils\External\ImGui\User</Filter>
     </ClCompile>
     <ClCompile Include="ImInspector.cpp">
@@ -457,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="DirectionalLight.cpp">
       <Filter>Engine\01. Game\02. GameObject\02. Default</Filter>
+    </ClCompile>
+    <ClCompile Include="ImDockSpace.cpp">
+      <Filter>Engine\98. Utils\External\ImGui\User</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

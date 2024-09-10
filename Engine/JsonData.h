@@ -23,6 +23,9 @@ class IJson
 public:
 	virtual void MakeJson(sptr<JsonData> data) = 0;
 	virtual void LoadJson(sptr<JsonData> data) = 0;
+	//TEMP
+public:
+	virtual Value MakeJson(Document::AllocatorType& allocator) = 0;
 public:
 	virtual ~IJson() = default;
 };

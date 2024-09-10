@@ -67,11 +67,11 @@ public:
 	}
 	void Draw(const char* title = "Log", bool* p_open = nullptr)
 	{
-		if (!ImGui::Begin(title, p_open))
-		{
-			ImGui::End();
-			return;
-		}
+		//if (!ImGui::Begin(title, p_open))
+		//{
+		//	ImGui::End();
+		//	return;
+		//}
 
 		if (ImGui::Button("Clear"))
 		{
@@ -121,7 +121,7 @@ public:
 		}
 
 		ImGui::EndChild();
-		ImGui::End();
+		//ImGui::End();
 	}
 private:
 	vector<LogMessage> _messages;

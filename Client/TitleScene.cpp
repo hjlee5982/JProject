@@ -3,6 +3,8 @@
 #include "Earth.h"
 #include "Sphere.h"
 #include "DirectionalLight.h"
+#include "FreeCamera.h"
+#include "Skydome.h"
 
 void TitleScene::Init()
 {
@@ -12,7 +14,7 @@ void TitleScene::Init()
 	// Texture	: Reflection SRV
 	// Shader	: WaterShader.fx
 
-	sptr<Texture> reflactionTexture = makeSptr<Texture>();
+	/*sptr<Texture> reflactionTexture = makeSptr<Texture>();
 	reflactionTexture->CreateTexture(1920, 1080);
 
 	sptr<Texture> reflectionTexture = makeSptr<Texture>();
@@ -28,14 +30,16 @@ void TitleScene::Init()
 	
 	sptr<Sphere> s = makeSptr<Sphere>();
 	OBJECT->AddGameObject(s, "TestSphere");
-	s->GetTransform()->SetPosition(vec3(-5.f, 2.f, 0.f));
+	s->GetTransform()->SetPosition(vec3(-5.f, 2.f, 0.f));*/
 
-	OBJECT->AddGameObject(makeSptr<DirectionalLight>(), "DirectionalLight");
+	OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Main Camera");
+	OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
+	OBJECT->AddGameObject(makeSptr<DirectionalLight>(), "Directional Light");
 }
 
 void TitleScene::Update()
 {
-	ImGui::Begin("TestWindow");
+	/*ImGui::Begin("TestWindow");
 	if (ImGui::Button("MakeJson"))
 	{
 		__super::MakeJson(nullptr);
@@ -47,7 +51,7 @@ void TitleScene::Update()
 
 		__super::LoadJson(nullptr);
 	}
-	ImGui::End();
+	ImGui::End();*/
 }
 
 void TitleScene::LateUpdate()

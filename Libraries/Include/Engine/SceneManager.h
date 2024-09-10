@@ -8,10 +8,17 @@ class SceneManager
 public:
 	void Init();
 public:
-	void Init(sptr<Scene> scene);
+	void Init(sptr<Scene> scene, const string& name);
 	void Update();
 	void LateUpdate();
 	void Render();
+public:
+	sptr<Scene> GetScene()
+	{
+		return _currentScene;
+	}
+public:
+	void SaveScene();
 private:
 	void ChangeScene(sptr<Scene> scene);
 private:

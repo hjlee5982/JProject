@@ -43,7 +43,7 @@ void Scene::MakeJson(sptr<JsonData> data)
 
 	string directory = "../Data/Scene";
 	Utils::CreateDirectoryIfNotExists(directory);
-	string filename = directory + "/Defaultjson.Jscene";
+	string filename = directory + "/" + _name + ".Jscene";
 
 	FILE* fp;
 	fopen_s(&fp, filename.c_str(), "wb");

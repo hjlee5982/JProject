@@ -15,5 +15,7 @@ public:
 private:
 	ComPtr<ID3D11RasterizerState>   _noRasterizerState   = nullptr;
 	ComPtr<ID3D11DepthStencilState> _noDepthStancilState = nullptr;
+public:
+	virtual Value MakeJson(Document::AllocatorType& allocator) override;
 };
 

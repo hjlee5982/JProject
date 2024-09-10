@@ -4,11 +4,13 @@
 
 void SceneManager::Init()
 {
-	LoadDefaultScene();
+	//LoadDefaultScene();
 }
 
-void SceneManager::Init(sptr<Scene> scene)
+void SceneManager::Init(sptr<Scene> scene, const string& name)
 {
+	scene->SetName(name);
+
 	ChangeScene(scene);
 
 	_currentScene->Init();
@@ -33,6 +35,11 @@ void SceneManager::Render()
 	_currentScene->Render();
 
 	OBJECT->Render();
+}
+
+void SceneManager::SaveScene()
+{
+	_currentScene->MakeJson(nullptr);
 }
 
 void SceneManager::ChangeScene(sptr<Scene> scene)

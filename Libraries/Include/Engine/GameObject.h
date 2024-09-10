@@ -14,6 +14,8 @@ public:
 public:
 	virtual void MakeJson(sptr<JsonData> data) override {};
 	virtual void LoadJson(sptr<JsonData> data) override {};
+public:
+	virtual Value MakeJson(Document::AllocatorType& allocator) override { return Value(); };
 };
 
 class GameObject : public IGameObject, public enable_shared_from_this<GameObject>
@@ -73,8 +75,5 @@ private:
 	ELayerType _layerType = ELayerType::DEFAULT;
 	string _class;
 	string _name;
-public:
-	virtual void MakeJson(sptr<JsonData> data) override;
-	virtual void LoadJson(sptr<JsonData> data) override;
 };
 

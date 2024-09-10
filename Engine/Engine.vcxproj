@@ -169,8 +169,9 @@
     <ClInclude Include="imgui_impl_dx11.h" />
     <ClInclude Include="imgui_impl_win32.h" />
     <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="Imhierarchy.h" />
+    <ClInclude Include="ImHierarchy.h" />
     <ClInclude Include="ImInspector.h" />
+    <ClInclude Include="ImDockSpace.h" />
     <ClInclude Include="ImProject.h" />
     <ClInclude Include="ImScene.h" />
     <ClInclude Include="imstb_rectpack.h" />
@@ -251,8 +252,9 @@
     <ClCompile Include="imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Imhierarchy.cpp" />
+    <ClCompile Include="ImHierarchy.cpp" />
     <ClCompile Include="ImInspector.cpp" />
+    <ClCompile Include="ImDockSpace.cpp" />
     <ClCompile Include="ImProject.cpp" />
     <ClCompile Include="ImScene.cpp" />
     <ClCompile Include="ImWindow.cpp" />

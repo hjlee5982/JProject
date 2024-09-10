@@ -2,10 +2,10 @@
 
 #include "ImWindow.h"
 
-class Imhierarchy : public ImWindow
+class ImHierarchy : public ImWindow
 {
 public:
-	virtual ~Imhierarchy() = default;
+	virtual ~ImHierarchy() = default;
 public:
 	virtual void Init()   override;
 	virtual void Update() override;
