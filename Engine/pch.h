@@ -89,6 +89,8 @@ using namespace Microsoft::WRL;
 
 
 // Utils *************************************************
+#include "filesystem"
+
 #include "Log.h"
 #include "JLog.h"
 #include "Exception.h"

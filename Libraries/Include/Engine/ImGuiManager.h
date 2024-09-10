@@ -30,6 +30,8 @@ public:
 	void RenderEnd();
 	void Shutdown();
 public:
+	void Image(const wstring& name, ImVec2 size = ImVec2(16, 16));
+public:
 	void AddWindows(sptr<class ImWindow> window, string name);
 public:
 	void SetFocusedWindow(const string& name)

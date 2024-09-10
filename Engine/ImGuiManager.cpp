@@ -14,7 +14,7 @@ void ImGuiManager::Init()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-    io.Fonts->AddFontFromFileTTF("../Resources/Font/Consolas.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("../Assets/Font/Consolas.ttf", 14.0f);
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -174,6 +174,12 @@ void ImGuiManager::Shutdown()
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
+}
+
+void ImGuiManager::Image(const wstring& name, ImVec2 size)
+{
+    ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(name)->GetSRV().Get()), size);
+    ImGui::SameLine();
 }
 
 void ImGuiManager::AddWindows(sptr<class ImWindow> window, string name)

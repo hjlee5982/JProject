@@ -4,7 +4,7 @@
 
 void SceneManager::Init()
 {
-	//LoadDefaultScene();
+	LoadDefaultScene();
 }
 
 void SceneManager::Init(sptr<Scene> scene, const string& name)

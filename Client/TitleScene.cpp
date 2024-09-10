@@ -32,9 +32,9 @@ void TitleScene::Init()
 	OBJECT->AddGameObject(s, "TestSphere");
 	s->GetTransform()->SetPosition(vec3(-5.f, 2.f, 0.f));*/
 
-	OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Main Camera");
-	OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
-	OBJECT->AddGameObject(makeSptr<DirectionalLight>(), "Directional Light");
+	//OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Main Camera");
+	//OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
+	//OBJECT->AddGameObject(makeSptr<DirectionalLight>(), "Directional Light");
 }
 
 void TitleScene::Update()

@@ -11,14 +11,15 @@ void ResourceManager::Init()
 
 
 	// 엔진에서 사용될 리소스들 로드
-	RESOURCE->Load<Texture>(L"BoxIcon",          L"../Resources/Icon/box.png");
-	RESOURCE->Load<Texture>(L"SceneIcon",        L"../Resources/Icon/scene.png");
-	RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Resources/Icon/coordinate.png");
-	RESOURCE->Load<Texture>(L"CameraIcon",       L"../Resources/Icon/camera.png");
-	RESOURCE->Load<Texture>(L"MeshRendererIcon", L"../Resources/Icon/meshrenderer.png");
-	RESOURCE->Load<Texture>(L"LightIcon",		 L"../Resources/Icon/bulb.png");
+	RESOURCE->Load<Texture>(L"BoxIcon",          L"../Assets/Icon/box.png");
+	RESOURCE->Load<Texture>(L"SceneIcon",        L"../Assets/Icon/scene.png");
+	RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Assets/Icon/coordinate.png");
+	RESOURCE->Load<Texture>(L"CameraIcon",       L"../Assets/Icon/camera.png");
+	RESOURCE->Load<Texture>(L"MeshRendererIcon", L"../Assets/Icon/meshrenderer.png");
+	RESOURCE->Load<Texture>(L"LightIcon",		 L"../Assets/Icon/bulb.png");
+	RESOURCE->Load<Texture>(L"FolderIcon",		 L"../Assets/Icon/folder.png");
 
-	JLOG_INIT("Resource Init Complete");
+	JLOG_INIT("Assets Init Complete");
 }
 
 sptr<Texture> ResourceManager::GetOrAddTexture(const wstring& key, const wstring& path)
@@ -68,7 +69,7 @@ void ResourceManager::CreateDefaultResources()
 	// Default Material
 	{
 		auto material = makeSptr<Material>();
-		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Resources/Textures/Skydome.png");
+		auto texture = RESOURCE->Load<Texture>(L"Skydome", L"../Assets/Textures/Skydome.png");
 
 		material->SetShader(defaultShader);
 		material->SetDiffuseMap(texture);

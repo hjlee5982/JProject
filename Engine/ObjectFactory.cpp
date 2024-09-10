@@ -10,11 +10,11 @@ void ObjectFactory::Init()
 {
 	// 기본 Scene에서 사용될 오브젝트들을 Factory에 등록
 	// ==> json에 기록된 type을 비교해서 객체를 생성함
-	FACTORY->RegisterObject("Camera",  []()->sptr<GameObject> { return makeSptr<FreeCamera>();       });
-	FACTORY->RegisterObject("Skydome", []()->sptr<GameObject> { return makeSptr<Skydome>();          });
+	FACTORY->RegisterObject("Main Camera",        []()->sptr<GameObject> { return makeSptr<FreeCamera>();       });
+	FACTORY->RegisterObject("Skydome",            []()->sptr<GameObject> { return makeSptr<Skydome>();          });
+	FACTORY->RegisterObject("Directional Light",  []()->sptr<GameObject> { return makeSptr<DirectionalLight>(); });
 	FACTORY->RegisterObject("Grid",    []()->sptr<GameObject> { return makeSptr<Grid>();             });
 	FACTORY->RegisterObject("Sphere",  []()->sptr<GameObject> { return makeSptr<Sphere>();           });
-	FACTORY->RegisterObject("DLight",  []()->sptr<GameObject> { return makeSptr<DirectionalLight>(); });
 }
 
 bool ObjectFactory::RegisterObject(const string& type, CreateObjectFunc func)

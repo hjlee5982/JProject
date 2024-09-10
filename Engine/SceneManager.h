@@ -22,7 +22,7 @@ public:
 private:
 	void ChangeScene(sptr<Scene> scene);
 private:
-	void LoadDefaultScene(const string& filename = "Default.Jscene");
+	void LoadDefaultScene(const string& filename = "MainScene.Jscene");
 private:
 	sptr<Scene> _currentScene = nullptr;
 };

@@ -19,8 +19,7 @@ void ImHierarchy::Update()
 	ImGui::Begin("Hierarchy");
 	IMFOCUS("Hierarchy");
 
-	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"SceneIcon")->GetSRV().Get()), ImVec2(16, 16));
-	ImGui::SameLine();
+	GUI->Image(L"SceneIcon");
 	if (ImGui::Selectable(scene->GetName().c_str(), true))
 	{
 		_on = !_on;
@@ -33,9 +32,7 @@ void ImHierarchy::Update()
 		{
 			string name = go->GetName();
 
-			ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"BoxIcon")->GetSRV().Get()), ImVec2(16, 16));
-			ImGui::SameLine();
-
+			GUI->Image(L"BoxIcon");
 			if (ImGui::Selectable(name.c_str(), _selected[name]))
 			{
 				for (auto& [name, select] : _selected)
@@ -51,8 +48,6 @@ void ImHierarchy::Update()
 
 				// Observer
 				GUI->Notify(go);
- 
-				//JLOG_INFO(name.c_str());
 			}
 		}
 		ImGui::Unindent(5.f);
