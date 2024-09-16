@@ -39,5 +39,10 @@ private:
 private:
 	sptr<VertexBuffer> _vertexBuffer;
 	sptr<IndexBuffer>  _indexBuffer;
+public:
+	// PBR TEMP ///////////////////////////////////
+	void CreateSpherePBR();
+	void CreateBuffersPBR();
+	sptr<Geometry<VertexPBR>> _geometryPBR;
 };
 

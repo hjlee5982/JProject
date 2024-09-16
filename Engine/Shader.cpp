@@ -446,6 +446,20 @@ void Shader::PushWaterData(const ReflectionDesc& desc1, const WaterDesc& desc2)
 	mWaterEffectBuffer->SetConstantBuffer(mWaterBuffer->GetComPtr().Get());
 }
 
+void Shader::PushPBRLightData(const PBRLightDesc& desc)
+{
+	if (nullptr == mPBRLightEffectBuffer)
+	{
+		mPBRLightBuffer = makeSptr<ConstantBuffer<PBRLightDesc>>();
+		mPBRLightBuffer->Create();
+		mPBRLightEffectBuffer = GetConstantBuffer("PBRLightBuffer");
+	}
+
+	mPBRLightDesc = desc;
+	mPBRLightBuffer->CopyData(mPBRLightDesc);
+	mPBRLightEffectBuffer->SetConstantBuffer(mPBRLightBuffer->GetComPtr().Get());
+}
+
 //void Shader::PushBoneData(const BoneDesc& desc)
 //{
 //	if(nullptr == mBoneEffectBuffer)

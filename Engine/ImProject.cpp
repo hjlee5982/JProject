@@ -24,7 +24,8 @@ void ImProject::Update()
 
         std::filesystem::path p("..\\Assets");
 
-        GUI->Image(L"FolderIcon");
+        GUI->Image(L"folder");
+        ImGui::SameLine();
         if (ImGui::TreeNode("Assets"))
         {
             if (ImGui::IsItemToggledOpen() || ImGui::IsItemClicked())
@@ -115,7 +116,8 @@ void ImProject::RenderFileExplorer(const std::filesystem::path& path)
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(-2, 0));
             ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 0));
 
-			GUI->Image(L"FolderIcon");
+			GUI->Image(L"folder");
+            ImGui::SameLine();
 			if (ImGui::TreeNode(file_path.filename().string().c_str()))
 			{
                 if (ImGui::IsItemToggledOpen() || ImGui::IsItemClicked())
@@ -140,24 +142,68 @@ void ImProject::RenderFileExplorer(const std::filesystem::path& path)
 
 void ImProject::RenderFolderItems()
 {
+    f32 icon_size    = 80.f;
+    f32 item_spacing = 10.f;
+    f32 text_height  = ImGui::GetTextLineHeightWithSpacing();
+
+    f32 max_name_width = icon_size;
+    
+    f32 max = ImGui::GetWindowContentRegionMax().x;
+    f32 min = ImGui::GetWindowContentRegionMin().x;
+
+    f32 window_visible = ImGui::GetWindowContentRegionMax().x - ImGui::GetWindowContentRegionMin().x;
+    i32 items_per_row  = static_cast<i32>(window_visible / (icon_size + item_spacing));
+    i32 item_count     = 0;
+
     std::filesystem::path p(_selectedPath);
 
     for (const auto& entry : std::filesystem::directory_iterator(p))
     {
         const std::filesystem::path& file_path = entry.path();
 
-        bool is_directory = std::filesystem::is_directory(file_path);
+        if (items_per_row != 0)
+        {
+            if (item_count > 0 && item_count % items_per_row != 0)
+            {
+                ImGui::SameLine();
+            }
+        }
 
-        if (is_directory == true)
+        wstring ext = Utils::ExtractExtension(file_path.filename().wstring());
+
+        ImGui::BeginGroup();
         {
-            
+            bool is_directory = std::filesystem::is_directory(file_path);
+
+            if (is_directory == true)
+            {
+                GUI->Image(L"folder", ImVec2(icon_size, icon_size));
+            }
+            else
+            {
+				GUI->Image(file_path.stem().wstring(), ImVec2(icon_size, icon_size));
+            }
+
+            // 가운데 정렬
+            f32 text_width = ImGui::CalcTextSize(file_path.stem().string().c_str()).x;
+            f32 cursor_x   = ImGui::GetCursorPosX();
+            if (text_width < max_name_width)
+            {
+                ImGui::SetCursorPosX(cursor_x + (icon_size - text_width) * 0.5f);
+            }
+
+            if (text_width > max_name_width)
+            {
+                string truncated_name(file_path.stem().string().c_str());
+                truncated_name = truncated_name.substr(0, 7) + "...";
+                ImGui::TextWrapped("%s", truncated_name.c_str());
+            }
+            else
+            {
+				ImGui::TextWrapped(file_path.stem().string().c_str());
+            }
         }
-        else
-        {
-            // 확장자 O
-            ImGui::Text("%s", file_path.filename().string().c_str());
-            // 확장자 X
-            //ImGui::Text("%s", file_path.stem().string().c_str());
-        }
+        ImGui::EndGroup();
+        item_count++;
     }
 }

@@ -20,5 +20,8 @@ public:
 	static void CreateCube(shared_ptr<Geometry<VertexTextureNormalTangentData>>   geometry);
 	static void CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 	static void CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>>   geometry, i32 sizeX, i32 sizeZ);
+public:
+	// PBR TEMP
+	static void CreateSpherePBR(sptr<Geometry<VertexPBR>> geometry);
 };
 

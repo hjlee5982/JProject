@@ -32,6 +32,9 @@ cbuffer GlobalBuffer
 /*  인풋값은 VertexData.h에 정의되어 있고
     GeometryHelper에서 정점,인덱스 등의 값을 설정하고
     그 값을 바탕으로 Mesh에서 버텍스버퍼, 인덱스버퍼를 만듬
+
+    VertexData.h에 정의된 struct 맴버 순서랑
+    아래 struct 맴버 순서가 일치해야됨
 */
 struct VertexTexture
 {

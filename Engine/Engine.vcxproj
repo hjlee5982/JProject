@@ -150,6 +150,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="DeferredBuffer.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DirectionalLight.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="DeferredBuffer.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DirectX11.cpp" />
@@ -314,6 +316,12 @@
       </EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\Temp.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Shaders\Water.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -67,5 +67,45 @@ private:
 	ComPtr<ID3DX11EffectShaderResourceVariable> _normalEffectBuffer;
 	ComPtr<ID3DX11EffectShaderResourceVariable> _specularEffectBuffer;
 	ComPtr<ID3DX11EffectShaderResourceVariable> _cubeEffectBuffer;
+
+	// PBR TEMP /////////////////////////////////////////////////////
+public:
+	sptr<Texture> _albedoPBR;
+	sptr<Texture> _normalPBR;
+	sptr<Texture> _metallicPBR;
+	sptr<Texture> _roughnessPBR;
+	sptr<Texture> _displacementPBR;
+	sptr<Texture> _aoPBR;
+	ComPtr<ID3DX11EffectShaderResourceVariable> _albedo_PBR_EffectBuffer;
+	ComPtr<ID3DX11EffectShaderResourceVariable> _normal_PBR_EffectBuffer;
+	ComPtr<ID3DX11EffectShaderResourceVariable> _metallic_PBR_EffectBuffer;
+	ComPtr<ID3DX11EffectShaderResourceVariable> _roughness_PBR_EffectBuffer;
+	ComPtr<ID3DX11EffectShaderResourceVariable> _displacement_PBR_EffectBuffer;
+	ComPtr<ID3DX11EffectShaderResourceVariable> _ao_PBR_EffectBuffer;
+	void SetShaderPBR(shared_ptr<Shader> shader);
+	void SetAlbedoPBRMap(sptr<Texture> albedoMap)
+	{
+		_albedoPBR = albedoMap;
+	}
+	void SetNormalPBRMap(sptr<Texture> normalMap)
+	{
+		_normalPBR = normalMap;
+	}
+	void SetMetallicPBRMap(sptr<Texture> metallicMap)
+	{
+		_metallicPBR = metallicMap;
+	}
+	void SetRoughNessPBRMap(sptr<Texture> roughnessMap)
+	{
+		_roughnessPBR = roughnessMap;
+	}
+	void SetDisplacementPBRMap(sptr<Texture> displacementMap)
+	{
+		_displacementPBR = displacementMap;
+	}
+	void SetAOPBRMap(sptr<Texture> aoMap)
+	{
+		_aoPBR = aoMap;
+	}
 };
 

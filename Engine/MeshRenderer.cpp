@@ -55,7 +55,30 @@ void MeshRenderer::Render()
 	_shader->PushColorData(_color);
 	_shader->PushTransformData(TransformDesc{ ownerWorld });
 	_shader->PushGlobalData(Camera::SView, Camera::SProj);
-	_shader->PushLightData(lDesc);
+
+	if (GetOwner()->GetName() != "Sphere")
+	{
+		_shader->PushLightData(lDesc);
+	}
+	else
+	{
+		PBRLightDesc desc;
+		
+		matx camWorld = Camera::SView.Invert();
+		vec3 camPos = vec3(camWorld._41, camWorld._42, camWorld._43);
+
+		for (auto& lightObj : lightObjs)
+		{
+			auto light = lightObj->GetLight();
+			vec3 pos = light->GetOwnerTransform()->GetPosition();
+
+			desc.lightPos = pos;
+			desc.viewPos = camPos;
+		}
+
+		_shader->PushPBRLightData(desc);
+	}
+
 	_shader->PushMaterialData(mDesc);
 
 

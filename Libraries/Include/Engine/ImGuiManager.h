@@ -42,6 +42,12 @@ public:
 	{
 		return _focusedWindow;
 	}
+public:
+	void GUI_Thread();
+	void Destroy()
+	{
+		_destroy = false;
+	}
 private:
 	vector<sptr<class ImWindow>> _windows;
 public:
@@ -50,5 +56,8 @@ public:
 private:
 	sptr<GameObject> _go;
 	string _focusedWindow;
+private:
+	std::mutex _mutex;
+	bool _destroy = true;
 };
 

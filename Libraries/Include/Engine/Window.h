@@ -33,5 +33,7 @@ private:
 	WindowDesc _desc;
 public:
 	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
+private:
+	std::mutex _mutex;
 };
 

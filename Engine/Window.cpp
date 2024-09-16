@@ -10,15 +10,17 @@ void Window::Update()
 	INPUT->Update();
 
 	DX ->RenderBegin();
-	GUI->RenderBegin();
 	{
 		// 게임 루프
+
+		std::lock_guard<std::mutex> lock(_mutex);
 		_desc.app->Loop();
 
 		// ImGui 루프
+		GUI->RenderBegin();
 		GUI->Update();
+		GUI->RenderEnd();
 	}
-	GUI->RenderEnd();
 	DX ->RenderEnd();
 }
 
@@ -48,11 +50,10 @@ WPARAM Window::Run(WindowDesc& desc)
 		//RENDERER->Init();
 	}
 
-	JLOG_INFO("Test");
-	JLOG_INFO("Test");
-	JLOG_INFO("Test");
-	JLOG_INFO("Test");
-	JLOG_INFO("Test");
+
+	// MultiThreads Practice
+	//std::thread GUI_Thread(&ImGuiManager::GUI_Thread, GUI->GetInstance());
+
 
 	_desc.app->Init();
 
@@ -71,6 +72,9 @@ WPARAM Window::Run(WindowDesc& desc)
 
 	// RELEASE
 	{
+		//GUI->Destroy();
+		//GUI_Thread.join();
+
 		GUI->Shutdown();
 		spdlog::shutdown();
 	}

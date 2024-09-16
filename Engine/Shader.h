@@ -63,6 +63,9 @@ public:
 	void PushMaterialData(const MaterialDesc& desc);
 	void PushLightData(const LightDesc& desc);
 	void PushWaterData(const ReflectionDesc& desc1, const WaterDesc& desc2);
+	// PBR TEMP //////////////////////////////////////////////////
+	void PushPBRLightData(const PBRLightDesc& desc);
+	 
 	//void PushBoneData(const BoneDesc& desc);
 	//void PushKeyframeData(const KeyframeDesc& desc);
 	//void PushTweenData(const InstancedTweenDesc& desc);
@@ -93,10 +96,17 @@ private:
 	LightDesc							mLightDesc;
 	sptr<ConstantBuffer<LightDesc>>     mLightBuffer;
 	ComPtr<ID3DX11EffectConstantBuffer> mLightEffectBuffer;
+	// TEMP ///////////////////////////////////////////////////////
+private:
+	PBRLightDesc						mPBRLightDesc;
+	sptr<ConstantBuffer<PBRLightDesc>>  mPBRLightBuffer;
+	ComPtr<ID3DX11EffectConstantBuffer> mPBRLightEffectBuffer;
+	// ///////////////////////////////////////////////////////////////////
 private:
 	ReflectionDesc						 mReflectionDesc;
 	sptr<ConstantBuffer<ReflectionDesc>> mReflectionBuffer;
 	ComPtr<ID3DX11EffectConstantBuffer>  mReflectionEffectBuffer;
+private:
 	WaterDesc							mWaterDesc;
 	sptr<ConstantBuffer<WaterDesc>>     mWaterBuffer;
 	ComPtr<ID3DX11EffectConstantBuffer> mWaterEffectBuffer;

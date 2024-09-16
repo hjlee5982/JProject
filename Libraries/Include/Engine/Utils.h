@@ -45,5 +45,49 @@ public:
 
 		return className;
 	}
+	static string ExtractExtention(string str)
+	{
+		i32 size = str.size();
+
+		string out;
+
+		for (i32 i = size; i > 0; --i)
+		{
+			if (str[i] != '.')
+			{
+				out.push_back(str[i]);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		std::reverse(out.begin(), out.end());
+
+		return out;
+	}
+	static wstring ExtractExtension(wstring wstr)
+	{
+		i32 size = wstr.size();
+
+		wstring out;
+
+		for (i32 i = size; i > 0; --i)
+		{
+			if (wstr[i] != '.')
+			{
+				out.push_back(wstr[i]);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		std::reverse(out.begin(), out.end());
+
+		return out;
+	}
 };
 

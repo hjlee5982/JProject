@@ -42,6 +42,15 @@ private:
 	float padding0;
 };
 
+struct PBRLightDesc
+{
+	vec3 lightPos   = vec3(-2.f, 2.f, -2.f);
+	vec3 lightColor = vec3(1.f, 1.f, 1.f);
+	vec3 viewPos    = vec3(0.f, 0.f, 0.f);
+private:
+	vec3 padding;
+};
+
 struct MaterialDesc
 {
 	Color ambient  = Color(0.5f, 0.5f, 0.5f, 1.f);

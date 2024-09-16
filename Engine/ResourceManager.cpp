@@ -10,14 +10,27 @@ void ResourceManager::Init()
 	CreateDefaultResources();
 
 
-	// 엔진에서 사용될 리소스들 로드
-	RESOURCE->Load<Texture>(L"BoxIcon",          L"../Assets/Icon/box.png");
-	RESOURCE->Load<Texture>(L"SceneIcon",        L"../Assets/Icon/scene.png");
-	RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Assets/Icon/coordinate.png");
-	RESOURCE->Load<Texture>(L"CameraIcon",       L"../Assets/Icon/camera.png");
-	RESOURCE->Load<Texture>(L"MeshRendererIcon", L"../Assets/Icon/meshrenderer.png");
-	RESOURCE->Load<Texture>(L"LightIcon",		 L"../Assets/Icon/bulb.png");
-	RESOURCE->Load<Texture>(L"FolderIcon",		 L"../Assets/Icon/folder.png");
+	// 엔진에서 사용될 리소스들 로드(하드코딩)
+	//RESOURCE->Load<Texture>(L"BoxIcon",          L"../Assets/Icon/box.png");
+	//RESOURCE->Load<Texture>(L"SceneIcon",        L"../Assets/Icon/scene.png");
+	//RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Assets/Icon/coordinate.png");
+	//RESOURCE->Load<Texture>(L"CameraIcon",       L"../Assets/Icon/camera.png");
+	//RESOURCE->Load<Texture>(L"MeshRendererIcon", L"../Assets/Icon/meshrenderer.png");
+	//RESOURCE->Load<Texture>(L"LightIcon",		 L"../Assets/Icon/bulb.png");
+	//RESOURCE->Load<Texture>(L"FolderIcon",		 L"../Assets/Icon/folder.png");
+
+	// 엔진에서 사용될 리소스들 로드(filesystem)
+	std::filesystem::path p("..\\Assets\\Icon");
+
+	for (const auto& entry : std::filesystem::directory_iterator(p))
+	{
+		const std::filesystem::path& ref = entry.path();
+
+		wstring file_name = ref.stem().wstring();
+		wstring file_path = ref.wstring();
+
+		RESOURCE->Load<Texture>(file_name, file_path);
+	}
 
 	JLOG_INIT("Assets Init Complete");
 }
@@ -48,6 +61,8 @@ void ResourceManager::CreateDefaultResources()
 	// Default Shader
 	auto defaultShader = makeSptr<Shader>(L"Default.fx");
 	RESOURCE->Add(L"Default.fx", defaultShader);
+	auto tempShader = makeSptr<Shader>(L"Temp.fx");
+	RESOURCE->Add(L"Temp.fx", tempShader);
 
 	// Default Mesh
 	{
@@ -64,6 +79,12 @@ void ResourceManager::CreateDefaultResources()
 		sptr<Mesh> mesh = makeSptr<Mesh>();
 		mesh->CreateSphere();
 		Add(L"Sphere", mesh);
+	}
+	// PBR TEMP //////////////////////////////////////////////////
+	{
+		sptr<Mesh> mesh = makeSptr<Mesh>();
+		mesh->CreateSpherePBR();
+		Add(L"SpherePBR", mesh);
 	}
 
 	// Default Material

@@ -19,7 +19,8 @@ void ImHierarchy::Update()
 	ImGui::Begin("Hierarchy");
 	IMFOCUS("Hierarchy");
 
-	GUI->Image(L"SceneIcon");
+	GUI->Image(L"scene");
+	ImGui::SameLine();
 	if (ImGui::Selectable(scene->GetName().c_str(), true))
 	{
 		_on = !_on;
@@ -32,7 +33,8 @@ void ImHierarchy::Update()
 		{
 			string name = go->GetName();
 
-			GUI->Image(L"BoxIcon");
+			GUI->Image(L"box");
+			ImGui::SameLine();
 			if (ImGui::Selectable(name.c_str(), _selected[name]))
 			{
 				for (auto& [name, select] : _selected)

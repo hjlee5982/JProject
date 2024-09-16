@@ -660,3 +660,91 @@ void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentDa
 
 	geometry->SetIndices(idx);
 }
+
+// PBR TEMP /////////////////////////////////////////////////////////////////////
+void GeometryHelper::CreateSpherePBR(sptr<Geometry<VertexPBR>> geometry)
+{
+	f32 radius     = 0.5f;
+	u32 stackCount = 40;
+	u32 sliceCount = 40;
+
+	vector<VertexPBR> vtx;
+
+	VertexPBR v;
+
+	v.position = vec3(0.0f, radius, 0.0f);
+	v.uv       = vec2(0.5f, 0.0f);
+	v.normal   = v.position;
+	v.normal.Normalize();
+	vtx.push_back(v);
+
+	f32 stackAngle = XM_PI / stackCount;
+	f32 sliceAngle = XM_2PI / sliceCount;
+
+	f32 deltaU = 1.f / static_cast<f32>(sliceCount);
+	f32 deltaV = 1.f / static_cast<f32>(stackCount);
+
+	for (u32 y = 1; y <= stackCount - 1; ++y)
+	{
+		f32 phi = y * stackAngle;
+
+		for (u32 x = 0; x <= sliceCount; ++x)
+		{
+			f32 theta = x * sliceAngle;
+
+			v.position.x = radius * sinf(phi) * cosf(theta);
+			v.position.y = radius * cosf(phi);
+			v.position.z = radius * sinf(phi) * sinf(theta);
+
+			v.uv = vec2(deltaU * x, deltaV * y);
+
+			v.normal = v.position;
+			v.normal.Normalize();
+
+			vtx.push_back(v);
+		}
+	}
+
+	v.position = vec3(0.0f, -radius, 0.0f);
+	v.uv = vec2(0.5f, 1.0f);
+	v.normal = v.position;
+	v.normal.Normalize();
+	vtx.push_back(v);
+
+	geometry->SetVertices(vtx);
+
+	vector<u32> idx(36);
+
+	for (u32 i = 0; i <= sliceCount; ++i)
+	{
+		idx.push_back(0);
+		idx.push_back(i + 2);
+		idx.push_back(i + 1);
+	}
+
+	u32 ringVertexCount = sliceCount + 1;
+	for (u32 y = 0; y < stackCount - 2; ++y)
+	{
+		for (u32 x = 0; x < sliceCount; ++x)
+		{
+			idx.push_back(1 + (y)*ringVertexCount + (x));
+			idx.push_back(1 + (y)*ringVertexCount + (x + 1));
+			idx.push_back(1 + (y + 1) * ringVertexCount + (x));
+
+			idx.push_back(1 + (y + 1) * ringVertexCount + (x));
+			idx.push_back(1 + (y)*ringVertexCount + (x + 1));
+			idx.push_back(1 + (y + 1) * ringVertexCount + (x + 1));
+		}
+	}
+
+	u32 bottomIndex = static_cast<u32>(vtx.size()) - 1;
+	u32 lastRingStartIndex = bottomIndex - ringVertexCount;
+	for (u32 i = 0; i < sliceCount; ++i)
+	{
+		idx.push_back(bottomIndex);
+		idx.push_back(lastRingStartIndex + i);
+		idx.push_back(lastRingStartIndex + i + 1);
+	}
+
+	geometry->SetIndices(idx);
+}

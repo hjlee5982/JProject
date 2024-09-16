@@ -15,7 +15,7 @@ void ImInspector::Update()
 	{
 		ImVec2 windowSize = ImGui::GetWindowSize();
 		
-		ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"BoxIcon")->GetSRV().Get()), ImVec2(16, 16));
+		GUI->Image(L"box");
 		ImGui::SameLine();
 		ImGui::Text("%s", _go->GetName().c_str());
 		ImGui::Separator();
@@ -63,7 +63,7 @@ void ImInspector::Update()
 
 void ImInspector::RenderTransformInspector()
 {
-	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"CoordinateIcon")->GetSRV().Get()), ImVec2(16, 16));
+	GUI->Image(L"coordinate");
 	ImGui::SameLine();
 
 	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
@@ -102,7 +102,7 @@ void ImInspector::RenderTransformInspector()
 
 void ImInspector::RenderCameraInspector()
 {
-	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"CameraIcon")->GetSRV().Get()), ImVec2(16, 16));
+	GUI->Image(L"camera");
 	ImGui::SameLine();
 
 	if (ImGui::TreeNodeEx("Camera", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
@@ -140,7 +140,7 @@ void ImInspector::RenderCameraInspector()
 
 void ImInspector::RenderMeshRendererInspector()
 {
-	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"MeshRendererIcon")->GetSRV().Get()), ImVec2(16, 16));
+	GUI->Image(L"meshrenderer");
 	ImGui::SameLine();
 
 	if (ImGui::TreeNodeEx("MeshRenderer", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
@@ -238,7 +238,7 @@ void ImInspector::RenderMeshRendererInspector()
 
 void ImInspector::RenderScriptInspector()
 {
-	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"CoordinateIcon")->GetSRV().Get()), ImVec2(16, 16));
+	GUI->Image(L"coordinate");
 	ImGui::SameLine();
 
 	if (ImGui::TreeNodeEx("Script", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
@@ -250,7 +250,7 @@ void ImInspector::RenderScriptInspector()
 
 void ImInspector::RenderLightInspector()
 {
-	ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"LightIcon")->GetSRV().Get()), ImVec2(16, 16));
+	GUI->Image(L"light");
 	ImGui::SameLine();
 
 	if (ImGui::TreeNodeEx("Light", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
@@ -295,7 +295,10 @@ void ImInspector::RenderLightInspector()
 		ImGui::DragFloat4("##Scale", femissive, 1.f, 0.f, 255.f, "%.0f");
 		
 
-		light->SetDirection(vec3 (fdirection[0], fdirection[1], fdirection[2]));
+		vec3 dir = vec3(fdirection[0], fdirection[1], fdirection[2]);
+		dir.Normalize();
+
+		light->SetDirection(dir);
 		light->SetDiffuse  (Color(fdiffuse  [0] / 255.f, fdiffuse  [1] / 255.f, fdiffuse  [2] / 255.f, fdiffuse [3] / 255.f));
 		light->SetAmbient  (Color(fambient  [0] / 255.f, fambient  [1] / 255.f, fambient  [2] / 255.f, fambient [3] / 255.f));
 		light->SetSpecular (Color(fspecular [0] / 255.f, fspecular [1] / 255.f, fspecular [2] / 255.f, fspecular[3] / 255.f));

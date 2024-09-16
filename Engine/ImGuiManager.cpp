@@ -14,7 +14,8 @@ void ImGuiManager::Init()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-    io.Fonts->AddFontFromFileTTF("../Assets/Font/Consolas.ttf", 14.0f);
+    //io.Fonts->AddFontFromFileTTF("../Assets/Font/Consolas.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("../Assets/Font/OpenSans-Regular.ttf", 18.f);
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -40,14 +41,51 @@ void ImGuiManager::Init()
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
+    style.TabRounding    = 5.f;
+    style.FrameRounding  = 8.f;
+    style.GrabRounding   = 8.f;
+    style.WindowRounding = 8.f;
+    style.PopupRounding  = 8.f;
+
+    {
+        auto& colors = ImGui::GetStyle().Colors;
+        colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
+
+        // Headers
+        colors[ImGuiCol_Header]        = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+        colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
+        colors[ImGuiCol_HeaderActive]  = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+        // Buttons
+        colors[ImGuiCol_Button]        = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+        colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
+        colors[ImGuiCol_ButtonActive]  = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+        // Frame BG
+        colors[ImGuiCol_FrameBg]        = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+        colors[ImGuiCol_FrameBgHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
+        colors[ImGuiCol_FrameBgActive]  = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+        // Tabs
+        colors[ImGuiCol_Tab]                = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_TabHovered]         = ImVec4{ 0.38f, 0.3805f, 0.381f, 1.0f };
+        colors[ImGuiCol_TabActive]          = ImVec4{ 0.28f, 0.2805f, 0.281f, 1.0f };
+        colors[ImGuiCol_TabUnfocused]       = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+
+        // Title
+        colors[ImGuiCol_TitleBg]          = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_TitleBgActive]    = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+        colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+        // Menu
+        colors[ImGuiCol_MenuBarBg] = ImVec4{ 0.f, 0.f, 0.f, 1.f };
+    }
+
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(WINDOW->GetGameDesc().hWnd);
     ImGui_ImplDX11_Init(DEVICE.Get(), CONTEXT.Get());
 
-    if (ImGui::IsWindowFocused())
-    {
-
-    }
 
     // ImDockSpace push First
     AddWindows(makeSptr<ImDockSpace>(), "DockSpace");
@@ -57,6 +95,12 @@ void ImGuiManager::Init()
     AddWindows(makeSptr<ImProject>(),   "Project");
     AddWindows(makeSptr<ImConsole>(),   "Console");
     AddWindows(makeSptr<ImHierarchy>(), "Hierarchy");
+
+
+    // 나중에 에디터용 카메라 추가
+
+
+
 
     JLOG_INIT("GUI Init Complete");
 }
@@ -152,16 +196,17 @@ void ImGuiManager::Update()
 
 void ImGuiManager::RenderEnd()
 {
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::EndFrame();
 
     // Rendering
     ImGui::Render();
-    const f32 color[4] = { 0.f, 0.f, 0.f, 0.f };
-    CONTEXT->OMSetRenderTargets(1, DX->GetRenderTargetView().GetAddressOf(), nullptr);
-    CONTEXT->ClearRenderTargetView(DX->GetRenderTargetView().Get(), color);
+    //const f32 color[4] = { 0.f, 0.f, 0.f, 0.f };
+    //CONTEXT->OMSetRenderTargets(1, DX->GetRenderTargetView().GetAddressOf(), nullptr);
+    //CONTEXT->ClearRenderTargetView(DX->GetRenderTargetView().Get(), color);
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     // Update and Render additional Platform Windows
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
         ImGui::UpdatePlatformWindows();
@@ -178,8 +223,14 @@ void ImGuiManager::Shutdown()
 
 void ImGuiManager::Image(const wstring& name, ImVec2 size)
 {
-    ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(name)->GetSRV().Get()), size);
-    ImGui::SameLine();
+    if (RESOURCE->Get<Texture>(name) == nullptr)
+    {
+        ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(L"prohibition")->GetSRV().Get()), size);
+    }
+    else
+    {
+		ImGui::Image(reinterpret_cast<void*>(RESOURCE->Get<Texture>(name)->GetSRV().Get()), size);
+    }
 }
 
 void ImGuiManager::AddWindows(sptr<class ImWindow> window, string name)
@@ -188,6 +239,20 @@ void ImGuiManager::AddWindows(sptr<class ImWindow> window, string name)
     window->SetName(name);
 
     _windows.push_back(window);
+}
+
+void ImGuiManager::GUI_Thread()
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+    while (_destroy)
+    {
+        RenderBegin();
+
+        Update();
+
+        RenderEnd();
+    }
 }
 
 void ImGuiManager::Notify(sptr<GameObject> go)

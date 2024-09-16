@@ -35,6 +35,7 @@ void Mesh::CreateSphere()
 	CreateBuffers();
 }
 
+
 void Mesh::CreateBuffers()
 {
 	_vertexBuffer = makeSptr<VertexBuffer>();
@@ -42,4 +43,20 @@ void Mesh::CreateBuffers()
 
 	_indexBuffer = makeSptr<IndexBuffer>();
 	_indexBuffer->Create(_geometry->GetIndices());
+}
+
+void Mesh::CreateSpherePBR()
+{
+	_geometryPBR = makeSptr<Geometry<VertexPBR>>();
+	GeometryHelper::CreateSpherePBR(_geometryPBR);
+	CreateBuffersPBR();
+}
+
+void Mesh::CreateBuffersPBR()
+{
+	_vertexBuffer = makeSptr<VertexBuffer>();
+	_vertexBuffer->Create(_geometryPBR->GetVertices());
+
+	_indexBuffer = makeSptr<IndexBuffer>();
+	_indexBuffer->Create(_geometryPBR->GetIndices());
 }

@@ -5,6 +5,7 @@
 #include "DirectionalLight.h"
 #include "FreeCamera.h"
 #include "Skydome.h"
+#include "Cube.h"
 
 void TitleScene::Init()
 {
@@ -35,6 +36,9 @@ void TitleScene::Init()
 	//OBJECT->AddGameObject(makeSptr<FreeCamera>(), "Main Camera");
 	//OBJECT->AddGameObject(makeSptr<Skydome>(), "Skydome");
 	//OBJECT->AddGameObject(makeSptr<DirectionalLight>(), "Directional Light");
+
+	OBJECT->AddGameObject(makeSptr<Sphere>(), "Sphere");
+	OBJECT->AddGameObject(makeSptr<Cube>(),   "Cube");
 }
 
 void TitleScene::Update()
