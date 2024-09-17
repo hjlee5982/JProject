@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Skydome.h"
-//#include "FreeCamera.h"
 #include "MeshRenderer.h"
 
 Skydome::Skydome()
@@ -11,18 +10,21 @@ void Skydome::Init()
 {
 	AddComponent(makeSptr<Transform>());
 	{
-		GetTransform()->SetRotation(vec3(0.f, 90.f, 0.f));
+		GetTransform()->SetRotation(vec3(0.f, 180.f, 0.f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		auto mesh = RESOURCE->Get<Mesh>(L"Sphere");
+		auto mesh = RESOURCE->Get<Mesh>(L"Cube");
 		GetMeshRenderer()->SetMesh(mesh);
 
-		auto material = RESOURCE->Get<Material>(L"Skydome");
+		auto material = RESOURCE->Get<Material>(L"SkyBox");
 		GetMeshRenderer()->SetMaterial(material);
 
-		GetMeshRenderer()->SetTech(TECH::DIFFUSE);
-		GetMeshRenderer()->LightSwitch(false);
+		//auto material = RESOURCE->Get<Material>(L"SkyBox");
+		//GetMeshRenderer()->SetMaterial(material);
+
+		//GetMeshRenderer()->SetTech(TECH::DIFFUSE);
+		//GetMeshRenderer()->LightSwitch(false);
 		//GetMeshRenderer()->SetColor(Color(0.94f, 0.97f, 1.f, 1.f));
 		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
 	}
@@ -71,11 +73,7 @@ void Skydome::Update()
 
 void Skydome::LateUpdate()
 {
-	matx view = Camera::SView;
-	
-	matx cameraWorld = view.Invert();
-	
-	GetTransform()->SetPosition(cameraWorld.Position());
+
 }
 
 void Skydome::Render()

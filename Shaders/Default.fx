@@ -6,7 +6,7 @@ MeshOutput VS_DEFAULT(VertexTextureNormalTangent input)
     MeshOutput output;
 
     output.position = WVP(input.position);
-    output.worldPos = mul(input.position, W);
+    output.worldPos = mul(input.position.xyz, W);
     output.uv       = input.uv;
     output.normal   = normalize(mul(input.normal,  (float3x3)W));
     output.tangent  = normalize(mul(input.tangent, (float3x3)W));
@@ -38,11 +38,11 @@ float4 PS_DIFFUSE(MeshOutput input) : SV_TARGET
     }
 }
 
-TextureCube  cubeMap;
+TextureCube  CubeMap;
 float4 PS_SKYBOX(MeshOutput input) : SV_TARGET
 {
     float3 reflectedDir = reflect((float3) input.worldPos, float3(0, 0, 1));
-    float4 color = cubeMap.Sample(LinearSampler, (float3)input.worldPos);
+    float4 color = CubeMap.Sample(LinearSampler, (float3)input.worldPos);
     return color;
 }
 

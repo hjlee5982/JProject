@@ -53,7 +53,9 @@ void MeshRenderer::Render()
 
 	_shader->PushSwitchData(_lightSwitch);
 	_shader->PushColorData(_color);
-	_shader->PushTransformData(TransformDesc{ ownerWorld });
+
+		_shader->PushTransformData(TransformDesc{ ownerWorld });
+	
 	_shader->PushGlobalData(Camera::SView, Camera::SProj);
 
 	if (GetOwner()->GetName() != "Sphere")

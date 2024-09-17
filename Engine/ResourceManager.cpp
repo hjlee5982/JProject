@@ -9,8 +9,7 @@ void ResourceManager::Init()
 {
 	CreateDefaultResources();
 
-
-	// 엔진에서 사용될 리소스들 로드(하드코딩)
+	// 엔진에서 사용될 리소스들 로드
 	//RESOURCE->Load<Texture>(L"BoxIcon",          L"../Assets/Icon/box.png");
 	//RESOURCE->Load<Texture>(L"SceneIcon",        L"../Assets/Icon/scene.png");
 	//RESOURCE->Load<Texture>(L"CoordinateIcon",   L"../Assets/Icon/coordinate.png");
@@ -61,6 +60,10 @@ void ResourceManager::CreateDefaultResources()
 	// Default Shader
 	auto defaultShader = makeSptr<Shader>(L"Default.fx");
 	RESOURCE->Add(L"Default.fx", defaultShader);
+
+	auto skyBoxShader = makeSptr<Shader>(L"SkyBox.fx");
+	RESOURCE->Add(L"SkyBox.fx", skyBoxShader);
+	
 	auto tempShader = makeSptr<Shader>(L"Temp.fx");
 	RESOURCE->Add(L"Temp.fx", tempShader);
 
@@ -87,6 +90,15 @@ void ResourceManager::CreateDefaultResources()
 		Add(L"SpherePBR", mesh);
 	}
 
+	{
+		auto material = makeSptr<Material>();
+		auto texture = RESOURCE->Load<Texture>(L"Skybox", L"../Assets/Textures/SkyBox.dds");
+
+		material->SetShader(skyBoxShader);
+		material->SetCubeMap(texture);
+
+		RESOURCE->Add(L"SkyBox", material);
+	}
 	// Default Material
 	{
 		auto material = makeSptr<Material>();

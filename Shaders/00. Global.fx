@@ -59,7 +59,7 @@ struct VertexTextureNormalTangent
 struct MeshOutput
 {
     float4 position : SV_POSITION;
-    float4 worldPos : POSITION1;
+    float3 worldPos : POSITION1;
     float2 uv       : TEXCOORD;
     float3 normal   : NORMAL;
     float3 tangent  : TANGENT;

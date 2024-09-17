@@ -102,7 +102,7 @@ void Material::SetShader(shared_ptr<Shader> shader)
 	_diffuseEffectBuffer  = _shader->GetSRV("DiffuseMap");
 	_normalEffectBuffer   = _shader->GetSRV("NormalMap");
 	_specularEffectBuffer = _shader->GetSRV("SpecularMap");
-	_cubeEffectBuffer     = _shader->GetSRV("cubeMap");
+	_cubeEffectBuffer     = _shader->GetSRV("CubeMap");
 }
 
 void Material::SetShaderPBR(shared_ptr<Shader> shader)

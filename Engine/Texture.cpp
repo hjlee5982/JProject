@@ -11,10 +11,22 @@ void Texture::Load(const wstring& path)
 	HRESULT hr;
 
 	DirectX::TexMetadata md;
-							
-	/* WIC_FLAGS_IGNORE_SRGB : 이 옵션으로 안하면 .png 불러올 때 RGB채널이 바뀐다던가 색이 좀 이상하게 들어감 */
-	hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_IGNORE_SRGB, &md, _img);
-	CHECK(hr);
+
+	// 확장자명 추출
+	wchar_t szExt[20] = {};
+	_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExt, 20);
+
+	if (!wcscmp(szExt, L".dds") || !wcscmp(szExt, L".DDS"))
+	{
+		hr = ::LoadFromDDSFile(path.c_str(), DDS_FLAGS_NONE, &md, _img);
+		CHECK(hr);
+	}
+	else
+	{
+		/* WIC_FLAGS_IGNORE_SRGB : 이 옵션으로 안하면 .png 불러올 때 RGB채널이 바뀐다던가 색이 좀 이상하게 들어감 */
+		hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _img);
+		CHECK(hr);
+	}
 
 	hr = ::CreateShaderResourceView(DEVICE.Get(), _img.GetImages(), _img.GetImageCount(), md, _shaderResourceView.GetAddressOf());
 	CHECK(hr);

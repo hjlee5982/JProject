@@ -78,7 +78,7 @@ void ImProject::Update()
     {
         f32 window_width  = ImGui::GetContentRegionAvail().x;
         f32 window_height = ImGui::GetContentRegionAvail().y;
-        f32 path_height   = 30.f;
+        f32 path_height   = 35.f;
 
         ImGui::BeginChild("Path", ImVec2(window_width, path_height), true);
         {
@@ -88,7 +88,7 @@ void ImProject::Update()
 
         ImGui::BeginChild("Explorer", ImVec2(window_width, window_height - path_height * 2.f * 1.12f), true);
         {
-            RenderFolderItems();
+            RenderFolderItems();            
         }
         ImGui::EndChild();
 
@@ -192,11 +192,17 @@ void ImProject::RenderFolderItems()
                 ImGui::SetCursorPosX(cursor_x + (icon_size - text_width) * 0.5f);
             }
 
+            // 파일 이름이 길면 ...으로 표시, 마우스 올리면 풀네임 표시
             if (text_width > max_name_width)
             {
                 string truncated_name(file_path.stem().string().c_str());
                 truncated_name = truncated_name.substr(0, 7) + "...";
                 ImGui::TextWrapped("%s", truncated_name.c_str());
+
+                if (ImGui::IsItemHovered())
+                {
+                    ImGui::SetTooltip(file_path.stem().string().c_str());
+                }
             }
             else
             {

@@ -37,9 +37,6 @@ void FreeCamera::Init()
 
 void FreeCamera::Update()
 {
-	
-
-
 	auto transform = GetTransform();
 
 	if (INPUT->KeyPress(RBTN) && GUI->GetFocusedWindow() == "Scene")

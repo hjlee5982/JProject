@@ -508,6 +508,9 @@
     <FxCompile Include="..\Shaders\Temp.fx">
       <Filter>Temp\00. Core\Shaders\FX</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\SkyBox.fx">
+      <Filter>Temp\00. Core\Shaders\FX</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
