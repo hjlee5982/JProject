@@ -106,6 +106,21 @@
     <Filter Include="Temp\00. Core\Shaders\FX">
       <UniqueIdentifier>{79550b04-8df3-46f6-b9d5-f185ce518542}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. ShaderCode">
+      <UniqueIdentifier>{150c7f73-79a1-4884-a1ae-41ca3c4f8b7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. ShaderCode\Render">
+      <UniqueIdentifier>{714a458b-6502-4217-9abd-a594ec1ac1b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. ShaderCode\Utility">
+      <UniqueIdentifier>{54b833a5-1c86-4f00-8b21-233e975ce3e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. ShaderCode\Render\SkyBox">
+      <UniqueIdentifier>{4b66b710-e502-49d9-92b9-67e4f7cd1447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Shader">
+      <UniqueIdentifier>{e3ad3df6-eb26-4a2c-afc9-b0a58dd4370d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -303,6 +318,9 @@
     <ClInclude Include="VertexData.h">
       <Filter>02. Device\Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderEx.h">
+      <Filter>05. Asset\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -491,6 +509,9 @@
     <ClCompile Include="VertexData.cpp">
       <Filter>02. Device\Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderEx.cpp">
+      <Filter>05. Asset\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\Default.fx">
@@ -511,10 +532,22 @@
     <FxCompile Include="..\Shaders\SkyBox.fx">
       <Filter>Temp\00. Core\Shaders\FX</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\SkyBoxVS.hlsl">
+      <Filter>09. ShaderCode\Render\SkyBox</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\SkyBoxPS.hlsl">
+      <Filter>09. ShaderCode\Render\SkyBox</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
       <Filter>Module\SimpleMath</Filter>
+    </None>
+    <None Include="..\Shaders\Struct.hlsli">
+      <Filter>09. ShaderCode\Utility</Filter>
+    </None>
+    <None Include="..\Shaders\Global.hlsli">
+      <Filter>09. ShaderCode\Utility</Filter>
     </None>
   </ItemGroup>
 </Project>

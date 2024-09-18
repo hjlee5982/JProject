@@ -3,6 +3,17 @@
 #include "ConstantBuffer.h"
 
 class Shader;
+class ShaderEx;
+
+// TEMP STRUCT
+struct TRANSFORM_DATA
+{
+	matx gWorldMatrix;
+	matx gViewMatrix;
+	matx gProjMatrix;
+};
+
+/// ////////////////////////////////////////////
 
 struct SwitchDesc
 {

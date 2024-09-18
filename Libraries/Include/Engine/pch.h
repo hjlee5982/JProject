@@ -107,6 +107,7 @@ using namespace Microsoft::WRL;
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "Shader.h"
+#include "ShaderEx.h"
 
 #include "IObject.h"
 #include "GameObject.h"

@@ -5,6 +5,7 @@ enum class EResourceType : i8
 	NONE = -1,
 	MESH,
 	SHADER,
+	SHADER_EX,
 	TEXTURE,
 	MATERIAL,
 
@@ -49,7 +50,7 @@ public:
 	}
 protected:
 	EResourceType _type = EResourceType::NONE;
-private:
+protected:
 	wstring _name;
 	wstring _path;
 };

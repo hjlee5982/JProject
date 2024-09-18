@@ -3,6 +3,18 @@
 #include "ConstantBuffer.h"
 
 class Shader;
+class ShaderEx;
+
+// TEMP STRUCT
+// 쉐이더에 바인딩 할 버퍼들 작성
+struct TRANSFORM_DATA
+{
+	matx gWorldMatrix;
+	matx gViewMatrix;
+	matx gProjMatrix;
+};
+
+/// ////////////////////////////////////////////
 
 struct SwitchDesc
 {

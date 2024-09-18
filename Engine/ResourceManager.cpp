@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include <filesystem>
+#include "ShaderEx.h"
 
 void ResourceManager::Init()
 {
@@ -67,6 +68,12 @@ void ResourceManager::CreateDefaultResources()
 	auto tempShader = makeSptr<Shader>(L"Temp.fx");
 	RESOURCE->Add(L"Temp.fx", tempShader);
 
+
+	auto sky_box_VS = makeSptr<ShaderEx>(EShaderType::VERTEX_SHADER, L"SkyBoxVS.hlsl");
+	auto sky_box_PS = makeSptr<ShaderEx>(EShaderType::PIXEL_SHADER,  L"SkyBoxPS.hlsl");
+	RESOURCE->Add(L"SkyBoxVS", sky_box_VS);
+	RESOURCE->Add(L"SkyBoxPS", sky_box_PS);
+
 	// Default Mesh
 	{
 		sptr<Mesh> mesh = makeSptr<Mesh>();
@@ -108,5 +115,10 @@ void ResourceManager::CreateDefaultResources()
 		material->SetDiffuseMap(texture);
 
 		RESOURCE->Add(L"Skydome", material);
+	}
+
+
+
+	{
 	}
 }

@@ -4,12 +4,18 @@ template<typename T>
 class ConstantBuffer
 {
 public:
-	 ConstantBuffer() { }
-	~ConstantBuffer() { }
+	ConstantBuffer()
+	{
+		Create();
+	}
 public:
 	ComPtr<ID3D11Buffer> GetComPtr() 
 	{
-		return mConstantBuffer;
+		return _constantBuffer;
+	}
+	ComPtr<ID3D11Buffer> GetConstantBuffer()
+	{
+		return _constantBuffer;
 	}
 public:
 	void Create()
@@ -23,7 +29,7 @@ public:
 			desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		}
 
-		HRESULT hr = DEVICE->CreateBuffer(&desc, nullptr, mConstantBuffer.GetAddressOf());
+		HRESULT hr = DEVICE->CreateBuffer(&desc, nullptr, _constantBuffer.GetAddressOf());
 		CHECK(hr);
 	}
 	void CopyData(const T& data)
@@ -31,10 +37,10 @@ public:
 		D3D11_MAPPED_SUBRESOURCE subResource;
 		ZeroMemory(&subResource, sizeof(subResource));
 
-		CONTEXT->Map(mConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		CONTEXT->Map(_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 		::memcpy(subResource.pData, &data, sizeof(data));
-		CONTEXT->Unmap(mConstantBuffer.Get(), 0);
+		CONTEXT->Unmap(_constantBuffer.Get(), 0);
 	}
 private:
-	ComPtr<ID3D11Buffer> mConstantBuffer;
+	ComPtr<ID3D11Buffer> _constantBuffer;
 };

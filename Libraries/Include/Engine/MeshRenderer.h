@@ -54,6 +54,11 @@ public:
 	{
 		_shader = shader;
 	}
+	// TEMP //////////////////////////
+	void SetShaderEx(sptr<ShaderEx> shaderEx)
+	{
+		_shaderEx = shaderEx;
+	}
 	void SetTexture(sptr<Texture> texture)
 	{
 		_texture = texture;
@@ -93,5 +98,8 @@ private:
 	u8 _pass = 0;
 	Color _color = Color(1.f, 1.f, 1.f, 1.f);
 	i32 _lightSwitch = 1;
+
+private:
+	sptr<ShaderEx> _shaderEx;
 };
 

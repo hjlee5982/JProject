@@ -1,0 +1,52 @@
+
+● Shader
+ └ ID3DX11Effect 말고 직접 관리하기
+ └ fx 말고 hlsl로, vs, ps 분리
+ └ Material 구조 재정리
+
+● GameObject
+ └ GameObjectManager 삭제, Scene에서 루프통제, Scene이 GameObjects을 들고있게
+ └ 파생 GameObject클래스들 삭제, GameObject에 Script를 부착해서 컨트롤 하는 방식으로
+
+● Rendering
+ └ 기본 쉐이딩으로 PBR 구현
+ └ 환경매핑
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+● 짜잘한거
+ └ sView, sProj 카메라에서 말고 적합한 곳에서 관리하기
+
+
+
+● Scene
+ └ Scene 저장, 불러오기
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+● Editor
+ └ 파일탐색기에서 드래그 앤 드랍으로 로딩이나 생성
+ └ 피킹 구현
+ └ 머티리얼 에디터
+ └ ImGizmo 적용
+ └ 오브젝트 Child 계층구조
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+● 기능구현
+ └ 파티클
+ └ 카툰렌더링
+ 
+
+
+[24.09.17 22:43]
+└ VS,PS 직접 컴파일하고 ResourceManager에 등록까지 완료
+└ 현재 MeshRenderer는 기존 Shader에서 PushOOOData로 쉐이더에 바인딩중임
+└ 다 갈아엎고 직접 바인딩하는 로직 작성
+
+[24.09.19 00:36]
+└ ShaderEx에서 상수버퍼 직접 바인딩 하는 로직
+└ 현재 MeshRenderer는 기존 Shader에서 PushOOOData로 쉐이더에 바인딩중임
+└ 다 갈아엎고 직접 바인딩하는 로직 작성
