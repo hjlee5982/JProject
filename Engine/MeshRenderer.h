@@ -59,6 +59,10 @@ public:
 	{
 		_shaderEx = shaderEx;
 	}
+	void SetShaderEx2(sptr<ShaderEx> shaderEx)
+	{
+		_shaderEx2 = shaderEx;
+	}
 	void SetTexture(sptr<Texture> texture)
 	{
 		_texture = texture;
@@ -101,5 +105,6 @@ private:
 
 private:
 	sptr<ShaderEx> _shaderEx;
+	sptr<ShaderEx> _shaderEx2;
 };
 

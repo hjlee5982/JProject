@@ -97,6 +97,7 @@ void ResourceManager::CreateDefaultResources()
 		Add(L"SpherePBR", mesh);
 	}
 
+	// SKYDOME DDS /////////////////////////////////////////////////////
 	{
 		auto material = makeSptr<Material>();
 		auto texture = RESOURCE->Load<Texture>(L"Skybox", L"../Assets/Textures/SkyBox.dds");

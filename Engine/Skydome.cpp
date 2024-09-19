@@ -28,9 +28,10 @@ void Skydome::Init()
 		//GetMeshRenderer()->SetColor(Color(0.94f, 0.97f, 1.f, 1.f));
 		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
 
-		auto shader = RESOURCE->Get<ShaderEx>(L"SkyBoxVS");
-		GetMeshRenderer()->SetShaderEx(shader);
-
+		auto shader1 = RESOURCE->Get<ShaderEx>(L"SkyBoxVS");
+		GetMeshRenderer()->SetShaderEx(shader1);
+		auto shader2 = RESOURCE->Get<ShaderEx>(L"SkyBoxPS");
+		GetMeshRenderer()->SetShaderEx2(shader2);
 	}
 
 	D3D11_RASTERIZER_DESC cullDesc;

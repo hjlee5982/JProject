@@ -11,19 +11,27 @@ void MeshRenderer::Render()
 {
 	auto& name = GetOwner()->GetName();
 
-	if (name == "Skydome1")
+	if (name == "Skydome")
 	{
-		// 1. InputLayout 설정
-		//CONTEXT->IASetInputLayout()
+		// 1. ViewPort, RTV, DSV 설정
+		// == RenderBegin에서 해주는 중
+		
+		// 2. InputLayout 설정
+		// == 버텍스 쉐이더 단계에서 쉐이더 컴파일 후 인풋레이아웃 생성
+		CONTEXT->IASetInputLayout(_shaderEx->GetInputlayout().Get());
 
-		// 2. Primitive Topology 설정
-		//CONTEXT->IASetPrimitiveTopology()
+		// 3. Primitive Topology 설정
+		// == 쉐이더에 InputLayout 설정해주는곳에서 해줬음
+		CONTEXT->IASetPrimitiveTopology(_shaderEx->GetTopology());
+		//CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		
+		// 4. Shader 설정
+		auto tt = _shaderEx->GetVertexShader().Get();
+		CONTEXT->VSSetShader(_shaderEx->GetVertexShader().Get(), nullptr, 0);
+		auto t = _shaderEx2->GetPixelShader().Get();
+		CONTEXT->PSSetShader(_shaderEx2->GetPixelShader().Get(),  nullptr, 0);
 
-		// 3. Shader 설정
-		//CONTEXT->VSSetShader(_shaderEx->GetVertexShader().Get(), nullptr, 0);
-		//CONTEXT->PSSetShader(_shaderEx->GetPixelShader().Get(),  nullptr, 0);
-
-		// 4. TransformData 바인딩
+		// 5. TransformData 바인딩
 		TRANSFORM_DATA data;
 		{
 			data.gWorldMatrix = GetOwner()->GetTransform()->GetWorld();
@@ -32,13 +40,33 @@ void MeshRenderer::Render()
 		}
 		_shaderEx->BindTransformData(data);
 
-		// 5. Texture 바인딩
+		// 6. Texture 바인딩
+		// 기존 로직은 Material에 저장된 여러 맵들을 쉐이더에 바인딩 하는 구조
+		// 필요한거
+		//  ㄴ 텍스쳐의 SRV
+		auto srv = _material->GetCubeMap()->GetSRV();
+		CONTEXT->PSSetShaderResources(8, 1, srv.GetAddressOf());
 
-		// 6,7 ViewPort, RTV, DSV 설정 = RenderBegin에서 해주는중
 
+		// 7. Sampler 바인딩 ( Optional )
+		//D3D11_SAMPLER_DESC desc;
+		//ZeroMemory(&desc, sizeof(desc));
+		//{
+		//	desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		//	desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		//	desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		//	desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		//}
+		//ComPtr<ID3D11SamplerState> samplerState;
+		//DEVICE->CreateSamplerState(&desc, samplerState.GetAddressOf());
+		//CONTEXT->PSSetSamplers(0, 1, samplerState.GetAddressOf());
+		 
+		
 		// 8. Vertex, IndexBuffer 설정
-		_mesh->GetVertexBuffer()->PushData();
-		_mesh->GetIndexBuffer()->PushData();
+		// mesh를 만들고 CreateOOO를 해주면 GeometryHelper에서 vertex, index를 설정해주고 
+		// VertexBuffer, IndexBuffer를 만들어줌
+		_mesh->GetVertexBuffer()->PushData(); // CONTEXT->IASetVertexBuffer();
+		_mesh->GetIndexBuffer()->PushData();  // CONTEXT->IASetIndexBuffer();
 
 		// 9. 그리기 호출
 		CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);

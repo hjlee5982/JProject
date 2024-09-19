@@ -300,9 +300,6 @@
     <ClInclude Include="ConstantBuffer.h">
       <Filter>02. Device\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="DeferredBuffer.h">
-      <Filter>02. Device\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>02. Device\Buffer</Filter>
     </ClInclude>
@@ -489,9 +486,6 @@
       <Filter>05. Asset\Texture</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>02. Device\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="DeferredBuffer.cpp">
       <Filter>02. Device\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Geometry.cpp">

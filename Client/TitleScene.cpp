@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "TitleScene.h"
-#include "Earth.h"
 #include "Sphere.h"
 #include "DirectionalLight.h"
 #include "FreeCamera.h"

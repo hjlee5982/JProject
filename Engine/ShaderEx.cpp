@@ -24,6 +24,7 @@ void ShaderEx::CreateShader(EShaderType type, const string& entry)
 	{
 		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
 		hr = DEVICE->CreateVertexShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf());
+		CreateInputLayout(_shaderBlob);
 		break;
 	}
 	case EShaderType::PIXEL_SHADER:
@@ -56,4 +57,20 @@ void ShaderEx::CreateShader(EShaderType type, const string& entry)
 	}
 
 	CHECK(hr);
+}
+
+void ShaderEx::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
+{
+	// Struct.hlsli의 VS_IN에 맞춰야 함
+	D3D11_INPUT_ELEMENT_DESC inputLayout[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	};
+
+	HRESULT hr = DEVICE->CreateInputLayout(inputLayout, 4, shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), _inputLayout.GetAddressOf());
+
+	_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 }

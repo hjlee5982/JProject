@@ -34,6 +34,10 @@ public:
 	{
 		return _specularMap;
 	}
+	sptr<Texture> GetCubeMap()
+	{
+		return _cubeMap;
+	}
 public:
 	void SetDiffuseMap(sptr<Texture> diffuseMap)
 	{
