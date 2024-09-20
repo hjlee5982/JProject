@@ -11,64 +11,55 @@ void MeshRenderer::Render()
 {
 	auto& name = GetOwner()->GetName();
 
-	if (name == "Skydome")
+	if (name == "Skydome" || name == "Cube")
 	{
-		// 1. ViewPort, RTV, DSV 설정
-		// == RenderBegin에서 해주는 중
-		
-		// 2. InputLayout 설정
-		// == 버텍스 쉐이더 단계에서 쉐이더 컴파일 후 인풋레이아웃 생성
-		CONTEXT->IASetInputLayout(_shaderEx->GetInputlayout().Get());
-
-		// 3. Primitive Topology 설정
-		// == 쉐이더에 InputLayout 설정해주는곳에서 해줬음
-		CONTEXT->IASetPrimitiveTopology(_shaderEx->GetTopology());
-		//CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		
-		// 4. Shader 설정
-		auto tt = _shaderEx->GetVertexShader().Get();
-		CONTEXT->VSSetShader(_shaderEx->GetVertexShader().Get(), nullptr, 0);
-		auto t = _shaderEx2->GetPixelShader().Get();
-		CONTEXT->PSSetShader(_shaderEx2->GetPixelShader().Get(),  nullptr, 0);
-
-		// 5. TransformData 바인딩
-		TRANSFORM_DATA data;
+		// 매시와 머티리얼을 가져와서 그려주는 역할
+		if (_mesh == nullptr)
 		{
-			data.gWorldMatrix = GetOwner()->GetTransform()->GetWorld();
-			data.gViewMatrix  = Camera::SView;
-			data.gProjMatrix  = Camera::SProj;
+			return;
 		}
-		_shaderEx->BindTransformData(data);
+		if (_material != nullptr)
+		{
+			// 큐브맵일 경우? , 그렇지 않을 경우? ,SRV가 2개 이상일 경우?
+			auto srv = _material->GetCubeMap()->GetSRV();
+			CONTEXT->PSSetShaderResources(8, 1, srv.GetAddressOf());
+		}
+		else
+		{
+			// 기존 머티리얼대로 그려지게 함
+		}
 
-		// 6. Texture 바인딩
-		// 기존 로직은 Material에 저장된 여러 맵들을 쉐이더에 바인딩 하는 구조
-		// 필요한거
-		//  ㄴ 텍스쳐의 SRV
-		auto srv = _material->GetCubeMap()->GetSRV();
-		CONTEXT->PSSetShaderResources(8, 1, srv.GetAddressOf());
-
-
-		// 7. Sampler 바인딩 ( Optional )
-		//D3D11_SAMPLER_DESC desc;
-		//ZeroMemory(&desc, sizeof(desc));
-		//{
-		//	desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		//	desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		//	desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		//	desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-		//}
-		//ComPtr<ID3D11SamplerState> samplerState;
-		//DEVICE->CreateSamplerState(&desc, samplerState.GetAddressOf());
-		//CONTEXT->PSSetSamplers(0, 1, samplerState.GetAddressOf());
-		 
+		// ConstantBuffer Bind
+		{
+			TRANSFORM_DATA data;
+			{
+				data.gWorldMatrix = GetOwner()->GetTransform()->GetWorld();
+				data.gViewMatrix  = Camera::SView;
+				data.gProjMatrix  = Camera::SProj;
+			}
+			_shaderEx->BindTransformData(data);
+		}
+		// Sampler Bind ( Optional )
+		{
+			D3D11_SAMPLER_DESC desc;
+			ZeroMemory(&desc, sizeof(desc));
+			{
+				desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+				desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+				desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+				desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+			}
+			ComPtr<ID3D11SamplerState> samplerState;
+			DEVICE->CreateSamplerState(&desc, samplerState.GetAddressOf());
+			CONTEXT->PSSetSamplers(0, 1, samplerState.GetAddressOf());
+		}
 		
-		// 8. Vertex, IndexBuffer 설정
-		// mesh를 만들고 CreateOOO를 해주면 GeometryHelper에서 vertex, index를 설정해주고 
-		// VertexBuffer, IndexBuffer를 만들어줌
-		_mesh->GetVertexBuffer()->PushData(); // CONTEXT->IASetVertexBuffer();
-		_mesh->GetIndexBuffer()->PushData();  // CONTEXT->IASetIndexBuffer();
+		CONTEXT->VSSetShader(_shaderEx->GetVertexShader().Get(), nullptr, 0);
+		CONTEXT->PSSetShader(_shaderEx2->GetPixelShader().Get(), nullptr, 0);
 
-		// 9. 그리기 호출
+		_mesh->GetVertexBuffer()->PushData();
+		_mesh->GetIndexBuffer()->PushData();
+
 		CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);
 	}
 	else

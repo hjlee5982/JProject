@@ -73,6 +73,10 @@ void ResourceManager::CreateDefaultResources()
 	auto sky_box_PS = makeSptr<ShaderEx>(EShaderType::PIXEL_SHADER,  L"SkyBoxPS.hlsl");
 	RESOURCE->Add(L"SkyBoxVS", sky_box_VS);
 	RESOURCE->Add(L"SkyBoxPS", sky_box_PS);
+	auto PBRVS = makeSptr<ShaderEx>(EShaderType::VERTEX_SHADER, L"PBRVS.hlsl");
+	auto PBRPS = makeSptr<ShaderEx>(EShaderType::PIXEL_SHADER,  L"PBRPS.hlsl");
+	RESOURCE->Add(L"PBRVS", PBRVS);
+	RESOURCE->Add(L"PBRPS", PBRPS);
 
 	// Default Mesh
 	{

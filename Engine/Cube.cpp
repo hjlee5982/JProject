@@ -21,11 +21,16 @@ void Cube::Init()
 		auto mesh = RESOURCE->Get<Mesh>(L"Cube");
 		GetMeshRenderer()->SetMesh(mesh);
 		
-		DirectX::Colors::LightSteelBlue;
-		GetMeshRenderer()->SetTech(TECH::COLOR);
-		GetMeshRenderer()->SetColor(Color(0.690196097f, 0.768627524f, 0.870588303f, 1.f));
-		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
-		GetMeshRenderer()->LightSwitch(true);
+		//DirectX::Colors::LightSteelBlue;
+		//GetMeshRenderer()->SetTech(TECH::COLOR);
+		//GetMeshRenderer()->SetColor(Color(0.690196097f, 0.768627524f, 0.870588303f, 1.f));
+		////GetMeshRenderer()->SetPass(PASS::WIREFRAME);
+		//GetMeshRenderer()->LightSwitch(true);
+
+		auto vs = RESOURCE->Get<ShaderEx>(L"PBRVS");
+		GetMeshRenderer()->SetVertexShader(vs);
+		auto ps = RESOURCE->Get<ShaderEx>(L"PBRPS");
+		GetMeshRenderer()->SetPixelShader(ps);
 	}
 }
 

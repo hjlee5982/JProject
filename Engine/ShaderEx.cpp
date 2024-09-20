@@ -61,6 +61,8 @@ void ShaderEx::CreateShader(EShaderType type, const string& entry)
 
 void ShaderEx::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
 {
+	// 이거 한번만 들어와도 되는데, 버텍스쉐이더 만들어질 때 마다 들어오는데 이게 맞나?
+
 	// Struct.hlsli의 VS_IN에 맞춰야 함
 	D3D11_INPUT_ELEMENT_DESC inputLayout[] =
 	{
@@ -72,5 +74,6 @@ void ShaderEx::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
 
 	HRESULT hr = DEVICE->CreateInputLayout(inputLayout, 4, shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), _inputLayout.GetAddressOf());
 
-	_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	CONTEXT->IASetInputLayout(_inputLayout.Get());
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }

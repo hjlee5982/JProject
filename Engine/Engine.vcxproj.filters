@@ -121,6 +121,9 @@
     <Filter Include="05. Asset\Shader">
       <UniqueIdentifier>{e3ad3df6-eb26-4a2c-afc9-b0a58dd4370d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. ShaderCode\Render\PBR">
+      <UniqueIdentifier>{5e38173c-b5d7-4939-b01f-45aec71f9ceb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -531,6 +534,12 @@
     </FxCompile>
     <FxCompile Include="..\Shaders\SkyBoxPS.hlsl">
       <Filter>09. ShaderCode\Render\SkyBox</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\PBRVS.hlsl">
+      <Filter>09. ShaderCode\Render\PBR</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\PBRPS.hlsl">
+      <Filter>09. ShaderCode\Render\PBR</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

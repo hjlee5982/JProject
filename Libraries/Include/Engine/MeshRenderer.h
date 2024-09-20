@@ -55,11 +55,11 @@ public:
 		_shader = shader;
 	}
 	// TEMP //////////////////////////
-	void SetShaderEx(sptr<ShaderEx> shaderEx)
+	void SetVertexShader(sptr<ShaderEx> shaderEx)
 	{
 		_shaderEx = shaderEx;
 	}
-	void SetShaderEx2(sptr<ShaderEx> shaderEx)
+	void SetPixelShader(sptr<ShaderEx> shaderEx)
 	{
 		_shaderEx2 = shaderEx;
 	}

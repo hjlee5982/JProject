@@ -9,7 +9,6 @@ enum class EShaderType
 
 	HULL_SHADER,
 	DOMAIN_SHADER,
-
 	GEOMETRY_SHADER,
 };
 
