@@ -1,11 +1,12 @@
 
 ● Shader
- └ ID3DX11Effect 말고 직접 관리하기
- └ fx 말고 hlsl로, vs, ps 분리
- └ Material 구조 재정리
+ └ (O) ID3DX11Effect 말고 직접 관리하기
+ └ (O) fx 말고 hlsl로, vs, ps 분리
+ └ (中) Material 구조 재정리
 
 ● GameObject
  └ GameObjectManager 삭제, Scene에서 루프통제, Scene이 GameObjects을 들고있게
+   └ [24.09.24, 22:51]그냥 GameObjectManager가 관리하는게 나을 것 같음 
  └ 파생 GameObject클래스들 삭제, GameObject에 Script를 부착해서 컨트롤 하는 방식으로
 
 ● Rendering
@@ -49,11 +50,14 @@
 [24.09.19 00:36]
 └ ShaderEx에서 상수버퍼 직접 바인딩 하는 로직
 
-[24.09.19 11:46]
+[24.09.19 23:46]
 └ ShaderEx에서 상수버퍼 직접 바인딩 하는 로직(완성, SkyBox MeshRenderer쪽에)
 
 [24.09.21 01:42]
-└ 쉐이더 정리중 
+└ 쉐이더 정리중
+
+[24.09.24 22:50]
+└ fx에서 hlsl로 바꿈, MeshRenderer 정리완료
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 메모
 1. ViewPort, RTV, DSV 설정

@@ -55,8 +55,18 @@ void ImHierarchy::Update()
 	//	ImGui::Unindent(5.f);
 	//}
 
+	string sceneName = "";
 	auto scene = SCENE->GetScene();
 
+	if (scene == nullptr)
+	{
+		sceneName = "nullscene";
+	}
+	else
+	{
+		sceneName = scene->GetName();
+	}
+	
 	auto& gameObjects = OBJECT->GetGameObjects();
 
 	ImGui::Begin("Hierarchy");
@@ -67,7 +77,8 @@ void ImHierarchy::Update()
 
 		GUI->Image(L"scene");
 		ImGui::SameLine();
-		if (ImGui::TreeNodeEx(scene->GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+
+		if (ImGui::TreeNodeEx(sceneName.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			ImGui::Separator();
 		
@@ -90,6 +101,11 @@ void ImHierarchy::RenderHierachy(vector<sptr<GameObject>>& gos)
 {
 	for (auto& go : gos)
 	{
+		//if (go->GetName() == "Skydome")
+		//{
+		//	continue;
+		//}
+
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(-2, 0));
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 4));
 

@@ -56,18 +56,3 @@ uptr<T> makeUptr(Args&& ... args)
 {
 	return std::make_unique<T>(std::forward<Args>(args)...);
 }
-
-enum class TECH
-{
-	COLOR,
-	DIFFUSE,
-};
-
-enum class PASS
-{
-	NONE,
-	WIREFRAME
-};
-
-// MeshID, MaterialID
-//using InstanceID = std::pair<u64, u64>;

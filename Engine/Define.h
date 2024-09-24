@@ -36,8 +36,8 @@ public:										\
 #define SCENE    GET_SINGLETON(SceneManager)
 #define FACTORY  GET_SINGLETON(ObjectFactory)
 #define OBJECT   GET_SINGLETON(GameObjectManager)
+#define ASSET    GET_SINGLETON(AssetManager)
 //#define RENDERER GET_SINGLETON(Renderer)
-#define RESOURCE GET_SINGLETON(ResourceManager)
 
 
 //#define CHECK(p)	assert(SUCCEEDED(p))
@@ -45,9 +45,9 @@ public:										\
 #define ToDeg(value) XMConvertToDegrees(value)
 #define ToRad(value) XMConvertToRadians(value)
 
-#define JCLASS(classType)																			 \
-		bool registered_##classType =																 \
-		ObjectFactory::GetInstance()->RegisterObject												 \
-		(																							 \
-			#classType, []()-> std::shared_ptr<GameObject> { return std::make_shared<classType>(); } \
-		)																							 \
+#define JCLASS(classType)																	 \
+bool registered_##classType =																 \
+ObjectFactory::GetInstance()->RegisterObject												 \
+(																							 \
+	#classType, []()-> std::shared_ptr<GameObject> { return std::make_shared<classType>(); } \
+)																							 \

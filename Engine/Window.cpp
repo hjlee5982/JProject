@@ -40,7 +40,7 @@ WPARAM Window::Run(WindowDesc& desc)
 		//LOG->Init();
 		JLOG->Init();
 		DX->Init(_desc);
-		RESOURCE->Init();
+		ASSET->Init();
 		GUI->Init();
 		INPUT->Init(_desc.hWnd, _desc.hInstance);
 		TIME->Init();

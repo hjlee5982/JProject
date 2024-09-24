@@ -1,138 +1,62 @@
 #pragma once
 
-#include "Pass.h"
-#include "Technique.h"
+#include "Resource.h"
 #include "ShaderDesc.h"
 
-struct ShaderDesc
+enum class EShaderType
 {
-	ComPtr<ID3DBlob> blob;
-	ComPtr<ID3DX11Effect> effect;
+	VS,
+	PS,
+
+	HS,
+	DS,
+	GS,
 };
 
-class Shader
+class Shader : public Resource
 {
 public:
-	friend struct Pass;
+	Shader(EShaderType type, const wstring& path, const string& entry = "main")
+		: Resource(EResourceType::SHADER)
+	{
+		_path = L"../Shaders/" + path;
 
+		// entrypoint = hlsl 내 함수 이름이랑 똑같아야됨
+		CreateShader(type, entry);
+	}
+	virtual ~Shader() = default;
 public:
-	Shader(wstring file);
-	~Shader();
-
-	wstring GetFile() { return _file; }
-	ComPtr<ID3DX11Effect> Effect() { return _shaderDesc.effect; }
-
-	void Draw(UINT technique, UINT pass, UINT vertexCount, UINT startVertexLocation = 0);
-	void DrawIndexed(UINT technique, UINT pass, UINT indexCount, UINT startIndexLocation = 0, INT baseVertexLocation = 0);
-	void DrawInstanced(UINT technique, UINT pass, UINT vertexCountPerInstance, UINT instanceCount, UINT startVertexLocation = 0, UINT startInstanceLocation = 0);
-	void DrawIndexedInstanced(UINT technique, UINT pass, UINT indexCountPerInstance, UINT instanceCount, UINT startIndexLocation = 0, INT baseVertexLocation = 0, UINT startInstanceLocation = 0);
-
-	void Dispatch(UINT technique, UINT pass, UINT x, UINT y, UINT z);
-
-	ComPtr<ID3DX11EffectVariable> GetVariable(string name);
-	ComPtr<ID3DX11EffectScalarVariable> GetScalar(string name);
-	ComPtr<ID3DX11EffectVectorVariable> GetVector(string name);
-	ComPtr<ID3DX11EffectMatrixVariable> GetMatrix(string name);
-	ComPtr<ID3DX11EffectStringVariable> GetString(string name);
-	ComPtr<ID3DX11EffectShaderResourceVariable> GetSRV(string name);
-	ComPtr<ID3DX11EffectRenderTargetViewVariable> GetRTV(string name);
-	ComPtr<ID3DX11EffectDepthStencilViewVariable> GetDSV(string name);
-	ComPtr<ID3DX11EffectUnorderedAccessViewVariable> GetUAV(string name);
-	ComPtr<ID3DX11EffectConstantBuffer> GetConstantBuffer(string name);
-	ComPtr<ID3DX11EffectShaderVariable> GetShader(string name);
-	ComPtr<ID3DX11EffectBlendVariable> GetBlend(string name);
-	ComPtr<ID3DX11EffectDepthStencilVariable> GetDepthStencil(string name);
-	ComPtr<ID3DX11EffectRasterizerVariable> GetRasterizer(string name);
-	ComPtr<ID3DX11EffectSamplerVariable> GetSampler(string name);
-
-private:
-	void CreateEffect();
-	ComPtr<ID3D11InputLayout> CreateInputLayout(ComPtr<ID3DBlob> fxBlob, D3DX11_EFFECT_SHADER_DESC* effectVsDesc, vector<D3D11_SIGNATURE_PARAMETER_DESC>& params);
-
-private:
-	wstring _file;
-	ShaderDesc _shaderDesc;
-	D3DX11_EFFECT_DESC _effectDesc;
-	shared_ptr<StateBlock> _initialStateBlock;
-	vector<Technique> _techniques;
+	virtual void Load(const wstring& path) override {}
+	virtual void Save(const wstring& path) override {}
 public:
-	void PushSwitchData(i32 value);
-	void PushColorData(const Color& color);
-	void PushGlobalData(const matx& view, const matx& projection);
-	void PushTransformData(const TransformDesc& desc);
-	void PushMaterialData(const MaterialDesc& desc);
-	void PushLightData(const LightDesc& desc);
-	void PushWaterData(const ReflectionDesc& desc1, const WaterDesc& desc2);
-	// PBR TEMP //////////////////////////////////////////////////
-	void PushPBRLightData(const PBRLightDesc& desc);
-	 
-	//void PushBoneData(const BoneDesc& desc);
-	//void PushKeyframeData(const KeyframeDesc& desc);
-	//void PushTweenData(const InstancedTweenDesc& desc);
-	//void PushSnowData(const SnowBillboardDesc& desc);
+	ComPtr<ID3D11VertexShader>   GetVertexShader()   { return _vs; }
+	ComPtr<ID3D11PixelShader>    GetPixelShader()    { return _ps; }
+	ComPtr<ID3D11HullShader>     GetHullShader()     { return _hs; }
+	ComPtr<ID3D11DomainShader>   GetDomainShader()   { return _ds; }
+	ComPtr<ID3D11GeometryShader> GetGeometryShader() { return _gs; }
+	ComPtr<ID3D11InputLayout>    GetInputlayout()    { return _inputLayout; }
+	D3D11_PRIMITIVE_TOPOLOGY     GetTopology()       { return _topology; }
+public:
+	void BindTransformData(const TRANSFORM_DATA& data);
+	// Bind 함수 추가
 private:
-	sptr<Shader> mShader;
+	sptr<ConstantBuffer<TRANSFORM_DATA>> _transformDataBuffer;
+	// Bind 할 데이터 추가
 private:
-	SwitchDesc							mSwitchDesc;
-	sptr<ConstantBuffer<SwitchDesc>>    mSwitchBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mSwitchEffectBuffer;
+	void CreateShader(EShaderType type, const string& entry);
+	void CreateInputLayout(ComPtr<ID3DBlob> shaderBlob);
 private:
-	ColorDesc							mColorDesc;
-	sptr<ConstantBuffer<ColorDesc>>     mColorBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mColorEffectBuffer;
+	ComPtr<ID3DBlob> _shaderBlob;
+	ComPtr<ID3DBlob> _errorBlob;
+	UINT _compileFlags;
 private:
-	GlobalDesc							mGlobalDesc;
-	sptr<ConstantBuffer<GlobalDesc>>    mGlobalBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mGlobalEffectBuffer;
+	ComPtr<ID3D11VertexShader>   _vs;
+	ComPtr<ID3D11PixelShader>    _ps;
+	ComPtr<ID3D11HullShader>     _hs;
+	ComPtr<ID3D11DomainShader>   _ds;
+	ComPtr<ID3D11GeometryShader> _gs;
 private:
-	TransformDesc						mTransformDesc;
-	sptr<ConstantBuffer<TransformDesc>> mTransformBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mTransformEffectBuffer;
-private:
-	MaterialDesc						mMaterialDesc;
-	sptr<ConstantBuffer<MaterialDesc>>  mMaterialBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mMaterialEffectBuffer;
-private:
-	LightDesc							mLightDesc;
-	sptr<ConstantBuffer<LightDesc>>     mLightBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mLightEffectBuffer;
-	// TEMP ///////////////////////////////////////////////////////
-private:
-	PBRLightDesc						mPBRLightDesc;
-	sptr<ConstantBuffer<PBRLightDesc>>  mPBRLightBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mPBRLightEffectBuffer;
-	// ///////////////////////////////////////////////////////////////////
-private:
-	ReflectionDesc						 mReflectionDesc;
-	sptr<ConstantBuffer<ReflectionDesc>> mReflectionBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer>  mReflectionEffectBuffer;
-private:
-	WaterDesc							mWaterDesc;
-	sptr<ConstantBuffer<WaterDesc>>     mWaterBuffer;
-	ComPtr<ID3DX11EffectConstantBuffer> mWaterEffectBuffer;
-//private:
-//	BoneDesc							mBoneDesc;
-//	sptr<ConstantBuffer<BoneDesc>>      mBoneBuffer;
-//	ComPtr<ID3DX11EffectConstantBuffer> mBoneEffectBuffer;
-//private:
-//	KeyframeDesc						mKeyframeDesc;
-//	sptr<ConstantBuffer<KeyframeDesc>>  mKeyframeBuffer;
-//	ComPtr<ID3DX11EffectConstantBuffer> mKeyframeEffectBuffer;
-//private:
-//	InstancedTweenDesc						 mTweenDesc;
-//	sptr<ConstantBuffer<InstancedTweenDesc>> mTweenBuffer;
-//	ComPtr<ID3DX11EffectConstantBuffer>      mTweenEffectBuffer;
-//private:
-//	SnowBillboardDesc						mSnowDesc;
-//	sptr<ConstantBuffer<SnowBillboardDesc>> mSnowBuffer;
-//	ComPtr<ID3DX11EffectConstantBuffer>     mSnowEffectBuffer;
+	ComPtr<ID3D11InputLayout> _inputLayout;
+	D3D11_PRIMITIVE_TOPOLOGY  _topology;
 };
 
-class ShaderManager
-{
-public:
-	static ShaderDesc GetEffect(wstring fileName);
-
-private:
-	static unordered_map<wstring, ShaderDesc> shaders;
-};

@@ -17,3 +17,12 @@ PS_IN main(VS_IN input)
     
     return output;
 }
+
+PS_IN PBR(VS_IN input)
+{
+    PS_IN output = (PS_IN) 0;
+ 
+    
+    
+    return output;
+}

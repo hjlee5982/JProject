@@ -1,22 +1,23 @@
 #pragma once
 
 #include "Resource.h"
+#include "ShaderDesc.h"
 
 enum class EShaderType
 {
-	VERTEX_SHADER,
-	PIXEL_SHADER,
+	VS,
+	PS,
 
-	HULL_SHADER,
-	DOMAIN_SHADER,
-	GEOMETRY_SHADER,
+	HS,
+	DS,
+	GS,
 };
 
 class ShaderEx : public Resource
 {
 public:
 	ShaderEx(EShaderType type, const wstring& path, const string& entry = "main")
-		: Resource(EResourceType::SHADER_EX)
+		: Resource(EResourceType::SHADER)
 	{
 		_path = L"../Shaders/" + path;
 

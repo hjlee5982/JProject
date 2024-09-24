@@ -11,17 +11,21 @@ void ImDockSpace::Update()
 
     if (ImGui::BeginMenuBar())
     {
+        //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.f, 0.f, 0.f, 1.f));
         if (ImGui::BeginMenu("File"))
         {
+            //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+
             ImGui::MenuItem("Load Scene");
             if (ImGui::MenuItem("Save Scene"))
             {
                 SCENE->SaveScene();
                 JLOG_INFO("Save Scene Complete");
             }
-
+            //ImGui::PopStyleColor();
             ImGui::EndMenu();
         }
+        //ImGui::PopStyleColor();
         ImGui::EndMenuBar();
     }
 

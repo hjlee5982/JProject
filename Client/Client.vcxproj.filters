@@ -22,6 +22,9 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>02. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="TestProject.cpp">
+      <Filter>02. Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -32,6 +35,9 @@
     </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestProject.h">
+      <Filter>02. Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

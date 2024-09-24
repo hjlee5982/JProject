@@ -107,9 +107,7 @@ using namespace Microsoft::WRL;
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "Shader.h"
-#include "ShaderEx.h"
 
-#include "IObject.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "Camera.h"
@@ -122,6 +120,6 @@ using namespace Microsoft::WRL;
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "SceneManager.h"
-#include "ResourceManager.h"
+#include "AssetManager.h"
 #include "GameObjectManager.h"
 #include "ObjectFactory.h"

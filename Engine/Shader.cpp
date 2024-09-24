@@ -1,517 +1,79 @@
 #include "pch.h"
 #include "Shader.h"
-#include "Utils.h"
 
-Shader::Shader(wstring file) : _file(L"..\\Shaders\\" + file)
+void Shader::BindTransformData(const TRANSFORM_DATA& data)
 {
-	_initialStateBlock = make_shared<StateBlock>();
+	_transformDataBuffer = makeSptr<ConstantBuffer<TRANSFORM_DATA>>();
+
+	_transformDataBuffer->CopyData(data);
+
+	CONTEXT->VSSetConstantBuffers(0, 1, _transformDataBuffer->GetConstantBuffer().GetAddressOf());
+}
+
+void Shader::CreateShader(EShaderType type, const string& entry)
+{
+	HRESULT hr;
+
+#if defined(DEBUG) || defined(_DEBUG)
+	_compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+	switch (type)
 	{
-		CONTEXT->RSGetState(_initialStateBlock->RSRasterizerState.GetAddressOf());
-		CONTEXT->OMGetBlendState(_initialStateBlock->OMBlendState.GetAddressOf(), _initialStateBlock->OMBlendFactor, &_initialStateBlock->OMSampleMask);
-		CONTEXT->OMGetDepthStencilState(_initialStateBlock->OMDepthStencilState.GetAddressOf(), &_initialStateBlock->OMStencilRef);
+	case EShaderType::VS:
+	{
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
+		hr = DEVICE->CreateVertexShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf());
+		CreateInputLayout(_shaderBlob);
+		break;
+	}
+	case EShaderType::PS:
+	{
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
+		hr = DEVICE->CreatePixelShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf());
+		break;
+	}
+	case EShaderType::HS:
+	{
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "hs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
+		hr = DEVICE->CreateHullShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _hs.GetAddressOf());
+		break;
+	}
+	case EShaderType::DS:
+	{
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ds_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
+		hr = DEVICE->CreateDomainShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _ds.GetAddressOf());
+		break;
+	}
+	case EShaderType::GS:
+	{
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "gs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
+		hr = DEVICE->CreateGeometryShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _gs.GetAddressOf());
+		break;
+	}
+	default:
+		// Exception
+		break;
 	}
 
-	CreateEffect();
+	CHECK(hr);
 }
 
-Shader::~Shader()
+void Shader::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
 {
-	
-}
+	// 이거 한번만 들어와도 되는데, 버텍스쉐이더 만들어질 때 마다 들어오는데 이게 맞나?
 
-void Shader::CreateEffect()
-{
-	_shaderDesc = ShaderManager::GetEffect(_file);
-
-	_shaderDesc.effect->GetDesc(&_effectDesc);
-	for (UINT t = 0; t < _effectDesc.Techniques; t++)
+	// Struct.hlsli의 VS_IN에 맞춰야 함
+	D3D11_INPUT_ELEMENT_DESC inputLayout[] =
 	{
-		Technique technique;
-		technique.technique = _shaderDesc.effect->GetTechniqueByIndex(t);
-		technique.technique->GetDesc(&technique.desc);
-		technique.name = Utils::ToWString(technique.desc.Name);
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	};
 
-		for (UINT p = 0; p < technique.desc.Passes; p++)
-		{
-			Pass pass;
-			pass.pass = technique.technique->GetPassByIndex(p);
-			pass.pass->GetDesc(&pass.desc);
-			pass.name = Utils::ToWString(pass.desc.Name);
-			pass.pass->GetVertexShaderDesc(&pass.passVsDesc);
-			pass.passVsDesc.pShaderVariable->GetShaderDesc(pass.passVsDesc.ShaderIndex, &pass.effectVsDesc);
+	HRESULT hr = DEVICE->CreateInputLayout(inputLayout, 4, shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), _inputLayout.GetAddressOf());
 
-			for (UINT s = 0; s < pass.effectVsDesc.NumInputSignatureEntries; s++)
-			{
-				D3D11_SIGNATURE_PARAMETER_DESC desc;
-
-				HRESULT hr = pass.passVsDesc.pShaderVariable->GetInputSignatureElementDesc(pass.passVsDesc.ShaderIndex, s, &desc);
-				CHECK(hr);
-
-				pass.signatureDescs.push_back(desc);
-			}
-
-			pass.inputLayout = CreateInputLayout(_shaderDesc.blob, &pass.effectVsDesc, pass.signatureDescs);
-			pass.stateBlock = _initialStateBlock;
-
-			technique.passes.push_back(pass);
-		}
-
-		_techniques.push_back(technique);
-	}
-
-	for (UINT i = 0; i < _effectDesc.ConstantBuffers; i++)
-	{
-		ID3DX11EffectConstantBuffer* iBuffer;
-		iBuffer = _shaderDesc.effect->GetConstantBufferByIndex(i);
-
-		D3DX11_EFFECT_VARIABLE_DESC vDesc;
-		iBuffer->GetDesc(&vDesc);
-	}
-
-	for (UINT i = 0; i < _effectDesc.GlobalVariables; i++)
-	{
-		ID3DX11EffectVariable* effectVariable;
-		effectVariable = _shaderDesc.effect->GetVariableByIndex(i);
-
-		D3DX11_EFFECT_VARIABLE_DESC vDesc;
-		effectVariable->GetDesc(&vDesc);
-	}
+	CONTEXT->IASetInputLayout(_inputLayout.Get());
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
-
-ComPtr<ID3D11InputLayout> Shader::CreateInputLayout(ComPtr<ID3DBlob> fxBlob, D3DX11_EFFECT_SHADER_DESC* effectVsDesc, vector<D3D11_SIGNATURE_PARAMETER_DESC>& params)
-{
-	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
-
-	for (D3D11_SIGNATURE_PARAMETER_DESC& paramDesc : params)
-	{
-		D3D11_INPUT_ELEMENT_DESC elementDesc;
-		{
-			elementDesc.SemanticName         = paramDesc.SemanticName;
-			elementDesc.SemanticIndex        = paramDesc.SemanticIndex;
-			elementDesc.InputSlot            = 0;
-			elementDesc.AlignedByteOffset    = D3D11_APPEND_ALIGNED_ELEMENT;
-			elementDesc.InputSlotClass       = D3D11_INPUT_PER_VERTEX_DATA;
-			elementDesc.InstanceDataStepRate = 0;
-		}
-
-		if (paramDesc.Mask == 1)
-		{
-			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32_UINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32_SINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32_FLOAT;
-			}
-		}
-		else if (paramDesc.Mask <= 3)
-		{
-			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32_UINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32_SINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
-			}
-		}
-		else if (paramDesc.Mask <= 7)
-		{
-			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32B32_UINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32B32_SINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-			}
-		}
-		else if (paramDesc.Mask <= 15)
-		{
-			if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32B32A32_SINT;
-			}
-			else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
-			{
-				elementDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-			}
-		}
-
-		string name = paramDesc.SemanticName;
-		//std::transform(name.begin(), name.end(), name.begin(), toupper);
-
-		if (name == "POSITION")
-		{
-			elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-		}
-
-		if (Utils::StartsWith(name, "INST") == true)
-		{
-			elementDesc.InputSlot            = 1;
-			elementDesc.AlignedByteOffset    = D3D11_APPEND_ALIGNED_ELEMENT;
-			elementDesc.InputSlotClass       = D3D11_INPUT_PER_INSTANCE_DATA;
-			elementDesc.InstanceDataStepRate = 1;
-		}
-
-		if (Utils::StartsWith(name, "SV_") == false)
-		{
-			inputLayoutDesc.push_back(elementDesc);
-		}
-	}
-
-	const void* code = effectVsDesc->pBytecode;
-	UINT codeSize = effectVsDesc->BytecodeLength;
-
-	if (inputLayoutDesc.size() > 0)
-	{
-		ComPtr<ID3D11InputLayout> inputLayout;
-
-		HRESULT hr = DEVICE->CreateInputLayout
-		(
-			&inputLayoutDesc[0]
-			, inputLayoutDesc.size()
-			, code
-			, codeSize
-			, inputLayout.GetAddressOf()
-		);
-
-		CHECK(hr);
-
-		return inputLayout;
-	}
-
-	return nullptr;
-}
-
-void Shader::Draw(UINT technique, UINT pass, UINT vertexCount, UINT startVertexLocation)
-{
-	_techniques[technique].passes[pass].Draw(vertexCount, startVertexLocation);
-}
-
-void Shader::DrawIndexed(UINT technique, UINT pass, UINT indexCount, UINT startIndexLocation, INT baseVertexLocation)
-{
-	_techniques[technique].passes[pass].DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
-}
-
-void Shader::DrawInstanced(UINT technique, UINT pass, UINT vertexCountPerInstance, UINT instanceCount, UINT startVertexLocation, UINT startInstanceLocation)
-{
-	_techniques[technique].passes[pass].DrawInstanced(vertexCountPerInstance, instanceCount, startVertexLocation, startInstanceLocation);
-}
-
-void Shader::DrawIndexedInstanced(UINT technique, UINT pass, UINT indexCountPerInstance, UINT instanceCount, UINT startIndexLocation, INT baseVertexLocation, UINT startInstanceLocation)
-{
-	_techniques[technique].passes[pass].DrawIndexedInstanced(indexCountPerInstance, instanceCount, startIndexLocation, baseVertexLocation, startInstanceLocation);
-}
-
-void Shader::Dispatch(UINT technique, UINT pass, UINT x, UINT y, UINT z)
-{
-	_techniques[technique].passes[pass].Dispatch(x, y, z);
-}
-
-ComPtr<ID3DX11EffectVariable> Shader::GetVariable(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str());
-}
-
-ComPtr<ID3DX11EffectScalarVariable> Shader::GetScalar(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsScalar();
-}
-
-ComPtr<ID3DX11EffectVectorVariable> Shader::GetVector(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsVector();
-}
-
-ComPtr<ID3DX11EffectMatrixVariable> Shader::GetMatrix(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsMatrix();
-}
-
-ComPtr<ID3DX11EffectStringVariable> Shader::GetString(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsString();
-}
-
-ComPtr<ID3DX11EffectShaderResourceVariable> Shader::GetSRV(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsShaderResource();
-}
-
-ComPtr<ID3DX11EffectRenderTargetViewVariable> Shader::GetRTV(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsRenderTargetView();
-}
-
-ComPtr<ID3DX11EffectDepthStencilViewVariable> Shader::GetDSV(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsDepthStencilView();
-}
-
-ComPtr<ID3DX11EffectConstantBuffer> Shader::GetConstantBuffer(string name)
-{
-	return _shaderDesc.effect->GetConstantBufferByName(name.c_str());
-}
-
-ComPtr<ID3DX11EffectShaderVariable> Shader::GetShader(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsShader();
-}
-
-ComPtr<ID3DX11EffectBlendVariable> Shader::GetBlend(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsBlend();
-}
-
-ComPtr<ID3DX11EffectDepthStencilVariable> Shader::GetDepthStencil(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsDepthStencil();
-}
-
-ComPtr<ID3DX11EffectRasterizerVariable> Shader::GetRasterizer(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsRasterizer();
-}
-
-ComPtr<ID3DX11EffectSamplerVariable> Shader::GetSampler(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsSampler();
-}
-
-ComPtr<ID3DX11EffectUnorderedAccessViewVariable> Shader::GetUAV(string name)
-{
-	return _shaderDesc.effect->GetVariableByName(name.c_str())->AsUnorderedAccessView();
-}
-
-unordered_map<wstring, ShaderDesc> ShaderManager::shaders;
-
-ShaderDesc ShaderManager::GetEffect(wstring fileName)
-{
-	if (shaders.count(fileName) == 0)
-	{
-		ComPtr<ID3DBlob> blob;
-		ComPtr<ID3DBlob> error;
-		INT flag = D3D10_SHADER_ENABLE_BACKWARDS_COMPATIBILITY | D3D10_SHADER_PACK_MATRIX_ROW_MAJOR;
-
-		HRESULT hr = ::D3DCompileFromFile(fileName.c_str(), NULL, D3D_COMPILE_STANDARD_FILE_INCLUDE, NULL, "fx_5_0", flag, NULL, blob.GetAddressOf(), error.GetAddressOf());
-		if (FAILED(hr))
-		{
-			if (error != NULL)
-			{
-				string str = (const char*)error->GetBufferPointer();
-				MessageBoxA(NULL, str.c_str(), "Shader Error", MB_OK);
-			}
-			assert(false);
-		}
-
-		ComPtr<ID3DX11Effect> effect;
-		hr = ::D3DX11CreateEffectFromMemory(blob->GetBufferPointer(), blob->GetBufferSize(), 0, DEVICE.Get(), effect.GetAddressOf());
-		CHECK(hr);
-		
-		shaders[fileName] = ShaderDesc{blob, effect};
-	}
-	
-	ShaderDesc desc = shaders.at(fileName);
-	ComPtr<ID3DX11Effect> effect;
-	desc.effect->CloneEffect(D3DX11_EFFECT_CLONE_FORCE_NONSINGLE, effect.GetAddressOf());
-
-	return ShaderDesc{desc.blob, effect};
-}
-
-void Shader::PushSwitchData(i32 value)
-{
-	if (nullptr == mSwitchEffectBuffer)
-	{
-		mSwitchBuffer = makeSptr<ConstantBuffer<SwitchDesc>>();
-		mSwitchBuffer->Create();
-		mSwitchEffectBuffer = GetConstantBuffer("SwitchBuffer");
-	}
-
-	mSwitchDesc.lightSwitch = static_cast<bool>(value);
-	mSwitchBuffer->CopyData(mSwitchDesc);
-	mSwitchEffectBuffer->SetConstantBuffer(mSwitchBuffer->GetComPtr().Get());
-}
-
-void Shader::PushColorData(const Color& color)
-{
-	if (nullptr == mColorEffectBuffer)
-	{
-		mColorBuffer = makeSptr<ConstantBuffer<ColorDesc>>();
-		mColorBuffer->Create();
-		mColorEffectBuffer = GetConstantBuffer("ColorBuffer");
-	}
-
-	mColorDesc.color = color;
-	mColorBuffer->CopyData(mColorDesc);
-	mColorEffectBuffer->SetConstantBuffer(mColorBuffer->GetComPtr().Get());
-}
-
-void Shader::PushGlobalData(const matx& view, const matx& projection)
-{
-	if (nullptr == mGlobalEffectBuffer)
-	{
-		mGlobalBuffer = makeSptr<ConstantBuffer<GlobalDesc>>();
-		mGlobalBuffer->Create();
-		mGlobalEffectBuffer = GetConstantBuffer("GlobalBuffer");
-	}
-
-	mGlobalDesc.V    = view;
-	mGlobalDesc.P    = projection;
-	mGlobalDesc.VP   = view * projection;
-	mGlobalDesc.CamW = view.Invert();
-	mGlobalBuffer->CopyData(mGlobalDesc);
-	mGlobalEffectBuffer->SetConstantBuffer(mGlobalBuffer->GetComPtr().Get());
-}
-
-void Shader::PushTransformData(const TransformDesc& desc)
-{
-	if(nullptr == mTransformEffectBuffer)
-	{
-		mTransformBuffer = makeSptr<ConstantBuffer<TransformDesc>>();
-		mTransformBuffer->Create();
-		mTransformEffectBuffer = GetConstantBuffer("TransformBuffer");
-	}
-
-	mTransformDesc = desc;
-	mTransformBuffer->CopyData(mTransformDesc);
-	mTransformEffectBuffer->SetConstantBuffer(mTransformBuffer->GetComPtr().Get());
-}
-
-void Shader::PushMaterialData(const MaterialDesc& desc)
-{
-	if(nullptr == mMaterialEffectBuffer)
-	{
-		mMaterialBuffer = makeSptr<ConstantBuffer<MaterialDesc>>();
-		mMaterialBuffer->Create();
-		mMaterialEffectBuffer = GetConstantBuffer("MaterialBuffer");
-	}
-
-	mMaterialDesc = desc;
-	mMaterialBuffer->CopyData(mMaterialDesc);
-	mMaterialEffectBuffer->SetConstantBuffer(mMaterialBuffer->GetComPtr().Get());
-}
-
-void Shader::PushLightData(const LightDesc& desc)
-{
-	if(nullptr == mLightEffectBuffer)
-	{
-		mLightBuffer = makeSptr<ConstantBuffer<LightDesc>>();
-		mLightBuffer->Create();
-		mLightEffectBuffer = GetConstantBuffer("LightBuffer");
-	}
-
-	mLightDesc = desc;
-	mLightBuffer->CopyData(mLightDesc);
-	mLightEffectBuffer->SetConstantBuffer(mLightBuffer->GetComPtr().Get());
-}
-
-void Shader::PushWaterData(const ReflectionDesc& desc1, const WaterDesc& desc2)
-{
-	if (nullptr == mReflectionEffectBuffer)
-	{
-		mReflectionBuffer = makeSptr<ConstantBuffer<ReflectionDesc>>();
-		mReflectionBuffer->Create();
-		mReflectionEffectBuffer = GetConstantBuffer("ReflectionBuffer");
-	}
-	mReflectionDesc = desc1;
-	mReflectionBuffer->CopyData(mReflectionDesc);
-	mReflectionEffectBuffer->SetConstantBuffer(mReflectionBuffer->GetComPtr().Get());
-
-	if (nullptr == mWaterEffectBuffer)
-	{
-		mWaterBuffer = makeSptr<ConstantBuffer<WaterDesc>>();
-		mWaterBuffer->Create();
-		mWaterEffectBuffer = GetConstantBuffer("WaterBuffer");
-	}
-	mWaterDesc = desc2;
-	mWaterBuffer->CopyData(mWaterDesc);
-	mWaterEffectBuffer->SetConstantBuffer(mWaterBuffer->GetComPtr().Get());
-}
-
-void Shader::PushPBRLightData(const PBRLightDesc& desc)
-{
-	if (nullptr == mPBRLightEffectBuffer)
-	{
-		mPBRLightBuffer = makeSptr<ConstantBuffer<PBRLightDesc>>();
-		mPBRLightBuffer->Create();
-		mPBRLightEffectBuffer = GetConstantBuffer("PBRLightBuffer");
-	}
-
-	mPBRLightDesc = desc;
-	mPBRLightBuffer->CopyData(mPBRLightDesc);
-	mPBRLightEffectBuffer->SetConstantBuffer(mPBRLightBuffer->GetComPtr().Get());
-}
-
-//void Shader::PushBoneData(const BoneDesc& desc)
-//{
-//	if(nullptr == mBoneEffectBuffer)
-//	{
-//		mBoneBuffer = makeSptr<ConstantBuffer<BoneDesc>>();
-//		mBoneBuffer->Create();
-//		mBoneEffectBuffer = GetConstantBuffer("BoneBuffer");
-//	}
-//
-//	mBoneDesc = desc;
-//	mBoneBuffer->CopyData(mBoneDesc);
-//	mBoneEffectBuffer->SetConstantBuffer(mBoneBuffer->GetComPtr().Get());
-//}
-//
-//void Shader::PushKeyframeData(const KeyframeDesc& desc)
-//{
-//	if(nullptr == mKeyframeEffectBuffer)
-//	{
-//		mKeyframeBuffer = makeSptr<ConstantBuffer<KeyframeDesc>>();
-//		mKeyframeBuffer->Create();
-//		mKeyframeEffectBuffer = GetConstantBuffer("KeyframeBuffer");
-//	}
-//
-//	mKeyframeDesc = desc;
-//	mKeyframeBuffer->CopyData(mKeyframeDesc);
-//	mKeyframeEffectBuffer->SetConstantBuffer(mKeyframeBuffer->GetComPtr().Get());
-//}
-//
-//void Shader::PushTweenData(const InstancedTweenDesc& desc)
-//{
-//	if(nullptr == mTweenEffectBuffer)
-//	{
-//		mTweenBuffer = makeSptr<ConstantBuffer<InstancedTweenDesc>>();
-//		mTweenBuffer->Create();
-//		mTweenEffectBuffer = GetConstantBuffer("TweenBuffer");
-//	}
-//
-//	mTweenDesc = desc;
-//	mTweenBuffer->CopyData(mTweenDesc);
-//	mTweenEffectBuffer->SetConstantBuffer(mTweenBuffer->GetComPtr().Get());
-//}
-//
-//void Shader::PushSnowData(const SnowBillboardDesc& desc)
-//{
-//	if (nullptr == mSnowEffectBuffer)
-//	{
-//		mSnowBuffer = makeSptr<ConstantBuffer<SnowBillboardDesc>>();
-//		mSnowBuffer->Create();
-//		mSnowEffectBuffer = GetConstantBuffer("SnowBuffer");
-//	}
-//
-//	mSnowDesc = desc;
-//	mSnowBuffer->CopyData(mSnowDesc);
-//	mSnowEffectBuffer->SetConstantBuffer(mSnowBuffer->GetComPtr().Get());
-//}

@@ -2,6 +2,9 @@
 #include "Window.h"
 #include "JProject.h"
 
+
+#include "TestProject.h"
+
 // 프로젝트 속성->링커->시스템->콘솔
 //int main
 
@@ -22,6 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			desc.height     = 1080;
 			desc.clearColor = Color(Colors::Black);
 			desc.app = makeSptr<JProject>();
+			//desc.app = makeSptr<TestProject>();
 		}
 
 		WINDOW->Run(desc);

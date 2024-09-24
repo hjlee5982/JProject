@@ -5,7 +5,6 @@
 #include "FreeCamera.h"
 #include "Skydome.h"
 #include "Grid.h"
-#include "Sphere.h"
 
 void GameObjectManager::Init()
 {

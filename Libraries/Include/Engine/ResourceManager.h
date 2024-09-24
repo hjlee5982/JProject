@@ -4,13 +4,12 @@
 
 class Mesh;
 class Shader;
-class ShaderEx;
 class Texture;
 class Material;
 
-class ResourceManager
+class AssetManager
 {
-	DECLARE_SINGLETON(ResourceManager);
+	DECLARE_SINGLETON(AssetManager)
 public:
 	void Init();
 public:
@@ -25,48 +24,15 @@ public:
 
 	template<typename T>
 	EResourceType GetResourceType();
-
-	sptr<Texture> GetOrAddTexture(const wstring& key, const wstring& path);
 private:
 	void CreateDefaultResources();
 private:
-	wstring _resourcePath;
-private:
-	using KeyObjMap = HashMap<wstring, shared_ptr<Resource>>;
+	using KeyObjMap = HashMap<wstring, sptr<Resource>>;
 	array<KeyObjMap, RESOURCE_TYPE_COUNT> _resources;
-	/////////////////////////////////////////////////
-public:
-	bool Add(const wstring& key, sptr<Shader> shader)
-	{
-		auto findIt = _shaders.find(key);
-
-		if (findIt != _shaders.end())
-		{
-			return false;
-
-		}
-
-		_shaders[key] = shader;
-
-		return true;
-	}
-	sptr<Shader> Get(const wstring& key)
-	{
-		auto findIt = _shaders.find(key);
-
-		if (findIt != _shaders.end())
-		{
-			return findIt->second;
-		}
-
-		return nullptr;
-	}
-private:
-	HashMap<wstring, sptr<Shader>> _shaders;
 };
 
 template<typename T>
-sptr<T> ResourceManager::Load(const wstring& key, const wstring& path)
+sptr<T> AssetManager::Load(const wstring& key, const wstring& path)
 {
 	auto objectType = GetResourceType<T>();
 	KeyObjMap& keyObjMap = _resources[static_cast<u8>(objectType)];
@@ -78,7 +44,7 @@ sptr<T> ResourceManager::Load(const wstring& key, const wstring& path)
 		return static_pointer_cast<T>(findIt->second);
 	}
 
-	shared_ptr<T> object = make_shared<T>();
+	sptr<T> object = make_shared<T>();
 	object->Load(path);
 	keyObjMap[key] = object;
 
@@ -86,7 +52,7 @@ sptr<T> ResourceManager::Load(const wstring& key, const wstring& path)
 }
 
 template<typename T>
-bool ResourceManager::Add(const wstring& key, sptr<T> object)
+bool AssetManager::Add(const wstring& key, sptr<T> object)
 {
 	EResourceType resourceType = GetResourceType<T>();
 	KeyObjMap& keyObjMap = _resources[static_cast<u8>(resourceType)];
@@ -104,7 +70,7 @@ bool ResourceManager::Add(const wstring& key, sptr<T> object)
 }
 
 template<typename T>
-sptr<T> ResourceManager::Get(const wstring& key)
+sptr<T> AssetManager::Get(const wstring& key)
 {
 	EResourceType resourceType = GetResourceType<T>();
 	KeyObjMap& keyObjMap = _resources[static_cast<u8>(resourceType)];
@@ -120,7 +86,7 @@ sptr<T> ResourceManager::Get(const wstring& key)
 }
 
 template<typename T>
-EResourceType ResourceManager::GetResourceType()
+EResourceType AssetManager::GetResourceType()
 {
 	if (std::is_same_v<T, Texture>)
 	{
@@ -134,9 +100,9 @@ EResourceType ResourceManager::GetResourceType()
 	{
 		return EResourceType::MATERIAL;
 	}
-	if (std::is_same_v<T, ShaderEx>)
+	if (std::is_same_v<T, Shader>)
 	{
-		return EResourceType::SHADER_EX;
+		return EResourceType::SHADER;
 	}
 
 	assert(false);

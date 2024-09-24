@@ -14,24 +14,8 @@ void Skydome::Init()
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		auto mesh = RESOURCE->Get<Mesh>(L"Cube");
-		GetMeshRenderer()->SetMesh(mesh);
-
-		auto material = RESOURCE->Get<Material>(L"SkyBox");
-		GetMeshRenderer()->SetMaterial(material);
-
-		//auto material = RESOURCE->Get<Material>(L"SkyBox");
-		//GetMeshRenderer()->SetMaterial(material);
-
-		//GetMeshRenderer()->SetTech(TECH::DIFFUSE);
-		//GetMeshRenderer()->LightSwitch(false);
-		//GetMeshRenderer()->SetColor(Color(0.94f, 0.97f, 1.f, 1.f));
-		//GetMeshRenderer()->SetPass(PASS::WIREFRAME);
-
-		auto vs = RESOURCE->Get<ShaderEx>(L"SkyBoxVS");
-		GetMeshRenderer()->SetVertexShader(vs);
-		auto ps = RESOURCE->Get<ShaderEx>(L"SkyBoxPS");
-		GetMeshRenderer()->SetPixelShader(ps);
+		GetMeshRenderer()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
+		GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"SkyBox"));
 	}
 
 	D3D11_RASTERIZER_DESC cullDesc;
@@ -114,13 +98,6 @@ Value Skydome::MakeJson(Document::AllocatorType& allocator)
 		//  ㄴ Shader도 들어있다
 		GetMeshRenderer()->GetMesh();
 		GetMeshRenderer()->GetMaterial();
-
-		// 이 객체는 조명연산을 할 것인가
-		// Solid하게 그릴 것인가 WireFrame으로 그릴 것인가
-		GetMeshRenderer()->GetLightSwitch();
-		GetMeshRenderer()->GetPass();
-		GetMeshRenderer()->GetTechnique();
-
 
 		// 이제 뭘 저장함?
 		// 그냥 변수야 저장하면 되는데 클래스를 저장할 수가 있나?

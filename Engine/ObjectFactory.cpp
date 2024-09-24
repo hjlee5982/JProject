@@ -3,7 +3,6 @@
 #include "FreeCamera.h"
 #include "Skydome.h"
 #include "Grid.h"
-#include "Sphere.h"
 #include "DirectionalLight.h"
 
 void ObjectFactory::Init()
@@ -14,7 +13,6 @@ void ObjectFactory::Init()
 	FACTORY->RegisterObject("Skydome",            []()->sptr<GameObject> { return makeSptr<Skydome>();          });
 	FACTORY->RegisterObject("Directional Light",  []()->sptr<GameObject> { return makeSptr<DirectionalLight>(); });
 	FACTORY->RegisterObject("Grid",    []()->sptr<GameObject> { return makeSptr<Grid>();             });
-	FACTORY->RegisterObject("Sphere",  []()->sptr<GameObject> { return makeSptr<Sphere>();           });
 }
 
 bool ObjectFactory::RegisterObject(const string& type, CreateObjectFunc func)
