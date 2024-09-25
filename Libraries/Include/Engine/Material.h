@@ -2,48 +2,44 @@
 
 #include "Resource.h"
 
-enum class EMaterialType
+enum class ETextureType
 {
-	DEFAULT,
-	SKYBOX
+	AO,
+	ALBEDO,
+	NORMAL,
+	METALLIC,
+	ROUGHNESS,
+	DISPLACEMENT,
+	CUBE
 };
 
 class Material : public Resource
 {
 	friend class MeshRenderer;
 public:
-	Material()
-		: Resource(EResourceType::MATERIAL)
-		, _materialType(EMaterialType::DEFAULT)
-	{}
+	Material();
 	virtual ~Material() = default;
 protected:
 	virtual void Load(const wstring& path) override {}
 	virtual void Save(const wstring& path) override {}
 public:
-	MATERIAL_DESC& GetMaterialDesc() { return _desc; }
+	void PushData();
 public:
-	sptr<Shader>& GetVertexShader() { return _vs; }
-	sptr<Shader>& GetPixelShader()  { return _ps; }
-	sptr<Texture> GetCubeMap()      { return _cubeMap; }
+	sptr<Shader>& GetShader() { return _shader; }
 public:
-	void SetVertexShader(sptr<Shader>       vs) {      _vs = vs; }
-	void SetPixelShader (sptr<Shader>       ps) {      _ps = ps; }
-	void SetCubeMap(sptr<Texture> cubeMap)
-	{
-		_materialType = EMaterialType::SKYBOX;
-		_cubeMap = cubeMap; 
-	}
-public:
-	void Update();
+	void SetShader(sptr<Shader> shader) { _shader = shader; }
+	void SetTexture(ETextureType textureType, sptr<Texture> texture);
 private:
-	EMaterialType _materialType;
+	MATERIAL_DATA _desc;
 private:
-	MATERIAL_DESC _desc;
+	sptr<Shader> _shader;
 private:
-	sptr<Shader> _vs;
-	sptr<Shader> _ps;
-private:
+	sptr<Texture> _albedoMap;
+	sptr<Texture> _normalMap;
+	sptr<Texture> _metallicMap;
+	sptr<Texture> _roughnessMap;
+	sptr<Texture> _displacementMap;
+	sptr<Texture> _aoMap;
 	sptr<Texture> _cubeMap;
 };
 

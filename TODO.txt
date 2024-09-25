@@ -3,6 +3,8 @@
  └ (O) ID3DX11Effect 말고 직접 관리하기
  └ (O) fx 말고 hlsl로, vs, ps 분리
  └ (中) Material 구조 재정리
+ └ Struct.hlsli에 VS_IN을 통합으로 사용할건데, 안에 인자를 바꾸면 VertexData.h에 struct랑 안맞아서 화면이 안그려짐
+    똑같이 맞춰도 값이 안들어가면 안그려짐, 확인한번 해봐야함
 
 ● GameObject
  └ GameObjectManager 삭제, Scene에서 루프통제, Scene이 GameObjects을 들고있게
@@ -18,6 +20,7 @@
 ● 짜잘한거
  └ sView, sProj 카메라에서 말고 적합한 곳에서 관리하기
  └ SkyBox MeshRenderer에 쉐이더로직 바꿔놓은거 정리하기
+ └ ImGui 뒤 클라이언트에도 화면 그려지고 있음
 
 
 ● Scene

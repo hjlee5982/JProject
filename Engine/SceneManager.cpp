@@ -4,7 +4,12 @@
 
 void SceneManager::Init()
 {
-	LoadDefaultScene();
+	// ObjectFactory에서 각 클래스의 makeSptr함수를 등록함
+	// SceneManager에서 json을 불러온 후 각 클래스에 맞는 함수를 ObjectFactory에서 찾아 호출
+	//LoadDefaultScene();
+
+	// 테스트용, 직접생성
+	MakeScene();
 }
 
 void SceneManager::Init(sptr<Scene> scene, const string& name)
@@ -77,4 +82,18 @@ void SceneManager::LoadDefaultScene(const string& filename)
 			go->GetTransform()->SetScale(scale);
 		}
 	}
+}
+
+#include "SkyBox.h"
+#include "FreeCamera.h"
+#include "GlobalLight.h"
+#include "Cube.h"
+
+void SceneManager::MakeScene()
+{
+	OBJECT->AddGameObject(makeSptr<FreeCamera>(),  "Main Camera");
+	OBJECT->AddGameObject(makeSptr<SkyBox>(),      "SkyBox"     );
+	OBJECT->AddGameObject(makeSptr<GlobalLight>(), "GlobalLight");
+
+	OBJECT->AddGameObject(makeSptr<Cube>(), "Cube");
 }

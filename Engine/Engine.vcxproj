@@ -152,7 +152,7 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Define.h" />
-    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="GlobalLight.h" />
     <ClInclude Include="DirectX11.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="FreeCamera.h" />
@@ -198,7 +198,7 @@
     <ClInclude Include="ShaderDesc.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SimpleMath.h" />
-    <ClInclude Include="Skydome.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
@@ -214,7 +214,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="GlobalLight.cpp" />
     <ClCompile Include="DirectX11.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
@@ -277,7 +277,7 @@
     <ClCompile Include="ShaderDesc.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SimpleMath.cpp" />
-    <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />

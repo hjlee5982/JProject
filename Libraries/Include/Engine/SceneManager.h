@@ -23,6 +23,7 @@ private:
 	void ChangeScene(sptr<Scene> scene);
 private:
 	void LoadDefaultScene(const string& filename = "MainScene.Jscene");
+	void MakeScene();
 private:
 	sptr<Scene> _currentScene = nullptr;
 };

@@ -10,11 +10,12 @@ void Cube::Init()
 {
 	AddComponent(makeSptr<Transform>());
 	{
-
+		GetTransform()->SetScale(vec3(3.f, 3.f, 3.f));
+		GetTransform()->SetPosition(vec3(0.f, 3.f, 0.f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		GetMeshRenderer()->SetMesh(ASSET->Get<Mesh>(L"Cube"));
+		GetMeshRenderer()->SetMesh(ASSET->Get<Mesh>(L"Sphere"));
 	}
 }
 

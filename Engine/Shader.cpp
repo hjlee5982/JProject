@@ -1,18 +1,17 @@
 #include "pch.h"
 #include "Shader.h"
 
-void Shader::BindTransformData(const TRANSFORM_DATA& data)
+Shader::Shader()
+	: Resource(EResourceType::SHADER)
 {
-	_transformDataBuffer = makeSptr<ConstantBuffer<TRANSFORM_DATA>>();
 
-	_transformDataBuffer->CopyData(data);
-
-	CONTEXT->VSSetConstantBuffers(0, 1, _transformDataBuffer->GetConstantBuffer().GetAddressOf());
 }
 
-void Shader::CreateShader(EShaderType type, const string& entry)
+void Shader::CreateShader(EShaderType type, const wstring& path, const string& entry)
 {
 	HRESULT hr;
+
+	_path = L"../Shaders/" + path;
 
 #if defined(DEBUG) || defined(_DEBUG)
 	_compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
@@ -59,6 +58,24 @@ void Shader::CreateShader(EShaderType type, const string& entry)
 	CHECK(hr);
 }
 
+void Shader::SetShader()
+{
+	CONTEXT->VSSetShader(_vs.Get(), nullptr, 0);
+	CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
+	//CONTEXT->GSSetShader(_gs.Get(), nullptr, 0);
+	//CONTEXT->HSSetShader(_hs.Get(), nullptr, 0);
+	//CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
+}
+
+void Shader::SetConstantBuffer(EConstantType type, ComPtr<ID3D11Buffer> constantBuffer)
+{
+	CONTEXT->VSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	CONTEXT->PSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	//CONTEXT->DSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	//CONTEXT->GSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	//CONTEXT->HSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+}
+
 void Shader::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
 {
 	// 이거 한번만 들어와도 되는데, 버텍스쉐이더 만들어질 때 마다 들어오는데 이게 맞나?
@@ -76,4 +93,52 @@ void Shader::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
 
 	CONTEXT->IASetInputLayout(_inputLayout.Get());
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+void Shader::BindTransformData(const TRANSFORM_DATA& data)
+{
+	if (_transformDataBuffer == nullptr)
+	{
+		_transformDataBuffer = makeSptr<ConstantBuffer<TRANSFORM_DATA>>();
+	}
+
+	_transformDataBuffer->CopyData(data);
+
+	SetConstantBuffer(EConstantType::TRANSFORM, _transformDataBuffer->GetConstantBuffer());
+}
+
+void Shader::BindLightData(const LIGHT_DATA& data)
+{
+	if (_lightDataBuffer == nullptr)
+	{
+		_lightDataBuffer = makeSptr<ConstantBuffer<LIGHT_DATA>>();
+	}
+
+	_lightDataBuffer->CopyData(data);
+
+	SetConstantBuffer(EConstantType::LIGHT, _lightDataBuffer->GetConstantBuffer());
+}
+
+void Shader::BindGlobalData(const GLOBAL_DATA& data)
+{
+	if (_globalDataBuffer == nullptr)
+	{
+		_globalDataBuffer = makeSptr<ConstantBuffer<GLOBAL_DATA>>();
+	}
+
+	_globalDataBuffer->CopyData(data);
+	
+	SetConstantBuffer(EConstantType::GLOBAL, _globalDataBuffer->GetConstantBuffer());
+}
+
+void Shader::BindMaterialData(const MATERIAL_DATA& data)
+{
+	if (_materialDataBuffer == nullptr)
+	{
+		_materialDataBuffer = makeSptr<ConstantBuffer<MATERIAL_DATA>>();
+	}
+
+	_materialDataBuffer->CopyData(data);
+
+	SetConstantBuffer(EConstantType::MATERIAL, _materialDataBuffer->GetConstantBuffer());
 }

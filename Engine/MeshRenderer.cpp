@@ -5,6 +5,7 @@
 MeshRenderer::MeshRenderer()
 	: Component(EComponentType::MESHRENDERER)
 {
+	_material = ASSET->Get<Material>(L"Basic");
 }
 
 void MeshRenderer::Render()
@@ -13,32 +14,33 @@ void MeshRenderer::Render()
 	{
 		return;
 	}
-	if (_material == nullptr)
-	{
-		_material = ASSET->Get<Material>(L"Basic");
-	}
-	
-	auto& vs = _material->GetVertexShader();
-	auto& ps = _material->GetPixelShader();
 
+	auto& shader = _material->GetShader();
+
+	// 사용할 쉐이더 세팅
+	{
+		shader->SetShader();
+	}
 	// 상수버퍼 바인딩
 	{
-		TRANSFORM_DATA data;
 		{
-			data.gWorldMatrix = GetOwner()->GetTransform()->GetWorld();
-			data.gViewMatrix = Camera::SView;
-			data.gProjMatrix = Camera::SProj;
+			TRANSFORM_DATA data;
+			{
+				data.gWorldMatrix = GetOwner()->GetTransform()->GetWorld();
+				data.gViewMatrix  = Camera::SView;
+				data.gProjMatrix  = Camera::SProj;
+			}
+			shader->BindTransformData(data);
 		}
-		vs->BindTransformData(data);
-
-		// TODO
-		// 빛 정보 버퍼나 쉐이더 안에서 사용할 변수들 바인딩
-		// XXX_DATA data
-		// {
-		// }
-		// _shader->BindXXXData(data);
+		{
+			GLOBAL_DATA data;
+			{
+				data.test = vec4(1.f, 0.f, 1.f, 1.f);
+			}
+			shader->BindGlobalData(data);
+		}
 	}
-	// 샘플러 바인딩 (선택)
+	// 샘플러 바인딩 (선택), 이거도 모양 이상함 바꾸기ㄱㄱ
 	{
 		D3D11_SAMPLER_DESC desc;
 		ZeroMemory(&desc, sizeof(desc));
@@ -54,17 +56,11 @@ void MeshRenderer::Render()
 	}
 	// 버텍스, 인덱스 버퍼 바인딩
 	{
-		_mesh->GetVertexBuffer()->PushData();
-		_mesh->GetIndexBuffer()->PushData();
-	}
-	// 사용할 쉐이더 세팅
-	{
-		CONTEXT->VSSetShader(vs->GetVertexShader().Get(), nullptr, 0);
-		CONTEXT->PSSetShader(ps->GetPixelShader().Get(), nullptr, 0);
+		_mesh->PushData();
 	}
 	// 머티리얼을 통해 SRV를 바인딩
 	{
-		_material->Update();
+		_material->PushData();
 	}
 	// 드로우 콜
 	{

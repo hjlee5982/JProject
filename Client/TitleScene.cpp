@@ -4,7 +4,10 @@
 
 void TitleScene::Init()
 {
-	OBJECT->AddGameObject(makeSptr<Cube>(), "Cube");
+	// 화면에 그려진 오브젝트들은 지금 SceneManager에서 임시로 그리고 있음
+	// SceneManager에서 json을 읽어 그리는 작업 진행중
+
+	//OBJECT->AddGameObject(makeSptr<Cube>(), "Cube");
 }
 
 void TitleScene::Update()

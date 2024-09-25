@@ -1,18 +1,18 @@
 #include "pch.h"
 #include "ObjectFactory.h"
 #include "FreeCamera.h"
-#include "Skydome.h"
+#include "SkyBox.h"
 #include "Grid.h"
-#include "DirectionalLight.h"
+#include "GlobalLight.h"
 
 void ObjectFactory::Init()
 {
 	// 기본 Scene에서 사용될 오브젝트들을 Factory에 등록
 	// ==> json에 기록된 type을 비교해서 객체를 생성함
-	FACTORY->RegisterObject("Main Camera",        []()->sptr<GameObject> { return makeSptr<FreeCamera>();       });
-	FACTORY->RegisterObject("Skydome",            []()->sptr<GameObject> { return makeSptr<Skydome>();          });
-	FACTORY->RegisterObject("Directional Light",  []()->sptr<GameObject> { return makeSptr<DirectionalLight>(); });
-	FACTORY->RegisterObject("Grid",    []()->sptr<GameObject> { return makeSptr<Grid>();             });
+	FACTORY->RegisterObject("MainCamera",   []()->sptr<GameObject> { return makeSptr<FreeCamera>();  });
+	FACTORY->RegisterObject("SkyBox",       []()->sptr<GameObject> { return makeSptr<SkyBox>();      });
+	FACTORY->RegisterObject("GlobalLight",  []()->sptr<GameObject> { return makeSptr<GlobalLight>(); });
+	FACTORY->RegisterObject("Grid",         []()->sptr<GameObject> { return makeSptr<Grid>();        });
 }
 
 bool ObjectFactory::RegisterObject(const string& type, CreateObjectFunc func)

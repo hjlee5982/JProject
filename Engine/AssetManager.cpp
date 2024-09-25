@@ -32,10 +32,24 @@ void AssetManager::CreateDefaultResources()
 	}
 	// 기본 쉐이더 로드
 	{
-		ASSET->Add(L"SkyBoxVS", makeSptr<Shader>(EShaderType::VS, L"SkyBoxVS.hlsl"));
-		ASSET->Add(L"SkyBoxPS", makeSptr<Shader>(EShaderType::PS, L"SkyBoxPS.hlsl"));
-		ASSET->Add(L"PBRVS",    makeSptr<Shader>(EShaderType::VS, L"PBRVS.hlsl"));
-		ASSET->Add(L"PBRPS",    makeSptr<Shader>(EShaderType::PS, L"PBRPS.hlsl"));
+		// 모양 너무 이상함, 바꾸기 ㄱㄱ
+
+		{// 1. Basic
+			auto shader = makeSptr<Shader>();
+			{
+				shader->CreateShader(EShaderType::VS, L"PBRVS.hlsl");
+				shader->CreateShader(EShaderType::PS, L"PBRPS.hlsl");
+			}
+			ASSET->Add(L"PBR", shader);
+		}
+		{// 2. SkyBox
+			auto shader = makeSptr<Shader>();
+			{
+				shader->CreateShader(EShaderType::VS, L"SkyBoxVS.hlsl");
+				shader->CreateShader(EShaderType::PS, L"SkyBoxPS.hlsl");
+			}
+			ASSET->Add(L"SkyBox", shader);
+		}
 	}
 	// 기본 머티리얼 로드
 	{
@@ -43,8 +57,7 @@ void AssetManager::CreateDefaultResources()
 		{
 			auto material = makeSptr<Material>();
 			{
-				material->SetVertexShader(ASSET->Get<Shader>(L"PBRVS"));
-				material->SetPixelShader (ASSET->Get<Shader>(L"PBRPS"));
+				material->SetShader(ASSET->Get<Shader>(L"PBR"));
 			}
 			ASSET->Add(L"Basic", material);
 		}
@@ -54,11 +67,10 @@ void AssetManager::CreateDefaultResources()
 			{
 				// 1. 텍스쳐들
 				auto texture = ASSET->Load<Texture>(L"SkyBox", L"../Assets/Textures/SkyBox.dds");
-				material->SetCubeMap(texture);
+				material->SetTexture(ETextureType::CUBE, texture);
 
 				// 2. 머티리얼이 필요로 하는 쉐이더들
-				material->SetVertexShader(ASSET->Get<Shader>(L"SkyBoxVS"));
-				material->SetPixelShader (ASSET->Get<Shader>(L"SkyBoxPS"));
+				material->SetShader(ASSET->Get<Shader>(L"SkyBox"));
 			}
 			ASSET->Add(L"SkyBox", material);
 		}

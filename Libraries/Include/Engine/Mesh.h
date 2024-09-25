@@ -20,6 +20,10 @@ public:
 	void CreateGrid(i32 sizeX, i32 sizeY);
 	void CreateSphere();
 public:
+	void PushData();
+private:
+	void CreateBuffers();
+public:
 	sptr<VertexBuffer> GetVertexBuffer()
 	{
 		return _vertexBuffer;
@@ -33,16 +37,9 @@ public:
 		return _geometry;
 	}
 private:
-	void CreateBuffers();
-private:
 	sptr<Geometry<VertexTextureNormalTangentData>> _geometry;
 private:
 	sptr<VertexBuffer> _vertexBuffer;
 	sptr<IndexBuffer>  _indexBuffer;
-public:
-	// PBR TEMP ///////////////////////////////////
-	void CreateSpherePBR();
-	void CreateBuffersPBR();
-	sptr<Geometry<VertexPBR>> _geometryPBR;
 };
 

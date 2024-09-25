@@ -3,15 +3,11 @@
 #include "Layer.h"
  
 #include "FreeCamera.h"
-#include "Skydome.h"
+#include "SkyBox.h"
 #include "Grid.h"
 
 void GameObjectManager::Init()
 {
-	//AddGameObject(makeSptr<FreeCamera>(), "Camera");
-	//AddGameObject(makeSptr<Skydome>(), "Skydome");
-	//AddGameObject(makeSptr<Grid>(), "Grid");
-	//AddGameObject(makeSptr<Sphere>(), "Sphere");
 }
 
 void GameObjectManager::Update()
@@ -53,12 +49,6 @@ void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 	go->SetClass(Utils::ExtractClassName(typeid(*go).name()));
 	go->SetName(name);
 
-	// Light Ä³½Ì
-	if (go->GetLight() != nullptr)
-	{
-		_lights.push_back(go);
-	}
-
 	GameObject::ELayerType layerType = go->GetLayerType();
 	
 	auto findit = _layers.find(layerType);
@@ -76,7 +66,14 @@ void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 		findit->second->AddGameObject(go);
 	}
 
-	_gameObjectRef.push_back(go);
+	// GameObject Ä³½Ì
+	_gameObjects.push_back(go);
+
+	// Light Ä³½Ì
+	if (go->GetLight() != nullptr)
+	{
+		_lights.push_back(go);
+	}
 }
 
 sptr<GameObject> GameObjectManager::GetGameObject(const string& name, GameObject::ELayerType layer)
@@ -101,5 +98,5 @@ void GameObjectManager::Release()
 	}
 
 	_layers.clear();
-	_gameObjectRef.clear();
+	_gameObjects.clear();
 }
