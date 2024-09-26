@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <functional>
 using namespace std;
+#include <any>
 
 
 // Multithread ******************************************
@@ -107,6 +108,7 @@ using namespace Microsoft::WRL;
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "Shader.h"
+#include "ShaderDesc.h"
 #include "GameObject.h"
 
 

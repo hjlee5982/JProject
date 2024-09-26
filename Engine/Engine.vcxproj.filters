@@ -297,6 +297,9 @@
     <ClInclude Include="Enum.h">
       <Filter>00. Header</Filter>
     </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>10. Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>03. Manager\GameObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>10. Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

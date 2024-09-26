@@ -9,45 +9,49 @@ Shader::Shader()
 
 void Shader::CreateShader(EShaderType type, const wstring& path, const string& entry)
 {
-	HRESULT hr;
-
 	_path = L"../Shaders/" + path;
 
+	HRESULT hr;
+
+	ComPtr<ID3DBlob> shaderBlob;
+	ComPtr<ID3DBlob> errorBlob;
+	UINT compileFlags;
+
 #if defined(DEBUG) || defined(_DEBUG)
-	_compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+	compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
 	switch (type)
 	{
 	case EShaderType::VS:
 	{
-		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
-		hr = DEVICE->CreateVertexShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf());
-		CreateInputLayout(_shaderBlob);
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "vs_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+		hr = DEVICE->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _vs.GetAddressOf());
+		CreateInputLayout(shaderBlob);
 		break;
 	}
 	case EShaderType::PS:
 	{
-		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
-		hr = DEVICE->CreatePixelShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf());
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ps_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+		hr = DEVICE->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _ps.GetAddressOf());
 		break;
 	}
 	case EShaderType::HS:
 	{
-		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "hs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
-		hr = DEVICE->CreateHullShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _hs.GetAddressOf());
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "hs_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+		hr = DEVICE->CreateHullShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _hs.GetAddressOf());
 		break;
 	}
 	case EShaderType::DS:
 	{
-		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ds_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
-		hr = DEVICE->CreateDomainShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _ds.GetAddressOf());
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "ds_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+		hr = DEVICE->CreateDomainShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _ds.GetAddressOf());
 		break;
 	}
 	case EShaderType::GS:
 	{
-		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "gs_5_0", _compileFlags, 0, _shaderBlob.GetAddressOf(), _errorBlob.GetAddressOf());
-		hr = DEVICE->CreateGeometryShader(_shaderBlob->GetBufferPointer(), _shaderBlob->GetBufferSize(), nullptr, _gs.GetAddressOf());
+		hr = D3DCompileFromFile(_path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entry.c_str(), "gs_5_0", compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+		hr = DEVICE->CreateGeometryShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, _gs.GetAddressOf());
 		break;
 	}
 	default:
@@ -65,17 +69,6 @@ void Shader::SetShader()
 	CONTEXT->GSSetShader(_gs.Get(), nullptr, 0);
 	CONTEXT->HSSetShader(_hs.Get(), nullptr, 0);
 	CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
-}
-
-void Shader::SetConstantBuffer(EDataType type, ComPtr<ID3D11Buffer> constantBuffer)
-{
-	// Global.hlsli에 상수버퍼 레지스터 순서임
-
-	CONTEXT->VSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	CONTEXT->PSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	CONTEXT->DSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	CONTEXT->GSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	CONTEXT->HSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
 }
 
 void Shader::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)

@@ -11,25 +11,6 @@ public:
 	virtual void Render()     = 0;
 };
 
-enum class EComponentType : u8
-{
-	TRANSFORM,
-	CAMERA,
-	LIGHT,
-	MESHRENDERER,
-
-
-	SCRIPT,
-	// etc..
-
-	END
-};
-
-enum
-{
-	COMPONENT_TYPE_COUNT = static_cast<u8>(EComponentType::END)
-};
-
 class Component : public IComponent
 {
 public:

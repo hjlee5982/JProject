@@ -15,12 +15,10 @@ void Cube::Init()
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		GetComponent<MeshRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Sphere"));
+		GetComponent<MeshRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
 		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"Phong"));
 		//GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"PBR"));
 	}
-
-	GetComponent<Transform>()->GetPosition();
 }
 
 void Cube::Update()

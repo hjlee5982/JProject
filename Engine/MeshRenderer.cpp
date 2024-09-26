@@ -31,28 +31,28 @@ void MeshRenderer::Render()
 				data.gProjMatrix        = Camera::SProj;
 				data.gCameraWorldMatrix = Camera::SView.Invert();
 			}
-			shader->PushData(data);
+			shader->PushData<TRANSFORM_DATA>(data);
 		}
 		{
 			GLOBAL_DATA data;
 			{
 				data.test = vec4(1.f, 0.f, 1.f, 1.f);
 			}
-			shader->PushData(data);
+			shader->PushData<GLOBAL_DATA>(data);
 		}
 		{
 			LIGHT_DATA data;
 			{
 				data.direction = vec3(1.f, -1.f, 1.f);
 			}
-			shader->PushData(data);
+			shader->PushData<LIGHT_DATA>(data);
 		}
 		{
 			MATERIAL_DATA data;
 			{
 
 			}
-			shader->PushData(data);
+			shader->PushData<MATERIAL_DATA>(data);
 		}
 	}
 	// 샘플러 바인딩 (선택), 이거도 모양 이상함 바꾸기ㄱㄱ

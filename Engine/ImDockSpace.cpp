@@ -8,27 +8,27 @@ void ImDockSpace::Init()
 void ImDockSpace::Update()
 {
     DockSpaceBegin();
-
-    if (ImGui::BeginMenuBar())
     {
-        //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.f, 0.f, 0.f, 1.f));
-        if (ImGui::BeginMenu("File"))
+        if (ImGui::BeginMenuBar())
         {
-            //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-
-            ImGui::MenuItem("Load Scene");
-            if (ImGui::MenuItem("Save Scene"))
+            //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.f, 0.f, 0.f, 1.f));
+            if (ImGui::BeginMenu("File"))
             {
-                SCENE->SaveScene();
-                JLOG_INFO("Save Scene Complete");
+                //ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+
+                ImGui::MenuItem("Load Scene");
+                if (ImGui::MenuItem("Save Scene"))
+                {
+                    SCENE->SaveScene();
+                    JLOG_INFO("Save Scene Complete");
+                }
+                //ImGui::PopStyleColor();
+                ImGui::EndMenu();
             }
             //ImGui::PopStyleColor();
-            ImGui::EndMenu();
+            ImGui::EndMenuBar();
         }
-        //ImGui::PopStyleColor();
-        ImGui::EndMenuBar();
     }
-
     DockSpaceEnd();
 }
 

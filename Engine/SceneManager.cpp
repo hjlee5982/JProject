@@ -88,6 +88,7 @@ void SceneManager::LoadDefaultScene(const string& filename)
 #include "FreeCamera.h"
 #include "GlobalLight.h"
 #include "Cube.h"
+#include "Sphere.h"
 
 void SceneManager::MakeScene()
 {
@@ -96,4 +97,5 @@ void SceneManager::MakeScene()
 	OBJECT->AddGameObject(makeSptr<GlobalLight>(), "GlobalLight");
 
 	OBJECT->AddGameObject(makeSptr<Cube>(), "Cube");
+	OBJECT->AddGameObject(makeSptr<Sphere>(), "Sphere");
 }

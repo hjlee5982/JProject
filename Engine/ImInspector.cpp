@@ -8,25 +8,23 @@ void ImInspector::Init()
 
 void ImInspector::Update()
 {
-	ImGui::Begin("Inspector");
 	IMFOCUS("Inspector");
-
-	if (_go != nullptr)
+	ImGui::Begin("Inspector"); 
 	{
-		ImVec2 windowSize = ImGui::GetWindowSize();
-		
-		GUI->Image(L"box");
-		ImGui::SameLine();
-		ImGui::Text("%s", _go->GetName().c_str());
-		ImGui::Separator();
-
-		auto& components = _go->GetComponents();
-
-		for (i32 i = 0; i < components.size(); ++i)
+		if (_go != nullptr)
 		{
-			if (components[i] != nullptr)
+			ImVec2 windowSize = ImGui::GetWindowSize();
+
+			GUI->Image(L"box");
+			ImGui::SameLine();
+			ImGui::Text("%s", _go->GetName().c_str());
+			ImGui::Separator();
+
+			auto& components = _go->GetComponents();
+
+			for (auto& component : components)
 			{
-				EComponentType type = components[i]->GetComponentType();
+				EComponentType type = component.second->GetComponentType();
 
 				switch (type)
 				{
@@ -44,7 +42,7 @@ void ImInspector::Update()
 					break;
 				case EComponentType::LIGHT:
 					RenderLightInspector();
-
+					break;
 					// Component 종류마다 추가
 					// case EComponentType::COMPONENT
 					// RenderXXXInspector();
@@ -57,7 +55,6 @@ void ImInspector::Update()
 			}
 		}
 	}
-
 	ImGui::End();
 }
 
