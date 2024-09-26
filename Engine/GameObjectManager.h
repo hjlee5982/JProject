@@ -16,9 +16,9 @@ public:
 public:
 	void AddGameObject(sptr<GameObject> go, const string& name);
 public:
-	sptr<GameObject> GetGameObject(const string& name, GameObject::ELayerType layer = GameObject::ELayerType::DEFAULT);
+	sptr<GameObject> GetGameObject(const string& name, ELayerType layer = ELayerType::DEFAULT);
 private:
-	HashMap<GameObject::ELayerType, sptr<Layer>> _layers;
+	HashMap<ELayerType, sptr<Layer>> _layers;
 ///////////////////////////////////////////////////
 // GameObject Ä³½Ì ////////////////////////////////
 ///////////////////////////////////////////////////

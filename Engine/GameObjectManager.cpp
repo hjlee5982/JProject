@@ -46,10 +46,10 @@ void GameObjectManager::Render()
 void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 {
 	go->Init();
-	go->SetClass(Utils::ExtractClassName(typeid(*go).name()));
+	//go->SetClass(Utils::ExtractClassName(typeid(*go).name()));
 	go->SetName(name);
 
-	GameObject::ELayerType layerType = go->GetLayerType();
+	ELayerType layerType = go->GetLayerType();
 	
 	auto findit = _layers.find(layerType);
 	
@@ -70,13 +70,13 @@ void GameObjectManager::AddGameObject(sptr<GameObject> go, const string& name)
 	_gameObjects.push_back(go);
 
 	// Light Ä³½Ì
-	if (go->GetLight() != nullptr)
+	if (go->GetComponent<Light>() != nullptr)
 	{
 		_lights.push_back(go);
 	}
 }
 
-sptr<GameObject> GameObjectManager::GetGameObject(const string& name, GameObject::ELayerType layer)
+sptr<GameObject> GameObjectManager::GetGameObject(const string& name, ELayerType layer)
 {
 	auto findit = _layers.find(layer);
 
@@ -85,11 +85,11 @@ sptr<GameObject> GameObjectManager::GetGameObject(const string& name, GameObject
 
 void GameObjectManager::Release()
 {
-	i32 size = static_cast<int>(GameObject::ELayerType::END);
+	i32 size = static_cast<int>(ELayerType::END);
 
 	for (i32 i = 0; i < size; ++i)
 	{
-		auto& layer = _layers[static_cast<GameObject::ELayerType>(i)];
+		auto& layer = _layers[static_cast<ELayerType>(i)];
 		
 		if (nullptr != layer)
 		{

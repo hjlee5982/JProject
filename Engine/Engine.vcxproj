@@ -152,6 +152,7 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="Enum.h" />
     <ClInclude Include="GlobalLight.h" />
     <ClInclude Include="DirectX11.h" />
     <ClInclude Include="Exception.h" />

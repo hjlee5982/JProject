@@ -78,8 +78,8 @@ void SceneManager::LoadDefaultScene(const string& filename)
 
 			sptr<GameObject> go = FACTORY->CreateObject(name);
 			OBJECT->AddGameObject(go, name);
-			go->GetTransform()->SetPosition(position);
-			go->GetTransform()->SetScale(scale);
+			go->GetComponent<Transform>()->SetPosition(position);
+			go->GetComponent<Transform>()->SetScale(scale);
 		}
 	}
 }

@@ -10,15 +10,17 @@ void Cube::Init()
 {
 	AddComponent(makeSptr<Transform>());
 	{
-		GetTransform()->SetScale(vec3(3.f, 3.f, 3.f));
-		GetTransform()->SetPosition(vec3(0.f, 3.f, 0.f));
+		GetComponent<Transform>()->SetScale(vec3(3.f, 3.f, 3.f));
+		GetComponent<Transform>()->SetPosition(vec3(0.f, 3.f, 0.f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		GetMeshRenderer()->SetMesh    (ASSET->Get<Mesh>(L"Sphere"));
-		GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"Phong"));
+		GetComponent<MeshRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Sphere"));
+		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"Phong"));
 		//GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"PBR"));
 	}
+
+	GetComponent<Transform>()->GetPosition();
 }
 
 void Cube::Update()
@@ -31,5 +33,5 @@ void Cube::LateUpdate()
 
 void Cube::Render()
 {
-	GetMeshRenderer()->Render();
+	GetComponent<MeshRenderer>()->Render();
 }

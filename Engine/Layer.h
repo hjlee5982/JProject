@@ -5,7 +5,7 @@
 class Layer
 {
 public:
-	Layer(GameObject::ELayerType layerType) : _layerType(layerType) {}
+	Layer(ELayerType layerType) : _layerType(layerType) {}
 public:
 	void Update();
 	void LateUpdate();
@@ -21,7 +21,7 @@ public:
 	void Release();
 private:
 	vector<sptr<GameObject>> _gameObjects;
-	GameObject::ELayerType _layerType = GameObject::ELayerType::DEFAULT;
+	ELayerType _layerType = ELayerType::DEFAULT;
 	bool _isValid = true;
 };
 

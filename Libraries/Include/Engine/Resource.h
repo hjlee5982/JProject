@@ -36,19 +36,19 @@ public:
 class Resource : public IResource, public enable_shared_from_this<Resource>
 {
 public:
-	Resource(EResourceType type) : _type(type) {}
+	Resource(EResourceType type) : _componentType(type) {}
 	virtual ~Resource() = default;
 public:
-	EResourceType GetType()
+	EResourceType GetComponentType()
 	{
-		return _type;
+		return _componentType;
 	}
 	const wstring& GetName()
 	{
 		return _name;
 	}
 protected:
-	EResourceType _type = EResourceType::NONE;
+	EResourceType _componentType = EResourceType::NONE;
 protected:
 	wstring _name;
 	wstring _path;

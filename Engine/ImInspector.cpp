@@ -26,7 +26,7 @@ void ImInspector::Update()
 		{
 			if (components[i] != nullptr)
 			{
-				EComponentType type = components[i]->GetType();
+				EComponentType type = components[i]->GetComponentType();
 
 				switch (type)
 				{
@@ -68,13 +68,13 @@ void ImInspector::RenderTransformInspector()
 
 	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		auto pos = _go->GetTransform()->GetPosition();
+		auto pos = _go->GetComponent<Transform>()->GetPosition();
 		f32 fpos[3] = { pos.x, pos.y, pos.z };
 
-		auto rotation = _go->GetTransform()->GetRotation();
+		auto rotation = _go->GetComponent<Transform>()->GetRotation();
 		f32 frot[3] = { rotation.x, rotation.y, rotation.z };
 
-		auto scale = _go->GetTransform()->GetScale();
+		auto scale = _go->GetComponent<Transform>()->GetScale();
 		f32 fscale[3] = { scale.x, scale.y, scale.z };
 
 		ImGui::Text("Position");
@@ -92,9 +92,9 @@ void ImInspector::RenderTransformInspector()
 		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
 		ImGui::DragFloat3("##Scale", fscale, 0.1f);
 
-		_go->GetTransform()->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
-		_go->GetTransform()->SetRotation(vec3(frot[0], frot[1], frot[2]));
-		_go->GetTransform()->SetScale(vec3(fscale[0], fscale[1], fscale[2]));
+		_go->GetComponent<Transform>()->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
+		_go->GetComponent<Transform>()->SetRotation(vec3(frot[0], frot[1], frot[2]));
+		_go->GetComponent<Transform>()->SetScale(vec3(fscale[0], fscale[1], fscale[2]));
 
 		ImGui::TreePop();
 	}
@@ -107,9 +107,9 @@ void ImInspector::RenderCameraInspector()
 
 	if (ImGui::TreeNodeEx("Camera", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		f32 Near = _go->GetCamera()->GetNear();
-		f32 Far  = _go->GetCamera()->GetFar();
-		f32 Fov  = _go->GetCamera()->GetFov();
+		f32 Near = _go->GetComponent<Camera>()->GetNear();
+		f32 Far  = _go->GetComponent<Camera>()->GetFar();
+		f32 Fov  = _go->GetComponent<Camera>()->GetFov();
 
 		ImGui::Text("Near");
 		ImGui::SameLine();
@@ -130,9 +130,9 @@ void ImInspector::RenderCameraInspector()
 		if (Far  <= 1.f)   Far  = 1.f;
 		if (Fov  <= 1.f)   Fov  = 1.f;
 
-		_go->GetCamera()->SetNear(Near);
-		_go->GetCamera()->SetFar(Far);
-		_go->GetCamera()->SetFov(Fov);
+		_go->GetComponent<Camera>()->SetNear(Near);
+		_go->GetComponent<Camera>()->SetFar(Far);
+		_go->GetComponent<Camera>()->SetFov(Fov);
 
 		ImGui::TreePop();
 	}
@@ -255,7 +255,7 @@ void ImInspector::RenderLightInspector()
 
 	if (ImGui::TreeNodeEx("Light", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		auto light = _go->GetLight();
+		auto light = _go->GetComponent<Light>();
 
 		auto direction = light->GetDirection();
 		auto diffuse   = light->GetDiffuse();

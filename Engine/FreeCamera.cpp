@@ -9,11 +9,11 @@ void FreeCamera::Init()
 {
 	AddComponent(makeSptr<Transform>());
 	{
-		GetTransform()->SetPosition(vec3(0.f, 3.f, -10.f));
+		GetComponent<Transform>()->SetPosition(vec3(0.f, 3.f, -10.f));
 	}
 	AddComponent(makeSptr<Camera>(0.1f, 300.f, XMConvertToRadians(60.f)));
 
-	auto transform = GetTransform();
+	auto transform = GetComponent<Transform>();
 
 	vec3 lookAt = vec3(0.f, 2.f, 0.f) - transform->GetPosition();
 	lookAt.Normalize();
@@ -32,12 +32,12 @@ void FreeCamera::Init()
 	
 	matx world = matx::CreateWorld(right, up, lookAt);
 
-	GetCamera()->Update();
+	GetComponent<Camera>()->Update();
 }
 
 void FreeCamera::Update()
 {
-	auto transform = GetTransform();
+	auto transform = GetComponent<Transform>();
 
 	if (INPUT->KeyPress(RBTN) && GUI->GetFocusedWindow() == "Scene")
 	{
@@ -94,7 +94,7 @@ void FreeCamera::Update()
 		i32 dx = INPUT->MouseMove(EMouseState::X);
 		i32 dy = INPUT->MouseMove(EMouseState::Y);
 
-		vec3 rotation = GetTransform()->GetRotation();
+		vec3 rotation = GetComponent<Transform>()->GetRotation();
 
 		rotation.x += dy * _sensitivity;
 		rotation.y += dx * _sensitivity;
@@ -102,7 +102,7 @@ void FreeCamera::Update()
 		if (rotation.x >= 90.f) rotation.x = 90.f;
 		if (rotation.x <= -90.f) rotation.x = -90.f;
 
-		GetTransform()->SetRotation(rotation);
+		GetComponent<Transform>()->SetRotation(rotation);
 
 		/*_restriction = transform->GetLook().Dot(vec3::Up);
 		
@@ -139,7 +139,7 @@ void FreeCamera::Update()
 	GetCamera()->SetFar(f);
 	GetCamera()->SetFov(::XMConvertToRadians(v));*/
 
-	GetCamera()->Update();
+	GetComponent<Camera>()->Update();
 }
 
 void FreeCamera::LateUpdate()

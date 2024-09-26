@@ -2,7 +2,7 @@
 #include "Transform.h"
 
 Transform::Transform()
-	: Component(EComponentType::TRANSFORM)
+	: Component(EComponentType::TRANSFORM, typeid(Transform).hash_code())
 {
 }
 

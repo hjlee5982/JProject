@@ -13,13 +13,13 @@ void Grid::Init()
 
 	AddComponent(makeSptr<Transform>());
 	{
-		GetTransform()->SetPosition(vec3(-x / 2, 0.f, -z / 2));
+		GetComponent<Transform>()->SetPosition(vec3(-x / 2, 0.f, -z / 2));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
 		auto mesh = makeSptr<Mesh>();
 		mesh->CreateGrid(x, z);
-		GetMeshRenderer()->SetMesh(mesh);
+		GetComponent<MeshRenderer>()->SetMesh(mesh);
 	}
 }
 
@@ -33,5 +33,5 @@ void Grid::LateUpdate()
 
 void Grid::Render()
 {
-	GetMeshRenderer()->Render();
+	GetComponent<MeshRenderer>()->Render();
 }

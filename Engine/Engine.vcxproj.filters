@@ -294,6 +294,9 @@
     <ClInclude Include="ObjectFactory.h">
       <Filter>03. Manager\GameObjectManager</Filter>
     </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>00. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">

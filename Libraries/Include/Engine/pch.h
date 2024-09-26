@@ -1,13 +1,15 @@
 #pragma once
 
 // Headers **********************************************
-
 #include "Types.h"
 #include "Define.h"
 
 
-// STL **************************************************
+// FileSystem *******************************************
+#include <filesystem>
 
+
+// STL **************************************************
 #include <string>
 #include <memory>
 #include <iostream>
@@ -22,21 +24,21 @@
 #include <functional>
 using namespace std;
 
-// Multithread ******************************************
 
+// Multithread ******************************************
 #include <thread>
 #include <atomic>
 #include <mutex>
 
-// Win **************************************************
 
+// Win **************************************************
 #include <windows.h>
 #include <assert.h>
 #include <optional>
 #include <comdef.h>
 
-// DirecX ***********************************************
 
+// DirecX ***********************************************
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
@@ -89,33 +91,39 @@ using namespace Microsoft::WRL;
 
 
 // Utils *************************************************
-#include "filesystem"
-
 #include "Log.h"
 #include "JLog.h"
 #include "Exception.h"
 #include "Utils.h"
+#include "Enum.h"
 
 
 // Engine ************************************************
 #include "Window.h"
 #include "DirectX11.h"
 //#include "Renderer.h"
-
 #include "VertexData.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "Shader.h"
-
 #include "GameObject.h"
+
+
+// Asset **********************************************************
+#include "Mesh.h"
+#include "Texture.h"
+#include "Material.h"
+
+
+// Component **********************************************************
 #include "Transform.h"
 #include "Camera.h"
-#include "Texture.h"
-#include "Mesh.h"
-#include "Material.h"
 #include "Light.h"
+#include "MeshRenderer.h"
 
+
+// Singleton **********************************************************
 #include "ImGuiManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"

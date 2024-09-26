@@ -1,6 +1,6 @@
 #pragma once
 
-class IComponent
+class IComponent // : public IJson
 {
 public:
 	virtual ~IComponent() = default;
@@ -33,7 +33,7 @@ enum
 class Component : public IComponent
 {
 public:
-	Component(EComponentType type) : _type(type) {}
+	Component(EComponentType type, u64 hash);
 	virtual ~Component() = default;
 public:
 	virtual void Init()       override {};
@@ -41,21 +41,17 @@ public:
 	virtual void LateUpdate() override {};
 	virtual void Render()     override {};
 public:
-	EComponentType GetType()
-	{
-		return _type;
-	}
+	EComponentType GetComponentType() { return _componentType; }
+	u64 GetHash() { return _hash; }
 public:
 	sptr<class GameObject> GetOwner();
 	sptr<class Transform>  GetOwnerTransform();
 private:
 	friend class GameObject;
-	void SetOwner(sptr<GameObject> owner)
-	{
-		_owner = owner;
-	}
+	void SetOwner(sptr<GameObject> owner) { _owner = owner; }
 private:
-	EComponentType   _type;
+	EComponentType   _componentType;
 	wptr<GameObject> _owner;
+	u64 _hash;
 };
 

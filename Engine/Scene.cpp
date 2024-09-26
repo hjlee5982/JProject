@@ -33,9 +33,9 @@ void Scene::MakeJson(sptr<JsonData> data)
 		Value object(kObjectType);
 		{
 			object.AddMember("name", StringRef(obj->GetName().c_str()), allocator);
-			object.AddMember("class", StringRef(obj->GetClass().c_str()), allocator);
-			object.AddMember("position", Utils::Vec3ToJsonArray(obj->GetTransform()->GetPosition(), allocator), allocator);
-			object.AddMember("scale", Utils::Vec3ToJsonArray(obj->GetTransform()->GetScale(), allocator), allocator);
+			//object.AddMember("class", StringRef(obj->GetClass().c_str()), allocator);
+			object.AddMember("position", Utils::Vec3ToJsonArray(obj->GetComponent<Transform>()->GetPosition(), allocator), allocator);
+			object.AddMember("scale", Utils::Vec3ToJsonArray(obj->GetComponent<Transform>()->GetScale(), allocator), allocator);
 		}
 		objects.PushBack(object, allocator);
 	}
@@ -82,8 +82,8 @@ void Scene::LoadJson(sptr<JsonData> data)
 
 			sptr<GameObject> go = FACTORY->CreateObject(name);
 			OBJECT->AddGameObject(go, name);
-			go->GetTransform()->SetPosition(position);
-			go->GetTransform()->SetScale(scale);
+			go->GetComponent<Transform>()->SetPosition(position);
+			go->GetComponent<Transform>()->SetScale(scale);
 		}
 	}
 

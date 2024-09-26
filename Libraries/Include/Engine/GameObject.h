@@ -18,62 +18,48 @@ public:
 	virtual Value MakeJson(Document::AllocatorType& allocator) override { return Value(); };
 };
 
+
+
 class GameObject : public IGameObject, public enable_shared_from_this<GameObject>
 {
 public:
-	enum class ELayerType
-	{
-		DEFAULT,
-
-		END
-	};
-public:
 	GameObject();
+	virtual ~GameObject() = default;
 public:
 	void Init()       override {};
 	void Update()     override {};
 	void LateUpdate() override {};
 	void Render()     override {};
 public:
-	void AddComponent(sptr<Component> component);
+	const ELayerType GetLayerType()	{ return _layerType; }
+	const string&    GetName()	    { return _name;		 }
 public:
-	ELayerType GetLayerType()
+	void SetName (const string& name) {	 _name = name;	}
+public:
+	void AddComponent(sptr<Component> component)
 	{
-		return _layerType;
-	}
-	const string& GetClass()
-	{
-		return _class;
-	}
-	void SetClass(const string& name)
-	{
-		_class = name;
-	}
-	const string& GetName()
-	{
-		return _name;
-	}
-	void SetName(const string& name)
-	{
-		_name = name;
+		component->SetOwner(shared_from_this());
+		_components.emplace(component->GetHash(), component);
 	}
 public:
-	sptr<class Transform>    GetTransform();
-	sptr<class Camera>       GetCamera();
-	sptr<class Light>		 GetLight();
-	sptr<class MeshRenderer> GetMeshRenderer();
-public:
-	array<sptr<Component>, COMPONENT_TYPE_COUNT>& GetComponents()
+	template<typename T>
+	sptr<T> GetComponent()
+	{
+		auto findit = _components.find(typeid(T).hash_code());
+
+		if (findit == _components.end())
+		{
+			return nullptr;
+		}
+		return static_pointer_cast<T>(findit->second);
+	}
+	HashMap<u64, sptr<Component>>& GetComponents()
 	{
 		return _components;
 	}
 private:
-	sptr<Component> GetComponent(EComponentType type);
-private:
-	array<sptr<Component>, COMPONENT_TYPE_COUNT> _components;
+	HashMap<u64, sptr<Component>> _components;
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
-	string _class;
 	string _name;
 };
-

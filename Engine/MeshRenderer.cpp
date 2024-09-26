@@ -3,7 +3,7 @@
 #include "Mesh.h"
 
 MeshRenderer::MeshRenderer()
-	: Component(EComponentType::MESHRENDERER)
+	: Component(EComponentType::MESHRENDERER, typeid(MeshRenderer).hash_code())
 {
 	_material = ASSET->Get<Material>(L"PBR");
 }
@@ -26,7 +26,7 @@ void MeshRenderer::Render()
 		{
 			TRANSFORM_DATA data;
 			{
-				data.gWorldMatrix       = GetOwner()->GetTransform()->GetWorld();
+				data.gWorldMatrix       = GetOwner()->GetComponent<Transform>()->GetWorld();
 				data.gViewMatrix        = Camera::SView;
 				data.gProjMatrix        = Camera::SProj;
 				data.gCameraWorldMatrix = Camera::SView.Invert();

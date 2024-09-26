@@ -6,7 +6,10 @@ matx Camera::SView = matx::Identity;
 matx Camera::SProj = matx::Identity;
 
 Camera::Camera(f32 Near, f32 Far, f32 Fov)
-	: Component(EComponentType::CAMERA), _near(Near), _far(Far), _fov(Fov)
+	: Component(EComponentType::CAMERA, typeid(Camera).hash_code())
+	, _near(Near)
+	, _far(Far)
+	, _fov(Fov)
 {
 	_width  = DX->GetViewport().GetWidth();
 	_height = DX->GetViewport().GetHeight();

@@ -10,12 +10,12 @@ void SkyBox::Init()
 {
 	AddComponent(makeSptr<Transform>());
 	{
-		GetTransform()->SetRotation(vec3(0.f, 180.f, 0.f));
+		GetComponent<Transform>()->SetRotation(vec3(0.f, 180.f, 0.f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		GetMeshRenderer()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
-		GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"SkyBox"));
+		GetComponent<MeshRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
+		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"SkyBox"));
 	}
 
 	D3D11_RASTERIZER_DESC cullDesc;
@@ -71,7 +71,7 @@ void SkyBox::Render()
 	CONTEXT->RSSetState(_noRasterizerState.Get());
 	CONTEXT->OMSetDepthStencilState(_noDepthStancilState.Get(), 1);
 
-	GetMeshRenderer()->Render();
+	GetComponent<MeshRenderer>()->Render();
 
 	// 컬링 On, Z버퍼 On
 	CONTEXT->RSSetState(nullptr);
@@ -83,11 +83,11 @@ Value SkyBox::MakeJson(Document::AllocatorType& allocator)
 	Value object(kObjectType);
 	{
 		// 모두가 공통으로 가지고 있는 정보
-		object.AddMember("class",    StringRef(GetClass().c_str()), allocator);
+		//object.AddMember("class",    StringRef(GetClass().c_str()), allocator);
 		object.AddMember("name",     StringRef(GetName().c_str()), allocator);
-		object.AddMember("position", Utils::Vec3ToJsonArray(GetTransform()->GetPosition(), allocator), allocator);
-		object.AddMember("rotation", Utils::Vec3ToJsonArray(GetTransform()->GetRotation(), allocator), allocator);
-		object.AddMember("scale",    Utils::Vec3ToJsonArray(GetTransform()->GetScale(), allocator), allocator);
+		object.AddMember("position", Utils::Vec3ToJsonArray(GetComponent<Transform>()->GetPosition(), allocator), allocator);
+		object.AddMember("rotation", Utils::Vec3ToJsonArray(GetComponent<Transform>()->GetRotation(), allocator), allocator);
+		object.AddMember("scale",    Utils::Vec3ToJsonArray(GetComponent<Transform>()->GetScale(), allocator), allocator);
 
 		// 해당 클래스가 고유하게 가지고 있는 정보
 
@@ -96,8 +96,8 @@ Value SkyBox::MakeJson(Document::AllocatorType& allocator)
 		// 2. 어떤 옵션으로 그릴 것인가 (Material)
 		//  ㄴ Material 안에는 Texture도 들어있다
 		//  ㄴ Shader도 들어있다
-		GetMeshRenderer()->GetMesh();
-		GetMeshRenderer()->GetMaterial();
+		GetComponent<MeshRenderer>()->GetMesh();
+		GetComponent<MeshRenderer>()->GetMaterial();
 
 		// 이제 뭘 저장함?
 		// 그냥 변수야 저장하면 되는데 클래스를 저장할 수가 있나?

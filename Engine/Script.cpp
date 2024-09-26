@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "Script.h"
 
+Script::Script()
+	: Component(EComponentType::SCRIPT, typeid(Script).hash_code())
+{
+}
+
 void Script::Init()
 {
 }
