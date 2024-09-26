@@ -14,7 +14,7 @@ enum class EShaderType
 	END
 };
 
-enum class EConstantType
+enum class EDataType
 {
 	// Global.hlsli에 있는 레지스터 순서랑 똑같아야됨
 	TRANSFORM,
@@ -37,22 +37,11 @@ public:
 	void CreateShader(EShaderType type, const wstring& path, const string& entry = "main");
 	void SetShader();
 private:
-	void SetConstantBuffer(EConstantType type, ComPtr<ID3D11Buffer> constantBuffer);
+	void SetConstantBuffer(EDataType type, ComPtr<ID3D11Buffer> constantBuffer);
 	void CreateInputLayout(ComPtr<ID3DBlob> shaderBlob);
 public:
-	ComPtr<ID3D11VertexShader>   GetVertexShader()   { return _vs; }
-	ComPtr<ID3D11PixelShader>    GetPixelShader()    { return _ps; }
-	ComPtr<ID3D11HullShader>     GetHullShader()     { return _hs; }
-	ComPtr<ID3D11DomainShader>   GetDomainShader()   { return _ds; }
-	ComPtr<ID3D11GeometryShader> GetGeometryShader() { return _gs; }
-	ComPtr<ID3D11InputLayout>    GetInputlayout()    { return _inputLayout; }
-	D3D11_PRIMITIVE_TOPOLOGY     GetTopology()       { return _topology; }
-public:
-	// Bind 함수 추가
-	void BindTransformData(const TRANSFORM_DATA& data);
-	void BindLightData    (const LIGHT_DATA&     data);
-	void BindGlobalData   (const GLOBAL_DATA&    data);
-	void BindMaterialData (const MATERIAL_DATA&  data);
+	template<typename T>
+	void PushData(const T& data);
 private:
 	// Bind 할 데이터 추가
 	sptr<ConstantBuffer<TRANSFORM_DATA>> _transformDataBuffer;
@@ -63,6 +52,7 @@ private:
 	ComPtr<ID3DBlob> _shaderBlob;
 	ComPtr<ID3DBlob> _errorBlob;
 	UINT _compileFlags;
+	EDataType _dataType;
 private:
 	ComPtr<ID3D11VertexShader>   _vs;
 	ComPtr<ID3D11PixelShader>    _ps;
@@ -74,3 +64,59 @@ private:
 	D3D11_PRIMITIVE_TOPOLOGY  _topology;
 };
 
+template<typename T>
+void Shader::PushData(const T& data)
+{
+	if constexpr (std::is_same_v<T, TRANSFORM_DATA>)
+	{
+		_dataType = EDataType::TRANSFORM;
+
+		if (_transformDataBuffer == nullptr)
+		{
+			_transformDataBuffer = makeSptr<ConstantBuffer<TRANSFORM_DATA>>();
+		}
+
+		_transformDataBuffer->CopyData(data);
+
+		SetConstantBuffer(EDataType::TRANSFORM, _transformDataBuffer->GetConstantBuffer());
+	}
+	else if constexpr (std::is_same_v<T, LIGHT_DATA>)
+	{
+		_dataType = EDataType::LIGHT;
+
+		if (_lightDataBuffer == nullptr)
+		{
+			_lightDataBuffer = makeSptr<ConstantBuffer<LIGHT_DATA>>();
+		}
+
+		_lightDataBuffer->CopyData(data);
+
+		SetConstantBuffer(EDataType::LIGHT, _lightDataBuffer->GetConstantBuffer());
+	}
+	else if constexpr (std::is_same_v<T, GLOBAL_DATA>)
+	{
+		_dataType = EDataType::GLOBAL;
+
+		if (_globalDataBuffer == nullptr)
+		{
+			_globalDataBuffer = makeSptr<ConstantBuffer<GLOBAL_DATA>>();
+		}
+
+		_globalDataBuffer->CopyData(data);
+
+		SetConstantBuffer(EDataType::GLOBAL, _globalDataBuffer->GetConstantBuffer());
+	}
+	else if constexpr (std::is_same_v<T, MATERIAL_DATA>)
+	{
+		_dataType = EDataType::MATERIAL;
+
+		if (_materialDataBuffer == nullptr)
+		{
+			_materialDataBuffer = makeSptr<ConstantBuffer<MATERIAL_DATA>>();
+		}
+
+		_materialDataBuffer->CopyData(data);
+
+		SetConstantBuffer(EDataType::MATERIAL, _materialDataBuffer->GetConstantBuffer());
+	}
+}

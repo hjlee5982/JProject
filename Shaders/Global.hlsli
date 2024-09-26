@@ -8,11 +8,19 @@ cbuffer TRANSFORM_DATA : register(b0)
     row_major matrix gWorldMatrix;
     row_major matrix gViewMatrix;
     row_major matrix gProjMatrix;
+    
+    row_major matrix gCameraWorldMatrix;
 }
 
 cbuffer LIGHT_DATA : register(b1)
 {
+    float3 lDirection;
+    float4 lAmbient;
+    float4 lDiffuse;
+    float4 lSpecular;
+    float4 lEmissive;
     
+    float padding;
 }
 
 cbuffer GLOBAL_DATA : register(b2)
@@ -22,10 +30,10 @@ cbuffer GLOBAL_DATA : register(b2)
 
 cbuffer MATERIAL_DATA : register(b3)
 {
-    float4 ambient;
-    float4 diffuse;
-    float4 specular;
-    float4 emissive;
+    float4 mAmbient;
+    float4 mDiffuse;
+    float4 mSpecular;
+    float4 mEmissive;
 }
 
 Texture2D g_Texture_0 : register(t0); // Albedo
@@ -40,4 +48,7 @@ Texture2D g_Texture_7 : register(t7);
 TextureCube g_CubeTexture : register(t8);
 
 SamplerState g_LinearSampler : register(s0);
+
+
+
 #endif

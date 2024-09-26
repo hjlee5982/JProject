@@ -19,7 +19,7 @@ PS_IN main(VS_IN input)
     }
     output.position = position;
 
-    output.UV = input.localPosition;
+    output.UV0 = input.localPosition;
     
     return output;
 }

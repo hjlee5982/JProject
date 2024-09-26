@@ -15,7 +15,9 @@ void Cube::Init()
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{
-		GetMeshRenderer()->SetMesh(ASSET->Get<Mesh>(L"Sphere"));
+		GetMeshRenderer()->SetMesh    (ASSET->Get<Mesh>(L"Sphere"));
+		GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"Phong"));
+		//GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"PBR"));
 	}
 }
 

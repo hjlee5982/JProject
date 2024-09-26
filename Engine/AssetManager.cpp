@@ -32,9 +32,8 @@ void AssetManager::CreateDefaultResources()
 	}
 	// 기본 쉐이더 로드
 	{
-		// 모양 너무 이상함, 바꾸기 ㄱㄱ
-
-		{// 1. Basic
+		// 1. Basic
+		{
 			auto shader = makeSptr<Shader>();
 			{
 				shader->CreateShader(EShaderType::VS, L"PBRVS.hlsl");
@@ -42,13 +41,23 @@ void AssetManager::CreateDefaultResources()
 			}
 			ASSET->Add(L"PBR", shader);
 		}
-		{// 2. SkyBox
+		// 2. SkyBox
+		{
 			auto shader = makeSptr<Shader>();
 			{
 				shader->CreateShader(EShaderType::VS, L"SkyBoxVS.hlsl");
 				shader->CreateShader(EShaderType::PS, L"SkyBoxPS.hlsl");
 			}
 			ASSET->Add(L"SkyBox", shader);
+		}
+		// 3. Phong
+		{
+			auto shader = makeSptr<Shader>();
+			{
+				shader->CreateShader(EShaderType::VS, L"PhongVS.hlsl");
+				shader->CreateShader(EShaderType::PS, L"PhongPS.hlsl");
+			}
+			ASSET->Add(L"Phong", shader);
 		}
 	}
 	// 기본 머티리얼 로드
@@ -59,7 +68,7 @@ void AssetManager::CreateDefaultResources()
 			{
 				material->SetShader(ASSET->Get<Shader>(L"PBR"));
 			}
-			ASSET->Add(L"Basic", material);
+			ASSET->Add(L"PBR", material);
 		}
 		// 2. SkyBox 머티리얼
 		{
@@ -73,6 +82,14 @@ void AssetManager::CreateDefaultResources()
 				material->SetShader(ASSET->Get<Shader>(L"SkyBox"));
 			}
 			ASSET->Add(L"SkyBox", material);
+		}
+		// 3. Phong 머티리얼
+		{
+			auto material = makeSptr<Material>();
+			{
+				material->SetShader(ASSET->Get<Shader>(L"Phong"));
+			}
+			ASSET->Add(L"Phong", material);
 		}
 	}
 

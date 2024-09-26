@@ -15,8 +15,10 @@ struct PS_IN
 {
     float4 position      : SV_Position;
     float3 worldPosition : POSITION;
+    float3 normal        : NORMAL;
     
-    float3 UV            : TEXCOORD0;
+    float3 UV0           : TEXCOORD0;
+    float2 UV1           : TEXCOORD1;
 };
 
 

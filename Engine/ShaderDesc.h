@@ -8,14 +8,22 @@ class Shader;
 // Global.hlsli¶û Â¦À» ¸ÂÃç¾ßµÊ
 struct TRANSFORM_DATA
 {
-	matx gWorldMatrix;
-	matx gViewMatrix;
-	matx gProjMatrix;
+	matx gWorldMatrix = matx::Identity;
+	matx gViewMatrix  = matx::Identity;
+	matx gProjMatrix  = matx::Identity;
+
+	matx gCameraWorldMatrix = matx::Identity;
 };
 
 struct LIGHT_DATA
 {
+	vec3 direction;
+	Color ambient  = Color(1.f, 1.f, 1.f, 1.f);
+	Color diffuse  = Color(1.f, 1.f, 1.f, 1.f);
+	Color specular = Color(1.f, 1.f, 1.f, 1.f);
+	Color emissive = Color(1.f, 1.f, 1.f, 1.f);
 
+	f32 padding;
 };
 
 struct GLOBAL_DATA
@@ -25,8 +33,8 @@ struct GLOBAL_DATA
 
 struct MATERIAL_DATA
 {
-	Color ambient  = Color(0.5f, 0.5f, 0.5f, 1.f);
+	Color ambient  = Color(1.f, 1.f, 1.f, 1.f);
 	Color diffuse  = Color(1.f, 1.f, 1.f, 1.f);
 	Color specular = Color(1.f, 1.f, 1.f, 1.f);
-	Color emissive = Color(0.f, 0.5f, 1.f, 1.f);
+	Color emissive = Color(1.f, 1.f, 1.f, 1.f);
 };

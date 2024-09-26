@@ -62,18 +62,20 @@ void Shader::SetShader()
 {
 	CONTEXT->VSSetShader(_vs.Get(), nullptr, 0);
 	CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
-	//CONTEXT->GSSetShader(_gs.Get(), nullptr, 0);
-	//CONTEXT->HSSetShader(_hs.Get(), nullptr, 0);
-	//CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
+	CONTEXT->GSSetShader(_gs.Get(), nullptr, 0);
+	CONTEXT->HSSetShader(_hs.Get(), nullptr, 0);
+	CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);
 }
 
-void Shader::SetConstantBuffer(EConstantType type, ComPtr<ID3D11Buffer> constantBuffer)
+void Shader::SetConstantBuffer(EDataType type, ComPtr<ID3D11Buffer> constantBuffer)
 {
+	// Global.hlsli에 상수버퍼 레지스터 순서임
+
 	CONTEXT->VSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
 	CONTEXT->PSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	//CONTEXT->DSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	//CONTEXT->GSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
-	//CONTEXT->HSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	CONTEXT->DSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	CONTEXT->GSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
+	CONTEXT->HSSetConstantBuffers((UINT)type, 1, constantBuffer.GetAddressOf());
 }
 
 void Shader::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
@@ -93,52 +95,4 @@ void Shader::CreateInputLayout(ComPtr<ID3DBlob> shaderBlob)
 
 	CONTEXT->IASetInputLayout(_inputLayout.Get());
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-}
-
-void Shader::BindTransformData(const TRANSFORM_DATA& data)
-{
-	if (_transformDataBuffer == nullptr)
-	{
-		_transformDataBuffer = makeSptr<ConstantBuffer<TRANSFORM_DATA>>();
-	}
-
-	_transformDataBuffer->CopyData(data);
-
-	SetConstantBuffer(EConstantType::TRANSFORM, _transformDataBuffer->GetConstantBuffer());
-}
-
-void Shader::BindLightData(const LIGHT_DATA& data)
-{
-	if (_lightDataBuffer == nullptr)
-	{
-		_lightDataBuffer = makeSptr<ConstantBuffer<LIGHT_DATA>>();
-	}
-
-	_lightDataBuffer->CopyData(data);
-
-	SetConstantBuffer(EConstantType::LIGHT, _lightDataBuffer->GetConstantBuffer());
-}
-
-void Shader::BindGlobalData(const GLOBAL_DATA& data)
-{
-	if (_globalDataBuffer == nullptr)
-	{
-		_globalDataBuffer = makeSptr<ConstantBuffer<GLOBAL_DATA>>();
-	}
-
-	_globalDataBuffer->CopyData(data);
-	
-	SetConstantBuffer(EConstantType::GLOBAL, _globalDataBuffer->GetConstantBuffer());
-}
-
-void Shader::BindMaterialData(const MATERIAL_DATA& data)
-{
-	if (_materialDataBuffer == nullptr)
-	{
-		_materialDataBuffer = makeSptr<ConstantBuffer<MATERIAL_DATA>>();
-	}
-
-	_materialDataBuffer->CopyData(data);
-
-	SetConstantBuffer(EConstantType::MATERIAL, _materialDataBuffer->GetConstantBuffer());
 }

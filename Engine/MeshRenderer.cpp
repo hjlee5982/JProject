@@ -5,7 +5,7 @@
 MeshRenderer::MeshRenderer()
 	: Component(EComponentType::MESHRENDERER)
 {
-	_material = ASSET->Get<Material>(L"Basic");
+	_material = ASSET->Get<Material>(L"PBR");
 }
 
 void MeshRenderer::Render()
@@ -26,18 +26,33 @@ void MeshRenderer::Render()
 		{
 			TRANSFORM_DATA data;
 			{
-				data.gWorldMatrix = GetOwner()->GetTransform()->GetWorld();
-				data.gViewMatrix  = Camera::SView;
-				data.gProjMatrix  = Camera::SProj;
+				data.gWorldMatrix       = GetOwner()->GetTransform()->GetWorld();
+				data.gViewMatrix        = Camera::SView;
+				data.gProjMatrix        = Camera::SProj;
+				data.gCameraWorldMatrix = Camera::SView.Invert();
 			}
-			shader->BindTransformData(data);
+			shader->PushData(data);
 		}
 		{
 			GLOBAL_DATA data;
 			{
 				data.test = vec4(1.f, 0.f, 1.f, 1.f);
 			}
-			shader->BindGlobalData(data);
+			shader->PushData(data);
+		}
+		{
+			LIGHT_DATA data;
+			{
+				data.direction = vec3(1.f, -1.f, 1.f);
+			}
+			shader->PushData(data);
+		}
+		{
+			MATERIAL_DATA data;
+			{
+
+			}
+			shader->PushData(data);
 		}
 	}
 	// 샘플러 바인딩 (선택), 이거도 모양 이상함 바꾸기ㄱㄱ

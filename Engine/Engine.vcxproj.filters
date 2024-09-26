@@ -106,6 +106,9 @@
     <Filter Include="03. Manager\GameObjectManager">
       <UniqueIdentifier>{f02b4fe3-6be9-487a-9c61-aa369b80bbbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. ShaderCode\Render\Phong">
+      <UniqueIdentifier>{498bd4ce-be41-4f20-ad8b-0df9b6dcca4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -481,6 +484,12 @@
     <FxCompile Include="..\Shaders\PBRPS.hlsl">
       <Filter>09. ShaderCode\Render\PBR</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\PhongVS.hlsl">
+      <Filter>09. ShaderCode\Render\Phong</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\PhongPS.hlsl">
+      <Filter>09. ShaderCode\Render\Phong</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -490,6 +499,9 @@
       <Filter>09. ShaderCode\Utility</Filter>
     </None>
     <None Include="..\Shaders\Global.hlsli">
+      <Filter>09. ShaderCode\Utility</Filter>
+    </None>
+    <None Include="..\Shaders\Function.hlsli">
       <Filter>09. ShaderCode\Utility</Filter>
     </None>
   </ItemGroup>

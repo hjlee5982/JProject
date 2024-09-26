@@ -13,7 +13,7 @@ PS_IN main(VS_IN input)
     }
     output.position = position;
     
-    output.UV = float3(input.UV, 0.f);
+    output.UV1 = input.UV;
     
     return output;
 }
