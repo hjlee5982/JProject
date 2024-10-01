@@ -1,8 +1,7 @@
 #pragma once
 
-class FreeCamera : public GameObject
+class FreeCamera : public Script
 {
-	JCLASS(FreeCamera);
 public:
 	FreeCamera();
 	virtual ~FreeCamera() = default;

@@ -12,5 +12,13 @@ public:
 	virtual void Update()     override;
 	virtual void LateUpdate() override;
 	virtual void Render()     override;
+protected:
+	void AddComponent(sptr<Component> component);
+protected:
+	template<typename T>
+	sptr<T> GetComponent()
+	{
+		return GetOwner()->GetComponent<T>();
+	}
 };
 

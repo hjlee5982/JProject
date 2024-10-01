@@ -1,8 +1,7 @@
 #pragma once
 
-class Grid : public GameObject
+class Grid : public Script
 {
-	JCLASS(Grid);
 public:
 	Grid();
 	virtual ~Grid() = default;

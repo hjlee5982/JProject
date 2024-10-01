@@ -11,7 +11,7 @@ void Sphere::Init()
 	AddComponent(makeSptr<Transform>());
 	{
 		GetComponent<Transform>()->SetScale(vec3(3.f, 3.f, 3.f));
-		GetComponent<Transform>()->SetPosition(vec3(0.f, 3.f, 0.f));
+		GetComponent<Transform>()->SetPosition(vec3(-3.f, 3.f, 0.f));
 	}
 	AddComponent(makeSptr<MeshRenderer>());
 	{

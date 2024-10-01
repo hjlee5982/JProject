@@ -15,6 +15,7 @@ void ImGuiManager::Init()
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
     io.Fonts->AddFontFromFileTTF("../Assets/Font/Inter-SemiBold.ttf", 15.f);
+    //_koreanFont = io.Fonts->AddFontFromFileTTF("../Assets/Font/NanumGothic-Bold.ttf", 15.f, NULL, io.Fonts->GetGlyphRangesKorean());
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -29,7 +30,7 @@ void ImGuiManager::Init()
         style.WindowRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
-
+    
     style.TabRounding    = 5.f;
     style.FrameRounding  = 8.f;
     style.GrabRounding   = 8.f;
@@ -135,6 +136,8 @@ void ImGuiManager::Init()
 
 void ImGuiManager::RenderBegin()
 {
+    CONTEXT->OMSetRenderTargets(1, DX->GetBackBufferRTV().GetAddressOf(), DX->GetDSV().Get());
+
     // Start the Dear ImGui frame
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();

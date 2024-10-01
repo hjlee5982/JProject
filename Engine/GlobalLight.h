@@ -1,6 +1,6 @@
 #pragma once
 
-class GlobalLight : public GameObject
+class GlobalLight : public Script
 {
 public:
 	GlobalLight();

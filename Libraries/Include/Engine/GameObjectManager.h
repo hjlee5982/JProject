@@ -14,7 +14,9 @@ public:
 	void Render();
 	void Release();
 public:
-	void AddGameObject(sptr<GameObject> go, const string& name);
+	void AddGameObject();
+	void AddGameObject(sptr<Script> script, const string& name);
+	//void AddGameObject(sptr<GameObject> go, const string& name);
 public:
 	sptr<GameObject> GetGameObject(const string& name, ELayerType layer = ELayerType::DEFAULT);
 private:

@@ -180,16 +180,13 @@
     <ClInclude Include="ImGuiManager.h">
       <Filter>03. Manager\EditorManager</Filter>
     </ClInclude>
-    <ClInclude Include="DirectX11.h">
+    <ClInclude Include="Device.h">
       <Filter>02. Device</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>06. Gameobject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>04. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
       <Filter>04. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
@@ -300,6 +297,9 @@
     <ClInclude Include="Sphere.h">
       <Filter>10. Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>06. Gameobject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -362,16 +362,13 @@
     <ClCompile Include="ImGuiManager.cpp">
       <Filter>03. Manager\EditorManager</Filter>
     </ClCompile>
-    <ClCompile Include="DirectX11.cpp">
+    <ClCompile Include="Device.cpp">
       <Filter>02. Device</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>06. Gameobject</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>04. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
       <Filter>04. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
@@ -478,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
       <Filter>10. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>06. Gameobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

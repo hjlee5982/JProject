@@ -56,6 +56,8 @@ public:
 private:
 	sptr<GameObject> _go;
 	string _focusedWindow;
+public:
+	ImFont* _koreanFont;
 private:
 	std::mutex _mutex;
 	bool _destroy = true;

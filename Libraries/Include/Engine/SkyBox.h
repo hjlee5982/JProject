@@ -1,6 +1,6 @@
 #pragma once
 
-class SkyBox : public GameObject
+class SkyBox : public Script
 {
 public:
 	SkyBox();
@@ -13,7 +13,5 @@ public:
 private:
 	ComPtr<ID3D11RasterizerState>   _noRasterizerState   = nullptr;
 	ComPtr<ID3D11DepthStencilState> _noDepthStancilState = nullptr;
-public:
-	virtual Value MakeJson(Document::AllocatorType& allocator) override;
 };
 

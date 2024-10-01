@@ -154,7 +154,7 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="GlobalLight.h" />
-    <ClInclude Include="DirectX11.h" />
+    <ClInclude Include="Device.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="GameObject.h" />
@@ -217,7 +217,7 @@
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="GlobalLight.cpp" />
-    <ClCompile Include="DirectX11.cpp" />
+    <ClCompile Include="Device.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="GameObject.cpp" />

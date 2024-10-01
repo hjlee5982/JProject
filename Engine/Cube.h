@@ -1,6 +1,6 @@
 #pragma once
 
-class Cube : public GameObject
+class Cube : public Script
 {
 public:
 	Cube();

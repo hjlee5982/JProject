@@ -8,8 +8,8 @@ void ImInspector::Init()
 
 void ImInspector::Update()
 {
-	IMFOCUS("Inspector");
 	ImGui::Begin("Inspector"); 
+	IMFOCUS("Inspector");
 	{
 		if (_go != nullptr)
 		{
@@ -37,9 +37,9 @@ void ImInspector::Update()
 				case EComponentType::MESHRENDERER:
 					RenderMeshRendererInspector();
 					break;
-				case EComponentType::SCRIPT:
-					RenderScriptInspector();
-					break;
+				//case EComponentType::SCRIPT:
+				//	RenderScriptInspector();
+				//	break;
 				case EComponentType::LIGHT:
 					RenderLightInspector();
 					break;
@@ -53,6 +53,13 @@ void ImInspector::Update()
 
 				ImGui::Separator();
 			}
+			if (_go->GetScript() != nullptr)
+			{
+				RenderScriptInspector();
+			}
+			ImGui::Separator();
+			ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+			ImGui::Button("Add Component");
 		}
 	}
 	ImGui::End();
@@ -142,6 +149,8 @@ void ImInspector::RenderMeshRendererInspector()
 
 	if (ImGui::TreeNodeEx("MeshRenderer", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Text("This is Script Component");
+
 		//{
 		//	ImGui::Text("RenderType");
 		//	ImGui::SameLine();
@@ -235,7 +244,7 @@ void ImInspector::RenderMeshRendererInspector()
 
 void ImInspector::RenderScriptInspector()
 {
-	GUI->Image(L"coordinate");
+	GUI->Image(L"cpp");
 	ImGui::SameLine();
 
 	if (ImGui::TreeNodeEx("Script", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))

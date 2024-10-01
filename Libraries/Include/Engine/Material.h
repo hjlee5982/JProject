@@ -2,20 +2,8 @@
 
 #include "Resource.h"
 
-enum class ETextureType
-{
-	AO,
-	ALBEDO,
-	NORMAL,
-	METALLIC,
-	ROUGHNESS,
-	DISPLACEMENT,
-	CUBE
-};
-
 class Material : public Resource
 {
-	friend class MeshRenderer;
 public:
 	Material();
 	virtual ~Material() = default;
@@ -30,7 +18,7 @@ public:
 	void SetShader(sptr<Shader> shader) { _shader = shader; }
 	void SetTexture(ETextureType textureType, sptr<Texture> texture);
 private:
-	MATERIAL_DATA _desc;
+	MATERIAL_DATA _materialDesc;
 private:
 	sptr<Shader> _shader;
 private:

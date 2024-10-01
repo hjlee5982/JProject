@@ -1,11 +1,16 @@
 #include "pch.h"
 #include "Layer.h"
+#include "Script.h"
 
 void Layer::Update()
 {
 	for (auto& go : _gameObjects)
 	{
-		go->Update();
+		//go->Update();
+		if (go->_script != nullptr)
+		{
+			go->_script->Update();
+		}
 	}
 }
 
@@ -13,7 +18,11 @@ void Layer::LateUpdate()
 {
 	for (auto& go : _gameObjects)
 	{
-		go->LateUpdate();
+		//go->LateUpdate();
+		if (go->_script != nullptr)
+		{
+			go->_script->LateUpdate();
+		}
 	}
 }
 
@@ -21,7 +30,12 @@ void Layer::Render()
 {
 	for (auto& go : _gameObjects)
 	{
-		go->Render();
+
+		//go->Render();
+		if (go->_script != nullptr)
+		{
+			go->_script->Render();
+		}
 	}
 }
 

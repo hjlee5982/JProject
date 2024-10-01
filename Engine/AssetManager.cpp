@@ -93,7 +93,7 @@ void AssetManager::CreateDefaultResources()
 		}
 	}
 
-	// 엔진에서 사용될 리소스들 로드(filesystem)
+	// 엔진에서 사용될 아이콘 리소스들 로드(filesystem)
 	std::filesystem::path p("..\\Assets\\Icon");
 
 	for (const auto& entry : std::filesystem::directory_iterator(p))

@@ -12,9 +12,9 @@ void Window::Update()
 	DX ->RenderBegin();
 	{
 		// 게임 루프
-
-		std::lock_guard<std::mutex> lock(_mutex);
 		_desc.app->Loop();
+
+		
 
 		// ImGui 루프
 		GUI->RenderBegin();

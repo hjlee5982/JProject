@@ -40,14 +40,27 @@ private:
 	ComPtr<ID3D11Device>		_device;
 	ComPtr<ID3D11DeviceContext> _context;
 	ComPtr<IDXGISwapChain>		_swapChain;
-private:
+public:
 	ComPtr<ID3D11RenderTargetView>   _renderTargetView;
 	ComPtr<ID3D11ShaderResourceView> _renderTargetShaderResourceView;
-private:
+public:
 	ComPtr<ID3D11Texture2D>        _depthStencilTexture;
 	ComPtr<ID3D11DepthStencilView> _depthStencilView;
 private:
 	WindowDesc _windowDesc;
 	Viewport   _viewport;
+/// FOR EDITOR //////////////////////////////////////////////////
+private:
+	void CreateEditorSRV();
+public:
+	ComPtr<ID3D11ShaderResourceView> GetEditorSRV()
+	{
+		return _editorSRV;
+	}
+private:
+	ComPtr<ID3D11Texture2D>         _editorTexture;
+	ComPtr<ID3D11RenderTargetView>   _editorRTV;
+	ComPtr<ID3D11ShaderResourceView> _editorSRV;
+
 };
 

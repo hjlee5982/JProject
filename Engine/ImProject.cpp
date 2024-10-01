@@ -7,8 +7,8 @@ void ImProject::Init()
 
 void ImProject::Update()
 {
-    IMFOCUS("Project");
 	ImGui::Begin("Project"); 
+    IMFOCUS("Project");
     {
         static f32 left_pane_width = 200.0f;   // 초기 왼쪽 패널 너비
         f32 right_pane_min_width = 50.0f;    // 오른쪽 패널 최소 너비

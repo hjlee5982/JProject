@@ -21,3 +21,8 @@ void Script::LateUpdate()
 void Script::Render()
 {
 }
+
+void Script::AddComponent(sptr<Component> component)
+{
+	GetOwner()->AddComponent(component);
+}

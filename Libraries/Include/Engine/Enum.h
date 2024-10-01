@@ -42,3 +42,14 @@ enum class EComponentType
 
 	END
 };
+
+enum class ETextureType
+{
+	AO,
+	ALBEDO,
+	NORMAL,
+	METALLIC,
+	ROUGHNESS,
+	DISPLACEMENT,
+	CUBE
+};

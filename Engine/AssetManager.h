@@ -35,7 +35,7 @@ template<typename T>
 sptr<T> AssetManager::Load(const wstring& key, const wstring& path)
 {
 	auto objectType = GetResourceType<T>();
-	KeyObjMap& keyObjMap = _resources[static_cast<u8>(objectType)];
+	KeyObjMap& keyObjMap = _resources[static_cast<int>(objectType)];
 
 	auto findIt = keyObjMap.find(key);
 
@@ -55,7 +55,7 @@ template<typename T>
 bool AssetManager::Add(const wstring& key, sptr<T> object)
 {
 	EResourceType resourceType = GetResourceType<T>();
-	KeyObjMap& keyObjMap = _resources[static_cast<u8>(resourceType)];
+	KeyObjMap& keyObjMap = _resources[static_cast<int>(resourceType)];
 
 	auto findIt = keyObjMap.find(key);
 
@@ -73,7 +73,7 @@ template<typename T>
 sptr<T> AssetManager::Get(const wstring& key)
 {
 	EResourceType resourceType = GetResourceType<T>();
-	KeyObjMap& keyObjMap = _resources[static_cast<u8>(resourceType)];
+	KeyObjMap& keyObjMap = _resources[static_cast<int>(resourceType)];
 
 	auto findIt = keyObjMap.find(key);
 

@@ -101,7 +101,7 @@ using namespace Microsoft::WRL;
 
 // Engine ************************************************
 #include "Window.h"
-#include "DirectX11.h"
+#include "Device.h"
 //#include "Renderer.h"
 #include "VertexData.h"
 #include "VertexBuffer.h"
@@ -116,6 +116,7 @@ using namespace Microsoft::WRL;
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Script.h"
 
 
 // Component **********************************************************

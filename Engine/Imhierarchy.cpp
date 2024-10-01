@@ -26,8 +26,8 @@ void ImHierarchy::Update()
 	
 	auto& gameObjects = OBJECT->GetGameObjects();
 
-	IMFOCUS("Hierarchy");
 	ImGui::Begin("Hierarchy");
+	IMFOCUS("Hierarchy");
 	{
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(-2, 0));
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 4));

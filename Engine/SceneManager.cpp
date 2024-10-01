@@ -54,7 +54,7 @@ void SceneManager::ChangeScene(sptr<Scene> scene)
 
 void SceneManager::LoadDefaultScene(const string& filename)
 {
-	string directory = "../Data/Scene/";
+	/*string directory = "../Data/Scene/";
 	string fullname = directory + filename;
 
 	FILE* fp;
@@ -81,7 +81,7 @@ void SceneManager::LoadDefaultScene(const string& filename)
 			go->GetComponent<Transform>()->SetPosition(position);
 			go->GetComponent<Transform>()->SetScale(scale);
 		}
-	}
+	}*/
 }
 
 #include "SkyBox.h"
@@ -96,6 +96,14 @@ void SceneManager::MakeScene()
 	OBJECT->AddGameObject(makeSptr<SkyBox>(),      "SkyBox"     );
 	OBJECT->AddGameObject(makeSptr<GlobalLight>(), "GlobalLight");
 
-	OBJECT->AddGameObject(makeSptr<Cube>(), "Cube");
+	OBJECT->AddGameObject(makeSptr<Cube>(),   "Cube");
 	OBJECT->AddGameObject(makeSptr<Sphere>(), "Sphere");
+
+	// 유니티처럼 Script로 게임오브젝트를 제어하려면
+
+	// Transform만 가지고 있는 빈 게임오브젝트를 만드는 경우
+	//OBJECT->AddGameObject();
+
+	// 스크립트를 추가해서 게임오브젝트를 만드는 경우
+	//OBJECT->AddGameObject(makeSptr<Script>(), "Name");
 }

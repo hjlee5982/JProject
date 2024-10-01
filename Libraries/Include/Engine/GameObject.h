@@ -36,10 +36,18 @@ public:
 public:
 	void SetName (const string& name) {	 _name = name;	}
 public:
-	void AddComponent(sptr<Component> component)
+	void AddComponent(sptr<Component> component, bool isScript = false)
 	{
 		component->SetOwner(shared_from_this());
-		_components.emplace(component->GetHash(), component);
+
+		if (isScript == true)
+		{
+			_script = component;
+		}
+		else
+		{
+			_components.emplace(component->GetHash(), component);
+		}
 	}
 public:
 	template<typename T>
@@ -58,7 +66,15 @@ public:
 		return _components;
 	}
 private:
+	friend class ImInspector;
+	sptr<Component> GetScript()
+	{
+		return _script;
+	}
+private:
 	HashMap<u64, sptr<Component>> _components;
+	friend class Layer;
+	sptr<Component> _script;
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
 	string _name;

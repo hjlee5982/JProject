@@ -58,7 +58,7 @@ void Scene::MakeJson(sptr<JsonData> data)
 
 void Scene::LoadJson(sptr<JsonData> data)
 {
-	string directory = "../Data/Scene/";
+	/*string directory = "../Data/Scene/";
 	string fullname = directory + "Defaultjson.Jscene";
 
 	FILE* fp;
@@ -87,5 +87,5 @@ void Scene::LoadJson(sptr<JsonData> data)
 		}
 	}
 
-	JLOG_INFO("Scene Load Complete");
+	JLOG_INFO("Scene Load Complete");*/
 }
