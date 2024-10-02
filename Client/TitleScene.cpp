@@ -8,6 +8,11 @@ void TitleScene::Init()
 	// SceneManager에서 json을 읽어 그리는 작업 진행중
 
 	//OBJECT->AddGameObject(makeSptr<Cube>(), "Cube");
+
+	int a = 0;
+	float b = 1.999;
+	JLOG_INFO(a);
+	JLOG_INFO(b);
 }
 
 void TitleScene::Update()

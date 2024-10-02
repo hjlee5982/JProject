@@ -45,87 +45,51 @@ public:
 	{
 		_messages.clear();
 	}
-	void AddLog(LogLevel level, string sourceFile, i32 lineNunber, const char* fmt, ...) IM_FMTARGS(3)
+public:
+	vector<LogMessage>& GetLogs()
 	{
-		char buf[1024];
-		va_list args;
-		va_start(args, fmt);
-		vsnprintf(buf, sizeof(buf), fmt, args);
-		va_end(args);
-		buf[sizeof(buf) - 1] = 0;
+		return _messages;
+	}
+public:
+	template<typename T>
+	void AddLog(LogLevel level, string sourceFile, i32 lineNumber, const T& message, ...)
+	{
+		std::stringstream message_to_string;
+		message_to_string << message;
 
-		auto now       = chrono::system_clock::now();
+		auto now = chrono::system_clock::now();
 		auto in_time_t = chrono::system_clock::to_time_t(now);
 
 		const tm* localtime = std::localtime(&in_time_t);
 
 		stringstream ss;
 		ss << std::put_time(localtime, "%X");
-		// 인자 정보 : https://en.cppreference.com/w/cpp/io/manip/put_time
 
-		_messages.push_back({ level, buf, ss.str(), sourceFile, lineNunber });
+		_messages.push_back({ level, message_to_string.str(), ss.str(), sourceFile, lineNumber});
 	}
-	void Draw(const char* title = "Log", bool* p_open = nullptr)
-	{
-		//if (!ImGui::Begin(title, p_open))
-		//{
-		//	ImGui::End();
-		//	return;
-		//}
-
-		if (ImGui::Button("Clear"))
-		{
-			Clear();
-		}
-		ImGui::SameLine();
-		bool copy = ImGui::Button("Copy");
-		ImGui::SameLine();
-
-		ImGui::Text("Logs: %d messages", _messages.size());
-
-		ImGui::SeparatorText("");
-
-		ImGui::BeginChild("Log");
-		if (copy == true)
-		{
-			ImGui::LogToClipboard();
-		}
-
-		for (const auto& msg : _messages)
-		{
-			switch (msg.level)
-			{
-			case LogLevel::LOG_LEVEL_INIT:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(0, 255, 0, 255));
-				break;
-			case LogLevel::LOG_LEVEL_INFO:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
-				break;
-			case LogLevel::LOG_LEVEL_WARNING:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
-				break;
-			case LogLevel::LOG_LEVEL_ERROR:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0, 0, 255));
-				break;
-			}
-
-			//ImGui::TextUnformatted(msg.message.c_str());
-			ImGui::Text("[%s] %s\n(%s:%d)", msg.timeStamp.c_str(), msg.message.c_str(), msg.sourceFile.c_str(), msg.lineNumber);
-			ImGui::PopStyleColor();
-			ImGui::SeparatorText("");
-		}
-
-		if (_autoScroll && ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
-		{
-			ImGui::SetScrollHereY(1.0f);
-		}
-
-		ImGui::EndChild();
-		//ImGui::End();
-	}
+//public:
+//	void AddLog(LogLevel level, string sourceFile, i32 lineNumber, const char* fmt, ...) IM_FMTARGS(3)
+//	{
+//		char buf[1024];
+//		va_list args;
+//		va_start(args, fmt);
+//		vsnprintf(buf, sizeof(buf), fmt, args);
+//		va_end(args);
+//		buf[sizeof(buf) - 1] = 0;
+//
+//		auto now       = chrono::system_clock::now();
+//		auto in_time_t = chrono::system_clock::to_time_t(now);
+//
+//		const tm* localtime = std::localtime(&in_time_t);
+//
+//		stringstream ss;
+//		ss << std::put_time(localtime, "%X");
+//		// 인자 정보 : https://en.cppreference.com/w/cpp/io/manip/put_time
+//
+//		_messages.push_back({ level, buf, ss.str(), sourceFile, lineNumber });
+//	}
 private:
 	vector<LogMessage> _messages;
-	bool _autoScroll = true;
 };
 
 
