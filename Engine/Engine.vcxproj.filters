@@ -109,6 +109,12 @@
     <Filter Include="09. ShaderCode\Render\Phong">
       <UniqueIdentifier>{498bd4ce-be41-4f20-ad8b-0df9b6dcca4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Collider">
+      <UniqueIdentifier>{fd980b17-ad01-4e68-96d0-04d18ed33fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. ShaderCode\Render\Collider">
+      <UniqueIdentifier>{f7578037-cbde-4e35-a66b-847f6118fcc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -300,6 +306,9 @@
     <ClInclude Include="Layer.h">
       <Filter>06. Gameobject</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>07. Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -479,6 +488,9 @@
     <ClCompile Include="Layer.cpp">
       <Filter>06. Gameobject</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>07. Component\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\SkyBoxVS.hlsl">
@@ -498,6 +510,12 @@
     </FxCompile>
     <FxCompile Include="..\Shaders\PhongPS.hlsl">
       <Filter>09. ShaderCode\Render\Phong</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\ColliderVS.hlsl">
+      <Filter>09. ShaderCode\Render\Collider</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\ColliderPS.hlsl">
+      <Filter>09. ShaderCode\Render\Collider</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

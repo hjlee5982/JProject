@@ -35,7 +35,7 @@ enum class EComponentType
 	CAMERA,
 	LIGHT,
 	MESHRENDERER,
-
+	COLLIDER,
 
 	SCRIPT,
 	// etc..
@@ -52,4 +52,11 @@ enum class ETextureType
 	ROUGHNESS,
 	DISPLACEMENT,
 	CUBE
+};
+
+enum class EColliderType
+{
+	BOX,
+	SPHERE,
+	CYLINDER
 };

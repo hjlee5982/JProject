@@ -27,18 +27,12 @@ private:
 private:
 	vector<sptr<GameObject>> _gameObjects;
 public:
-	vector<sptr<GameObject>>& GetGameObjects()
-	{
-		return _gameObjects;
-	}
+	vector<sptr<GameObject>>& GetGameObjects() { return _gameObjects; }
 ///////////////////////////////////////////////////
 // Light Ä³½Ì /////////////////////////////////////
 ///////////////////////////////////////////////////
 private:
 	vector<sptr<GameObject>> _lights;
 public:
-	vector<sptr<GameObject>>& GetLights()
-	{
-		return _lights;
-	}
+	vector<sptr<GameObject>>& GetLights() { return _lights; }
 };

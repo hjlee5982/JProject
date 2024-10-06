@@ -47,16 +47,16 @@ void ImConsole::Update()
 			switch (log.level)
 			{
 			case LogLevel::LOG_LEVEL_INIT:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(0, 255, 0, 255));
+				ImGui::PushStyleColor(ImGuiCol_Text, initLogColor);
 				break;
 			case LogLevel::LOG_LEVEL_INFO:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
+				ImGui::PushStyleColor(ImGuiCol_Text, infoLogColor);
 				break;
 			case LogLevel::LOG_LEVEL_WARNING:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
+				ImGui::PushStyleColor(ImGuiCol_Text, warningLogColor);
 				break;
 			case LogLevel::LOG_LEVEL_ERROR:
-				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0, 0, 255));
+				ImGui::PushStyleColor(ImGuiCol_Text, errorLogColor);
 				break;
 			}
 

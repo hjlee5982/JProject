@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Cube.h"
-#include "MeshRenderer.h"
 
 Cube::Cube()
 {
@@ -19,6 +18,10 @@ void Cube::Init()
 		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"Phong"));
 		//GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"PBR"));
 	}
+	AddComponent(makeSptr<BoxCollider>());
+	{
+		
+	}
 }
 
 void Cube::Update()
@@ -33,4 +36,5 @@ void Cube::LateUpdate()
 void Cube::Render()
 {
 	GetComponent<MeshRenderer>()->Render();
+	GetComponent<BoxCollider>() ->Render();
 }

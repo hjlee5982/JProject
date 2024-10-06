@@ -32,7 +32,7 @@ void AssetManager::CreateDefaultResources()
 	}
 	// 기본 쉐이더 로드
 	{
-		// 1. Basic
+		// 1. Basic(미완성)
 		{
 			auto shader = makeSptr<Shader>();
 			{
@@ -58,6 +58,15 @@ void AssetManager::CreateDefaultResources()
 				shader->CreateShader(EShaderType::PS, L"PhongPS.hlsl");
 			}
 			ASSET->Add(L"Phong", shader);
+		}
+		// 4. Collider 렌더용
+		{
+			auto shader = makeSptr<Shader>();
+			{
+				shader->CreateShader(EShaderType::VS, L"ColliderVS.hlsl");
+				shader->CreateShader(EShaderType::PS, L"ColliderPS.hlsl");
+			}
+			ASSET->Add(L"Collider", shader);
 		}
 	}
 	// 기본 머티리얼 로드
