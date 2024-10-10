@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "SkyBox.h"
-#include "MeshRenderer.h"
+#include "SkyBoxRenderer.h"
 
 SkyBox::SkyBox()
 {
@@ -12,13 +12,13 @@ void SkyBox::Init()
 	{
 		GetComponent<Transform>()->SetRotation(vec3(0.f, 180.f, 0.f));
 	}
-	AddComponent(makeSptr<MeshRenderer>());
+	AddComponent(makeSptr<SkyBoxRenderer>());
 	{
-		GetComponent<MeshRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
-		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"SkyBox"));
+		GetComponent<SkyBoxRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
+		GetComponent<SkyBoxRenderer>()->SetMaterial(ASSET->Get<Material>(L"SkyBox"));
 	}
 
-	D3D11_RASTERIZER_DESC cullDesc;
+	/*D3D11_RASTERIZER_DESC cullDesc;
 	ZeroMemory(&cullDesc, sizeof(cullDesc));
 	{
 		cullDesc.AntialiasedLineEnable = false;
@@ -52,7 +52,7 @@ void SkyBox::Init()
 		depthDesc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_KEEP;
 		depthDesc.BackFace.StencilFunc         = D3D11_COMPARISON_ALWAYS;
 	}
-	DEVICE->CreateDepthStencilState(&depthDesc, _noDepthStancilState.GetAddressOf());
+	DEVICE->CreateDepthStencilState(&depthDesc, _noDepthStancilState.GetAddressOf());*/
 }
 
 void SkyBox::Update()
@@ -68,41 +68,12 @@ void SkyBox::LateUpdate()
 void SkyBox::Render()
 {
 	// 컬링 Off, Z버퍼 Off
-	CONTEXT->RSSetState(_noRasterizerState.Get());
-	CONTEXT->OMSetDepthStencilState(_noDepthStancilState.Get(), 1);
+	//CONTEXT->RSSetState(_noRasterizerState.Get());
+	//CONTEXT->OMSetDepthStencilState(_noDepthStancilState.Get(), 1);
 
-	GetComponent<MeshRenderer>()->Render();
+	GetComponent<SkyBoxRenderer>()->Render();
 
 	// 컬링 On, Z버퍼 On
-	CONTEXT->RSSetState(nullptr);
-	CONTEXT->OMSetDepthStencilState(nullptr, 1);
+	//CONTEXT->RSSetState(nullptr);
+	//CONTEXT->OMSetDepthStencilState(nullptr, 1);
 }
-//
-//Value SkyBox::MakeJson(Document::AllocatorType& allocator)
-//{
-//	Value object(kObjectType);
-//	{
-//		// 모두가 공통으로 가지고 있는 정보
-//		//object.AddMember("class",    StringRef(GetClass().c_str()), allocator);
-//		object.AddMember("name",     StringRef(GetName().c_str()), allocator);
-//		object.AddMember("position", Utils::Vec3ToJsonArray(GetComponent<Transform>()->GetPosition(), allocator), allocator);
-//		object.AddMember("rotation", Utils::Vec3ToJsonArray(GetComponent<Transform>()->GetRotation(), allocator), allocator);
-//		object.AddMember("scale",    Utils::Vec3ToJsonArray(GetComponent<Transform>()->GetScale(), allocator), allocator);
-//
-//		// 해당 클래스가 고유하게 가지고 있는 정보
-//
-//		// MeshRenderer
-//		// 1. 어떤 모양으로 그릴 것인가 (Mesh)
-//		// 2. 어떤 옵션으로 그릴 것인가 (Material)
-//		//  ㄴ Material 안에는 Texture도 들어있다
-//		//  ㄴ Shader도 들어있다
-//		GetComponent<MeshRenderer>()->GetMesh();
-//		GetComponent<MeshRenderer>()->GetMaterial();
-//
-//		// 이제 뭘 저장함?
-//		// 그냥 변수야 저장하면 되는데 클래스를 저장할 수가 있나?
-//		// object.AddMember("Mesh", )
-//	}
-//
-//	return object;
-//}

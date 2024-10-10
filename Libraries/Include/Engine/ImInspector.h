@@ -15,6 +15,7 @@ private:
 	void RenderMeshRendererInspector();
 	void RenderScriptInspector();
 	void RenderLightInspector();
+	void RenderBoxColliderInspector();
 public:
 	virtual void StateUpdate(sptr<GameObject> go) override;
 private:

@@ -34,8 +34,13 @@ enum class EComponentType
 	TRANSFORM,
 	CAMERA,
 	LIGHT,
+
 	MESHRENDERER,
-	COLLIDER,
+
+	BOXCOLLIDER,
+
+	SKYBOXRENDERER,
+
 
 	SCRIPT,
 	// etc..

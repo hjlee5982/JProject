@@ -26,31 +26,40 @@ void ImScene::Update()
 		// 1. 구한 스크린 좌표를 -1 ~ 1 범위의 NDC로 변환				    //(-1,1)     (1,1)
 		f32 ndcX = (2.0f * _mousePos.x) / _screenSize.x - 1.f;			//		 ┌─┐
 		f32 ndcY = 1.0f - (2.0f * _mousePos.y) / _screenSize.y;			//		 └─┘
-		vec4 mouseNDC = vec4(ndcX, ndcY, 1.0f, 1.0f);					//(-1,-1)    (1,-1)
+																		//(-1,-1)    (1,-1)
 
 		// 2. NDC를 클립 공간으로 변환
-		vec4 nearPoint = XMVectorSet(ndcX, ndcY, 0.0f, 1.0f);
-		vec4 farPoint  = XMVectorSet(ndcX, ndcY, 1.0f, 1.0f);
+		vec4 rayOriginInClip = XMVectorSet(ndcX, ndcY, 0.0f, 1.0f);
+		vec4 rayAtInClip     = XMVectorSet(ndcX, ndcY, 1.0f, 1.0f);
 
 		// 3. 역투영
-		matx projInv  = Camera::SProj.Invert();
-		vec3 nearView = XMVector3TransformCoord(nearPoint, projInv);
-		vec3 farView  = XMVector3TransformCoord(farPoint, projInv);
+		matx projInv         = Camera::SProj.Invert();
+		vec3 rayOriginInView = XMVector3TransformCoord(rayOriginInClip, projInv);
+		vec3 rayAtInView     = XMVector3TransformCoord(rayAtInClip, projInv);
 
 		// 3. 역뷰
-		matx viewInv   = Camera::SView.Invert();
-		vec3 nearWorld = XMVector3TransformCoord(nearView, viewInv);
-		vec3 farWorld  = XMVector3TransformCoord(farView, viewInv);
+		matx viewInv          = Camera::SView.Invert();
+		vec3 rayOriginInWorld = XMVector3TransformCoord(rayOriginInView, viewInv);
+		vec3 rayAtInWorld     = XMVector3TransformCoord(rayAtInView, viewInv);
 
 		// 4. 월드상에서 레이 구하기
-		vec3 ray = XMVector3Normalize(farWorld - nearWorld);
+		vec3 rayDirInWorld    = XMVector3Normalize(rayAtInWorld - rayOriginInWorld);
 
 		// 구한 ray와 콜라이더가 교차하는지 검증
 		auto& gameObjects = OBJECT->GetGameObjects();
 
 		for (auto& go : gameObjects)
 		{
-			//go->GetCollider();
+			auto collider = go->GetComponent<BoxCollider>();
+
+			if (collider != nullptr)
+			{
+				if (go->GetComponent<BoxCollider>()->RayIntersectsOBB(rayDirInWorld, rayOriginInWorld) == true)
+				{
+					JLOG_INFO("Picking");
+				}
+			}
+
 			// 싹 다 돌면 시간이 늘어나니까 ray의 x,y로 화면을 4분할 해서 판단하면 될듯
 		}
 

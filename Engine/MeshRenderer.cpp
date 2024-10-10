@@ -60,7 +60,7 @@ void MeshRenderer::Render()
 		D3D11_RASTERIZER_DESC cullDesc;
 		ZeroMemory(&cullDesc, sizeof(cullDesc));
 		{
-			cullDesc.CullMode              = D3D11_CULL_NONE;
+			cullDesc.CullMode              = D3D11_CULL_FRONT;
 			cullDesc.FillMode              = D3D11_FILL_SOLID;
 			cullDesc.AntialiasedLineEnable = false;
 			cullDesc.DepthBias             = 0;

@@ -37,9 +37,9 @@ void ImInspector::Update()
 				case EComponentType::MESHRENDERER:
 					RenderMeshRendererInspector();
 					break;
-				//case EComponentType::SCRIPT:
-				//	RenderScriptInspector();
-				//	break;
+				case EComponentType::BOXCOLLIDER:
+					RenderBoxColliderInspector();
+					break;
 				case EComponentType::LIGHT:
 					RenderLightInspector();
 					break;
@@ -147,7 +147,7 @@ void ImInspector::RenderMeshRendererInspector()
 	GUI->Image(L"meshrenderer");
 	ImGui::SameLine();
 
-	if (ImGui::TreeNodeEx("MeshRenderer", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::TreeNodeEx("Mesh Renderer", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::Text("This is Script Component");
 
@@ -309,6 +309,36 @@ void ImInspector::RenderLightInspector()
 		light->SetAmbient  (Color(fambient  [0] / 255.f, fambient  [1] / 255.f, fambient  [2] / 255.f, fambient [3] / 255.f));
 		light->SetSpecular (Color(fspecular [0] / 255.f, fspecular [1] / 255.f, fspecular [2] / 255.f, fspecular[3] / 255.f));
 		light->SetEmissive (Color(femissive [0] / 255.f, femissive [1] / 255.f, femissive [2] / 255.f, femissive[3] / 255.f));
+
+		ImGui::TreePop();
+	}
+}
+
+void ImInspector::RenderBoxColliderInspector()
+{
+	GUI->Image(L"boxCollider");
+	ImGui::SameLine();
+
+	if (ImGui::TreeNodeEx("Box Collider", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		auto pos = _go->GetComponent<BoxCollider>()->GetPosition();
+		float fpos[3] = { pos.x, pos.y, pos.z };
+
+		auto scale = _go->GetComponent<BoxCollider>()->GetScale();
+		float fscale[3] = { scale.x, scale.y, scale.z };
+
+		ImGui::Text("Offset");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat3("##Offset", fpos, 0.001f);
+		
+		ImGui::Text("Scale");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat3("Scale", fscale, 0.001f);
+
+		_go->GetComponent<BoxCollider>()->SetPosition(vec3(fpos[0],   fpos[1],   fpos[2]));
+		_go->GetComponent<BoxCollider>()->SetScale   (vec3(fscale[0], fscale[1], fscale[2]));
 
 		ImGui::TreePop();
 	}

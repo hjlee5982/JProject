@@ -115,6 +115,9 @@
     <Filter Include="09. ShaderCode\Render\Collider">
       <UniqueIdentifier>{f7578037-cbde-4e35-a66b-847f6118fcc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\SkyBoxRenderer">
+      <UniqueIdentifier>{1730efb4-1c29-4b73-bb07-0b197ae9cb61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -309,6 +312,9 @@
     <ClInclude Include="BoxCollider.h">
       <Filter>07. Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBoxRenderer.h">
+      <Filter>07. Component\SkyBoxRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -490,6 +496,9 @@
     </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
       <Filter>07. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBoxRenderer.cpp">
+      <Filter>07. Component\SkyBoxRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
