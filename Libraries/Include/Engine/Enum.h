@@ -37,13 +37,18 @@ enum class EComponentType
 
 	MESHRENDERER,
 
-	BOXCOLLIDER,
 
+	BOXCOLLIDER,
+	SPHERECOLLIDER,
+
+
+	PICKINGCOLLIDER,
 	SKYBOXRENDERER,
 
 
 	SCRIPT,
 	// etc..
+
 
 	END
 };

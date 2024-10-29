@@ -1,11 +1,8 @@
 #include "pch.h"
 #include "Component.h"
 
-Component::Component(EComponentType type, u64 hash)
-	: _componentType(type)
-	, _hash(hash)
+Component::Component()
 {
-
 }
 
 sptr<GameObject> Component::GetOwner()

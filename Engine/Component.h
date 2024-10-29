@@ -14,7 +14,7 @@ public:
 class Component : public IComponent
 {
 public:
-	Component(EComponentType type, u64 hash);
+	Component();
 	virtual ~Component() = default;
 public:
 	virtual void Init()       override {};
@@ -30,9 +30,16 @@ public:
 private:
 	friend class GameObject;
 	void SetOwner(sptr<GameObject> owner) { _owner = owner; }
-private:
-	EComponentType   _componentType;
+protected:
+	template<class T>
+	void SetType(EComponentType type)
+	{
+		_componentType = type;
+		_hash = typeid(T).hash_code();
+	}
+protected:
 	wptr<GameObject> _owner;
+	EComponentType   _componentType;
 	u64 _hash;
 };
 

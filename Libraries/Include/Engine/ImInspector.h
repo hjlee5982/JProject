@@ -16,9 +16,8 @@ private:
 	void RenderScriptInspector();
 	void RenderLightInspector();
 	void RenderBoxColliderInspector();
+	void RenderSphereColliderInspector();
 public:
 	virtual void StateUpdate(sptr<GameObject> go) override;
-private:
-	sptr<GameObject> _go;
 };
 

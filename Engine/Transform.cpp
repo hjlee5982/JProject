@@ -2,8 +2,8 @@
 #include "Transform.h"
 
 Transform::Transform()
-	: Component(EComponentType::TRANSFORM, typeid(Transform).hash_code())
 {
+	SetType<Transform>(EComponentType::TRANSFORM);
 }
 
 void Transform::TransformUpdate()

@@ -18,6 +18,8 @@ public:
 	}
 public:
 	virtual void StateUpdate(sptr<GameObject> go) = 0;
+protected:
+	sptr<GameObject> _go;
 private:
 	string _name;
 };

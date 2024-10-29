@@ -38,6 +38,13 @@ public:
 public:
 	void AddComponent(sptr<Component> component, bool isScript = false)
 	{
+		auto iter = _components.find(component->GetHash());
+
+		if (iter != _components.end())
+		{
+			return;
+		}
+
 		component->SetOwner(shared_from_this());
 
 		if (isScript == true)
@@ -47,6 +54,7 @@ public:
 		else
 		{
 			_components.emplace(component->GetHash(), component);
+			_insertOrder.push_back(component->GetHash());
 		}
 	}
 public:
@@ -65,6 +73,10 @@ public:
 	{
 		return _components;
 	}
+	vector<u64>& GetInsertOrder()
+	{
+		return _insertOrder;
+	}
 private:
 	friend class ImInspector;
 	sptr<Component> GetScript()
@@ -72,6 +84,7 @@ private:
 		return _script;
 	}
 private:
+	vector<u64> _insertOrder;
 	HashMap<u64, sptr<Component>> _components;
 	friend class Layer;
 	sptr<Component> _script;

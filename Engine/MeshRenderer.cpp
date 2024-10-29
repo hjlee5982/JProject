@@ -3,8 +3,9 @@
 #include "Mesh.h"
 
 MeshRenderer::MeshRenderer()
-	: Component(EComponentType::MESHRENDERER, typeid(MeshRenderer).hash_code())
 {
+	SetType<MeshRenderer>(EComponentType::MESHRENDERER);
+
 	_material = ASSET->Get<Material>(L"PBR");
 }
 

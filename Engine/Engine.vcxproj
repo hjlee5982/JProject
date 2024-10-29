@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PickingCollider.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Scene.h" />
@@ -203,6 +205,7 @@
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SkyBoxRenderer.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
@@ -216,6 +219,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -274,6 +278,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PickingCollider.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -285,6 +290,7 @@
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />

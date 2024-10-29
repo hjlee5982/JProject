@@ -19,6 +19,10 @@ void Sphere::Init()
 		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"Phong"));
 		//GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"PBR"));
 	}
+	AddComponent(makeSptr<SphereCollider>());
+	{
+
+	}
 }
 
 void Sphere::Update()
@@ -32,4 +36,5 @@ void Sphere::LateUpdate()
 void Sphere::Render()
 {
 	GetComponent<MeshRenderer>()->Render();
+	GetComponent<SphereCollider>()->Render();
 }

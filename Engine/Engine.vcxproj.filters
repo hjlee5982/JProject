@@ -315,6 +315,15 @@
     <ClInclude Include="SkyBoxRenderer.h">
       <Filter>07. Component\SkyBoxRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>07. Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>07. Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="PickingCollider.h">
+      <Filter>07. Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -499,6 +508,15 @@
     </ClCompile>
     <ClCompile Include="SkyBoxRenderer.cpp">
       <Filter>07. Component\SkyBoxRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>07. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>07. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="PickingCollider.cpp">
+      <Filter>07. Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

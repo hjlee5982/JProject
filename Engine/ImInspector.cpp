@@ -20,11 +20,17 @@ void ImInspector::Update()
 			ImGui::Text("%s", _go->GetName().c_str());
 			ImGui::Separator();
 
-			auto& components = _go->GetComponents();
+			auto& components  = _go->GetComponents();
+			auto& insertOrder = _go->GetInsertOrder();
 
-			for (auto& component : components)
+			for (i32 i = 0; i < insertOrder.size(); ++i)
 			{
-				EComponentType type = component.second->GetComponentType();
+				EComponentType type = components[insertOrder[i]]->GetComponentType();
+
+				if (type == EComponentType::PICKINGCOLLIDER)
+				{
+					continue;
+				}
 
 				switch (type)
 				{
@@ -34,14 +40,17 @@ void ImInspector::Update()
 				case EComponentType::CAMERA:
 					RenderCameraInspector();
 					break;
+				case EComponentType::LIGHT:
+					RenderLightInspector();
+					break;
 				case EComponentType::MESHRENDERER:
 					RenderMeshRendererInspector();
 					break;
 				case EComponentType::BOXCOLLIDER:
 					RenderBoxColliderInspector();
 					break;
-				case EComponentType::LIGHT:
-					RenderLightInspector();
+				case EComponentType::SPHERECOLLIDER:
+					RenderSphereColliderInspector();
 					break;
 					// Component 종류마다 추가
 					// case EComponentType::COMPONENT
@@ -53,6 +62,46 @@ void ImInspector::Update()
 
 				ImGui::Separator();
 			}
+
+			//for (auto& component : components)
+			//{
+			//	EComponentType type = component.second->GetComponentType();
+
+			//	if (type == EComponentType::PICKINGCOLLIDER)
+			//	{
+			//		continue;
+			//	}
+
+			//	switch (type)
+			//	{
+			//	case EComponentType::TRANSFORM:
+			//		RenderTransformInspector();
+			//		break;
+			//	case EComponentType::CAMERA:
+			//		RenderCameraInspector();
+			//		break;
+			//	case EComponentType::LIGHT:
+			//		RenderLightInspector();
+			//		break;
+			//	case EComponentType::MESHRENDERER:
+			//		RenderMeshRendererInspector();
+			//		break;
+			//	case EComponentType::BOXCOLLIDER:
+			//		RenderBoxColliderInspector();
+			//		break;
+			//	case EComponentType::SPHERECOLLIDER:
+			//		RenderSphereColliderInspector();
+			//		break;
+			//		// Component 종류마다 추가
+			//		// case EComponentType::COMPONENT
+			//		// RenderXXXInspector();
+
+			//	default:
+			//		break;
+			//	}
+
+			//	ImGui::Separator();
+			//}
 			if (_go->GetScript() != nullptr)
 			{
 				RenderScriptInspector();
@@ -339,6 +388,36 @@ void ImInspector::RenderBoxColliderInspector()
 
 		_go->GetComponent<BoxCollider>()->SetPosition(vec3(fpos[0],   fpos[1],   fpos[2]));
 		_go->GetComponent<BoxCollider>()->SetScale   (vec3(fscale[0], fscale[1], fscale[2]));
+
+		ImGui::TreePop();
+	}
+}
+
+void ImInspector::RenderSphereColliderInspector()
+{
+	GUI->Image(L"sphereCollider");
+	ImGui::SameLine();
+
+	if (ImGui::TreeNodeEx("Sphere Collider", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		auto pos = _go->GetComponent<SphereCollider>()->GetPosition();
+		float fpos[3] = { pos.x, pos.y, pos.z };
+
+		auto scale = _go->GetComponent<SphereCollider>()->GetScale();
+		float fscale[3] = { scale.x, scale.y, scale.z };
+
+		ImGui::Text("Offset");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat3("##Offset", fpos, 0.001f);
+
+		ImGui::Text("Scale");
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+		ImGui::DragFloat3("Scale", fscale, 0.001f);
+
+		_go->GetComponent<SphereCollider>()->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
+		_go->GetComponent<SphereCollider>()->SetScale(vec3(fscale[0], fscale[1], fscale[2]));
 
 		ImGui::TreePop();
 	}

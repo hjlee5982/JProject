@@ -68,13 +68,21 @@ void GameObjectManager::AddGameObject()
 	_gameObjects.push_back(go);
 }
 
-void GameObjectManager::AddGameObject(sptr<Script> script, const string& name)
+void GameObjectManager::AddGameObject(sptr<Script> script, const string& name, bool pickable)
 {
 	sptr<GameObject> go = makeSptr<GameObject>();
 	{
 		go->SetName(name);
 
+		// 기본적으로 가지고 있어야 할 컴포넌트는 기본으로 만들어줌
 		go->AddComponent(makeSptr<Transform>());
+
+		// 얘가 없어야 되는 놈도 있는데?
+		if (pickable == true)
+		{
+			go->AddComponent(makeSptr<PickingCollider>());
+		}
+
 		go->AddComponent(script, true);
 		script->Init();
 	}

@@ -17,7 +17,7 @@ if (ImGui::IsMouseClicked(ImGuiMouseButton_Right))											  \
 																							  \
 if (ImGui::IsWindowFocused())		 														  \
 {									 														  \
-	GUI->Notify(name);      	     														  \
+	GUI->NotifyWindow(name);      	     													  \
 }
 
 class ImGuiManager
@@ -52,7 +52,7 @@ private:
 	vector<sptr<class ImWindow>> _windows;
 public:
 	void Notify(sptr<GameObject> go);
-	void Notify(const string& name);
+	void NotifyWindow(const string& name);
 private:
 	sptr<GameObject> _go;
 	string _focusedWindow;

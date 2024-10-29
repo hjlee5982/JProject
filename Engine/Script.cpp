@@ -2,8 +2,8 @@
 #include "Script.h"
 
 Script::Script()
-	: Component(EComponentType::SCRIPT, typeid(Script).hash_code())
 {
+	SetType<Script>(EComponentType::SCRIPT);
 }
 
 void Script::Init()

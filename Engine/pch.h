@@ -124,7 +124,9 @@ using namespace Microsoft::WRL;
 #include "Camera.h"
 #include "Light.h"
 #include "MeshRenderer.h"
+#include "PickingCollider.h"
 #include "BoxCollider.h"
+#include "SphereCollider.h"
 
 
 // Singleton **********************************************************

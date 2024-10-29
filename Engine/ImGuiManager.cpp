@@ -217,7 +217,7 @@ void ImGuiManager::Notify(sptr<GameObject> go)
     }
 }
 
-void ImGuiManager::Notify(const string& name)
+void ImGuiManager::NotifyWindow(const string& name)
 {
     GUI->SetFocusedWindow(name);
 }

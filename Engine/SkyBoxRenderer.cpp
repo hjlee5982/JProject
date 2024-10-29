@@ -2,8 +2,9 @@
 #include "SkyBoxRenderer.h"
 
 SkyBoxRenderer::SkyBoxRenderer()
-	: Component(EComponentType::SKYBOXRENDERER, typeid(SkyBoxRenderer).hash_code())
 {
+	SetType<SkyBoxRenderer>(EComponentType::SKYBOXRENDERER);
+
 	_material = ASSET->Get<Material>(L"PBR");
 
 	CreateState();

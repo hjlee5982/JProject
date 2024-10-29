@@ -2,7 +2,7 @@
 #include "Light.h"
 
 Light::Light(ELightType lightType)
-	: Component(EComponentType::LIGHT, typeid(Light).hash_code())
-	, _lightType(lightType)
+	: _lightType(lightType)
 {
+	SetType<Light>(EComponentType::LIGHT);
 }

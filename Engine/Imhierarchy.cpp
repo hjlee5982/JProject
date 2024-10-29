@@ -61,7 +61,7 @@ void ImHierarchy::RenderHierachy(vector<sptr<GameObject>>& gos)
 		{
 			continue;
 		}
-
+		
 		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(-2, 0));
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(2, 4));
 
