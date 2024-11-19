@@ -19,6 +19,8 @@ public:
 	void CreateCube();
 	void CreateGrid(i32 sizeX, i32 sizeY);
 	void CreateSphere();
+	void CreateCapsule();
+	void CreateCylinder();
 public:
 	void PushData();
 private:
@@ -41,5 +43,22 @@ private:
 private:
 	sptr<VertexBuffer> _vertexBuffer;
 	sptr<IndexBuffer>  _indexBuffer;
+public:
+	// For Collider
+	void CreateSphereForCollider(i32 segments);
+	void CreateCubeForCollider();
+private:
+	sptr<Geometry<ColliderVertex>> _geometryForCollider;
+	vector<sptr<VertexBuffer>> _vertexBuffers;
+	i32 _segments = 0;
+public:
+	vector<sptr<VertexBuffer>> GetVertexBuffers()
+	{
+		return _vertexBuffers;
+	}
+	i32 GetSegments()
+	{
+		return _segments + 1;
+	}
 };
 

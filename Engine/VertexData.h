@@ -1,5 +1,14 @@
 #pragma once
 
+
+struct ColliderVertex
+{
+	vec3 position = { 0.f, 0.f, 0.f };
+	vec4 color    = { 0.f, 1.f, 0.f, 1.f };
+};
+
+// �ѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤѤ�
+
 struct VertexTextureData
 {
 	vec3 position = { 0.f, 0.f, 0.f };

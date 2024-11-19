@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GeometryHelper.h"
 
-void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureData>> geometry)
+void GeometryHelper::CreateQuad(sptr<Geometry<VertexTextureData>> geometry)
 {
 	vector<VertexTextureData> vtx;
 	{
@@ -28,7 +28,7 @@ void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureData>> geometry
 	}
 }
 
-void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureData>> geometry)
+void GeometryHelper::CreateCube(sptr<Geometry<VertexTextureData>> geometry)
 {
 	f32 w2 = 0.5f;
 	f32 h2 = 0.5f;
@@ -91,7 +91,7 @@ void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureData>> geometry
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureData>> geometry)
+void GeometryHelper::CreateSphere(sptr<Geometry<VertexTextureData>> geometry)
 {
 	f32 radius = 0.5f;
 	u32 stackCount = 20;
@@ -172,7 +172,7 @@ void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureData>> geomet
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureData>> geometry, i32 sizeX, i32 sizeZ)
+void GeometryHelper::CreateGrid(sptr<Geometry<VertexTextureData>> geometry, i32 sizeX, i32 sizeZ)
 {
 	vector<VertexTextureData> vtx;
 
@@ -209,7 +209,7 @@ void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureData>> geometry
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureNormalData>> geometry)
+void GeometryHelper::CreateQuad(sptr<Geometry<VertexTextureNormalData>> geometry)
 {
 	vector<VertexTextureNormalData> vtx;
 	{
@@ -240,7 +240,7 @@ void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureNormalData>> ge
 	}
 }
 
-void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureNormalData>> geometry)
+void GeometryHelper::CreateCube(sptr<Geometry<VertexTextureNormalData>> geometry)
 {
 	f32 w2 = 0.5f;
 	f32 h2 = 0.5f;
@@ -303,7 +303,7 @@ void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureNormalData>> ge
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalData>> geometry)
+void GeometryHelper::CreateSphere(sptr<Geometry<VertexTextureNormalData>> geometry)
 {
 	f32 radius = 0.5f;
 	u32 stackCount = 40;
@@ -390,7 +390,7 @@ void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalData>> 
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalData>> geometry, i32 sizeX, i32 sizeZ)
+void GeometryHelper::CreateGrid(sptr<Geometry<VertexTextureNormalData>> geometry, i32 sizeX, i32 sizeZ)
 {
 	vector<VertexTextureNormalData> vtx;
 
@@ -428,7 +428,7 @@ void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalData>> ge
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+void GeometryHelper::CreateQuad(sptr<Geometry<VertexTextureNormalTangentData>> geometry)
 {
 	vector<VertexTextureNormalTangentData> vtx;
 	{
@@ -463,7 +463,7 @@ void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureNormalTangentDa
 	}
 }
 
-void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+void GeometryHelper::CreateCube(sptr<Geometry<VertexTextureNormalTangentData>> geometry)
 {
 	float w2 = 0.5f;
 	float h2 = 0.5f;
@@ -526,7 +526,7 @@ void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureNormalTangentDa
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+void GeometryHelper::CreateSphere(sptr<Geometry<VertexTextureNormalTangentData>> geometry)
 {
 	float radius = 0.5f;
 	u32 stackCount = 50;
@@ -622,7 +622,7 @@ void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangent
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, i32 sizeX, i32 sizeZ)
+void GeometryHelper::CreateGrid(sptr<Geometry<VertexTextureNormalTangentData>> geometry, i32 sizeX, i32 sizeZ)
 {
 	vector<VertexTextureNormalTangentData> vtx;
 
@@ -747,4 +747,42 @@ void GeometryHelper::CreateSpherePBR(sptr<Geometry<VertexPBR>> geometry)
 	}
 
 	geometry->SetIndices(idx);
+}
+
+void GeometryHelper::CreateSphereForCollider(sptr<Geometry<ColliderVertex>> geometry, i32 segments, i32 plane)
+{
+	vector<ColliderVertex> vtx;
+
+	f32 radius = 2.0f;
+
+	// 원을 몇조각으로 나눌꺼니?
+	//i32 segments = segments;
+
+	// 조각 당 각도
+	f32 angleStep = XM_2PI / segments;
+
+	for (i32 i = 0; i <= segments; ++i)
+	{
+		f32 angle = i * angleStep;
+		f32 x = radius * cosf(angle);
+		f32 y = radius * sinf(angle);
+		
+		if (plane == 0)
+		{
+			// XZ 평면
+			vtx.push_back({ vec3(x, 0.f, y) });
+		}
+		else if (plane == 1)
+		{
+			// YZ 평면
+			vtx.push_back({ vec3(0.f, x, y) });
+		}
+		else
+		{
+			// XY 평면
+			vtx.push_back({ vec3(x, y, 0.f) });
+		}
+	}
+
+	geometry->SetVertices(vtx);
 }

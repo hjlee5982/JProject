@@ -4,7 +4,7 @@
 
 [2024.10.18 21:02]
  └ 콜라이더랑 레이랑 캐스팅을 하지 말고, 콜라이더는 정말 게임 내부에서 충돌판정이나 트리거 용으로 사용하고
- └ Picking 컴포넌트를 따로 만들어서 에디터에서 피킹만 가능하게 짜는게 나을듯
+ └ (완료) Picking 컴포넌트를 따로 만들어서 에디터에서 피킹만 가능하게 짜는게 나을듯
 
 ● Shader
  └ (O) ID3DX11Effect 말고 직접 관리하기
@@ -90,6 +90,9 @@
 [24.10.29 21:01]
 └ Picking용 콜라이더 따로 분리
 
+[24.11.19 17:56]
+└ Sphere콜라이더 유니티처럼 바꿈
+
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 메모
 1. ViewPort, RTV, DSV 설정
@@ -159,3 +162,14 @@ _mesh->GetIndexBuffer()->PushData();  // CONTEXT->IASetIndexBuffer();
 
 9. 그리기 호출
 CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);
+
+
+
+
+
+JProject 구조
+
+ - 기본 3D 모델들을 그리는 순서
+	1. AssetManager에서 클라이언트가 시작될 때 Mesh 인스턴스를 생성함
+	2. Mesh 클래스가 Geometry와 VertexBuffer, IndexBuffer를 가지고 있음, 지정한 Geometry를 생성
+	3. GeometryHelper 클래스에서 Vertex와 Index를 정의해주고 있음

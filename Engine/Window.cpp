@@ -141,6 +141,7 @@ LRESULT CALLBACK Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARA
 		return true;
 	}
 
+
 	switch (message)
 	{
 	case WM_KEYDOWN:
@@ -155,6 +156,9 @@ LRESULT CALLBACK Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARA
 
 		break;
 	case WM_SIZE:
+
+		JLOG_INFO("Size Changed");
+
 		break;
 	case WM_CLOSE:
 	case WM_DESTROY:

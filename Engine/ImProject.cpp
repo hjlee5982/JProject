@@ -27,7 +27,7 @@ void ImProject::Update()
 
             GUI->Image(L"folder");
             ImGui::SameLine();
-            if (ImGui::TreeNode("Assets"))
+			if (ImGui::TreeNodeEx("Assets", nodeFlag))
             {
                 if (ImGui::IsItemToggledOpen() || ImGui::IsItemClicked())
                 {
@@ -119,10 +119,11 @@ void ImProject::RenderFileExplorer(const std::filesystem::path& path)
 
 			GUI->Image(L"folder");
             ImGui::SameLine();
-			if (ImGui::TreeNode(file_path.filename().string().c_str()))
+			if (ImGui::TreeNodeEx(file_path.filename().string().c_str(), nodeFlag))
 			{
                 if (ImGui::IsItemToggledOpen() || ImGui::IsItemClicked())
                 {
+                    nodeFlag |= ImGuiTreeNodeFlags_Selected;
                     _selectedPath = file_path.string();
                 }
 				RenderFileExplorer(file_path);

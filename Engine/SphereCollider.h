@@ -8,6 +8,8 @@ public:
 	SphereCollider();
 	virtual ~SphereCollider() = default;
 public:
+	virtual void Render() override;
+public:
 	virtual bool Raycast(Ray ray) override;
 private:
 	vec3 _center;

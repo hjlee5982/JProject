@@ -12,7 +12,7 @@ public:
 private:
 	void RenderHierachy(vector<sptr<GameObject>>& gos);
 public:
-	virtual void StateUpdate(sptr<GameObject> go) override {}
+	virtual void StateUpdate(sptr<GameObject> go) override;
 private:
 	ComPtr<ID3D11ShaderResourceView> _icon;
 private:

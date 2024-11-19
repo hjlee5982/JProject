@@ -29,7 +29,9 @@ void ImScene::Update()
 					{
 						GUI->Notify(go);
 
-						JLOG_INFO("Picking");
+						string str = go->GetName() + " Picked";
+
+						JLOG_INFO(str);
 					}
 					//else if (ImGui::IsWindowHovered() == true)
 					//{

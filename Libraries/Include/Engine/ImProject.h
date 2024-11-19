@@ -14,6 +14,8 @@ private:
 	void RenderFolderItems();
 private:
 	string _selectedPath = "..\\Assets";
+private:
+	ImGuiTreeNodeFlags nodeFlag = ImGuiTreeNodeFlags_OpenOnDoubleClick;
 public:
 	virtual void StateUpdate(sptr<GameObject> go) override {}
 };

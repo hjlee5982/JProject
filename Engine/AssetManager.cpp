@@ -14,6 +14,7 @@ void AssetManager::CreateDefaultResources()
 {
 	// 기본 매시 로드
 	{
+		// 기본 3D 메시
 		{
 			sptr<Mesh> mesh = makeSptr<Mesh>();
 			mesh->CreateQuad();
@@ -28,6 +29,12 @@ void AssetManager::CreateDefaultResources()
 			sptr<Mesh> mesh = makeSptr<Mesh>();
 			mesh->CreateSphere();
 			Add(L"Sphere", mesh);
+		}
+		// 콜라이더용 
+		{
+			sptr<Mesh> mesh = makeSptr<Mesh>();
+			mesh->CreateSphereForCollider(30);
+			Add(L"SphereCollider", mesh);
 		}
 	}
 	// 기본 쉐이더 로드

@@ -68,7 +68,14 @@ void ImHierarchy::RenderHierachy(vector<sptr<GameObject>>& gos)
 		GUI->Image(L"box");
 		ImGui::SameLine();
 
-		if (ImGui::TreeNode(go->GetName().c_str()))
+		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_None;
+
+		if (go == _go)
+		{
+			nodeFlags |= ImGuiTreeNodeFlags_Selected;
+		}
+
+		if (ImGui::TreeNodeEx(go->GetName().c_str(), nodeFlags))
 		{
 			if (ImGui::IsItemToggledOpen() || ImGui::IsItemClicked())
 			{
@@ -83,4 +90,9 @@ void ImHierarchy::RenderHierachy(vector<sptr<GameObject>>& gos)
 		}
 		ImGui::PopStyleVar(2);
 	}
+}
+
+void ImHierarchy::StateUpdate(sptr<GameObject> go)
+{
+	_go = go;
 }
