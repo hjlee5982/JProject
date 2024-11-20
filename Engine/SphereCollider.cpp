@@ -18,6 +18,9 @@ void SphereCollider::Render()
 	}
 	// 상수버퍼 바인딩
 	{
+		auto w = _transform->GetWorld();
+		auto p = GetOwnerTransform()->GetWorld();
+
 		TRANSFORM_DATA data;
 		{
 			data.gWorldMatrix = _transform->GetWorld() * GetOwnerTransform()->GetWorld();
@@ -39,25 +42,9 @@ void SphereCollider::Render()
 		DEVICE->CreateRasterizerState(&cullDesc, rasterizerState.GetAddressOf());
 		CONTEXT->RSSetState(rasterizerState.Get());
 	}
-	//// 버텍스 인덱스 버퍼 바인딩
-	//{
-	//	//_mesh->PushData();
-
-	//	sptr<VertexBuffer> vb = _mesh->GetVertexBuffer();
-	//	u32 stride = vb->GetStride();
-	//	u32 offset = vb->GetOffset();
-
-	//	CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetBuffer().GetAddressOf(), &stride, &offset);
-	//}
-	//// 드로우 콜
-	//{
-	//	//CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);
-
-	//	CONTEXT->Draw(31, 0);
-	//	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	//}
 
 	// 구 콜라이더 전용 렌더링 로직
+	// LINESTIP은 정점 순서대로 선을 그음
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 	vector<sptr<VertexBuffer>> vbs = _mesh->GetVertexBuffers();

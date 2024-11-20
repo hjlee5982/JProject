@@ -25,6 +25,7 @@ public:
 	static void CreateSpherePBR(sptr<Geometry<VertexPBR>> geometry);
 public:
 	// For Collider
+	static void CreateCubeForCollider(sptr<Geometry<ColliderVertex>> geometry);
 	static void CreateSphereForCollider(sptr<Geometry<ColliderVertex>> geometry, i32 segments, i32 plane);
 };
 

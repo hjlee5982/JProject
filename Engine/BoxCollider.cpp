@@ -5,9 +5,62 @@ BoxCollider::BoxCollider()
 {
 	SetType<BoxCollider>(EComponentType::BOXCOLLIDER);
 
-	_mesh      = ASSET->Get<Mesh>  (L"Cube");
+	_mesh      = ASSET->Get<Mesh>  (L"BoxCollider");
 	_shader    = ASSET->Get<Shader>(L"Collider");
 	_transform = makeSptr<Transform>();
+}
+
+void BoxCollider::Render()
+{
+	// 쉐이더 세팅
+	{
+		_shader->SetShader();
+	}
+	// 상수버퍼 바인딩
+	{
+		auto w = _transform->GetWorld();
+		auto p = GetOwnerTransform()->GetWorld();
+
+		TRANSFORM_DATA data;
+		{
+			data.gWorldMatrix = _transform->GetWorld() * GetOwnerTransform()->GetWorld();
+			data.gViewMatrix = Camera::SView;
+			data.gProjMatrix = Camera::SProj;
+			data.gCameraWorldMatrix = Camera::SView.Invert();
+		}
+		_shader->PushData<TRANSFORM_DATA>(data);
+	}
+	// 레스터라이저 바인딩
+	{
+		D3D11_RASTERIZER_DESC cullDesc;
+		ZeroMemory(&cullDesc, sizeof(cullDesc));
+		{
+			cullDesc.FillMode = D3D11_FILL_WIREFRAME;
+			cullDesc.CullMode = D3D11_CULL_NONE;
+		}
+		ComPtr<ID3D11RasterizerState> rasterizerState;
+		DEVICE->CreateRasterizerState(&cullDesc, rasterizerState.GetAddressOf());
+		CONTEXT->RSSetState(rasterizerState.Get());
+	}
+
+
+	// 박스 콜라이더 전용 렌더링 로직
+	// LINELIST는 두 정점씩 짝을 지어 그림
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	sptr<VertexBuffer> vb = _mesh->GetVertexBuffer();
+	sptr<IndexBuffer>  ib = _mesh->GetIndexBuffer();
+
+	u32 stride = vb->GetStride();
+	u32 offset = vb->GetOffset();
+	u32 icount = ib->GetCount();
+
+	CONTEXT->IASetVertexBuffers(vb->GetSlot(), 1, vb->GetBuffer().GetAddressOf(), &stride, &offset);
+	CONTEXT->IASetIndexBuffer(ib->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+	
+	CONTEXT->DrawIndexed(icount, 0, 0);
+
+	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 bool BoxCollider::Raycast(Ray ray)

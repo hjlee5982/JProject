@@ -45,7 +45,14 @@ void Mesh::CreateCylinder()
 
 void Mesh::CreateCubeForCollider()
 {
-	
+	_geometryForCollider = makeSptr<Geometry<ColliderVertex>>();
+	GeometryHelper::CreateCubeForCollider(_geometryForCollider);
+
+	_vertexBuffer = makeSptr<VertexBuffer>();
+	_vertexBuffer->Create(_geometryForCollider->GetVertices());
+
+	_indexBuffer = makeSptr<IndexBuffer>();
+	_indexBuffer->Create(_geometryForCollider->GetIndices());
 }
 
 void Mesh::CreateSphereForCollider(i32 segments)

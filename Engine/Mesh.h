@@ -45,8 +45,8 @@ private:
 	sptr<IndexBuffer>  _indexBuffer;
 public:
 	// For Collider
-	void CreateSphereForCollider(i32 segments);
 	void CreateCubeForCollider();
+	void CreateSphereForCollider(i32 segments);
 private:
 	sptr<Geometry<ColliderVertex>> _geometryForCollider;
 	vector<sptr<VertexBuffer>> _vertexBuffers;

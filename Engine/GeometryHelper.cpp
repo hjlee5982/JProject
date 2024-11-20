@@ -749,11 +749,39 @@ void GeometryHelper::CreateSpherePBR(sptr<Geometry<VertexPBR>> geometry)
 	geometry->SetIndices(idx);
 }
 
+void GeometryHelper::CreateCubeForCollider(sptr<Geometry<ColliderVertex>> geometry)
+{
+	vector<ColliderVertex> vtx;
+	{
+		vtx.resize(8);
+
+		vtx[0].position = vec3(-0.5f,  0.5f, -0.5f);
+		vtx[1].position = vec3( 0.5f,  0.5f, -0.5f);
+		vtx[2].position = vec3( 0.5f, -0.5f, -0.5f);
+		vtx[3].position = vec3(-0.5f, -0.5f, -0.5f);
+
+		vtx[4].position = vec3(-0.5f,  0.5f, 0.5f);
+		vtx[5].position = vec3( 0.5f,  0.5f, 0.5f);
+		vtx[6].position = vec3( 0.5f, -0.5f, 0.5f);
+		vtx[7].position = vec3(-0.5f, -0.5f, 0.5f);
+	}
+	geometry->SetVertices(vtx);
+
+	vector<u32> idx = 
+	{ 
+		0, 1, 1, 2, 2, 3, 3, 0, // 앞
+		4, 5, 5, 6, 6, 7, 7, 4, // 뒤
+		0, 4, 1, 5, 2, 6, 3, 7  // 모서리
+	};
+	geometry->SetIndices(idx);
+}
+
 void GeometryHelper::CreateSphereForCollider(sptr<Geometry<ColliderVertex>> geometry, i32 segments, i32 plane)
 {
 	vector<ColliderVertex> vtx;
 
-	f32 radius = 2.0f;
+	// 반지름, 0.5로 해야 기본 크기 1의 원이 되겠지?
+	f32 radius = 0.5f;
 
 	// 원을 몇조각으로 나눌꺼니?
 	//i32 segments = segments;

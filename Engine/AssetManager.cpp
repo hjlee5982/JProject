@@ -36,6 +36,11 @@ void AssetManager::CreateDefaultResources()
 			mesh->CreateSphereForCollider(30);
 			Add(L"SphereCollider", mesh);
 		}
+		{
+			sptr<Mesh> mesh = makeSptr<Mesh>();
+			mesh->CreateCubeForCollider();
+			Add(L"BoxCollider", mesh);
+		}
 	}
 	// 기본 쉐이더 로드
 	{

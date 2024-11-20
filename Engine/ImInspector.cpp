@@ -404,7 +404,8 @@ void ImInspector::RenderSphereColliderInspector()
 		float fpos[3] = { pos.x, pos.y, pos.z };
 
 		auto scale = _go->GetComponent<SphereCollider>()->GetScale();
-		float fscale[3] = { scale.x, scale.y, scale.z };
+		//float fscale[3] = { scale.x, scale.y, scale.z };
+		f32 fscale = scale.x;
 
 		ImGui::Text("Offset");
 		ImGui::SameLine();
@@ -414,10 +415,11 @@ void ImInspector::RenderSphereColliderInspector()
 		ImGui::Text("Scale");
 		ImGui::SameLine();
 		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat3("Scale", fscale, 0.001f);
+		//ImGui::DragFloat3("Scale", fscale, 0.001f);
+		ImGui::DragFloat("Scale", &fscale, 0.001f);
 
 		_go->GetComponent<SphereCollider>()->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
-		_go->GetComponent<SphereCollider>()->SetScale(vec3(fscale[0], fscale[1], fscale[2]));
+		_go->GetComponent<SphereCollider>()->SetScale(vec3(fscale, fscale, fscale));
 
 		ImGui::TreePop();
 	}
