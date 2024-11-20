@@ -9,8 +9,6 @@ public:
 	virtual ~SphereCollider() = default;
 public:
 	virtual void Render() override;
-public:
-	virtual bool Raycast(Ray ray) override;
 private:
 	vec3 _center;
 	vec3 _halfScale;

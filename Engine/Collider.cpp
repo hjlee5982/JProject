@@ -49,3 +49,8 @@ void Collider::Render()
 		CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);
 	}
 }
+
+void Collider::SetColor()
+{
+	_color = _isTrigger == true ? vec4{ 0.f, 0.f, 1.f, 1.f } : vec4{ 0.f, 1.f, 0.f, 1.f };
+}

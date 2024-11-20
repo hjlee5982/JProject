@@ -32,6 +32,7 @@ struct LIGHT_DATA
 
 struct GLOBAL_DATA
 {
+	Color color;
 	vec4 test;
 
 	static const UINT registerNum = 2;

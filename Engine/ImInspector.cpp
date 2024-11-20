@@ -199,7 +199,6 @@ void ImInspector::RenderMeshRendererInspector()
 	if (ImGui::TreeNodeEx("Mesh Renderer", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::Text("This is Script Component");
-
 		//{
 		//	ImGui::Text("RenderType");
 		//	ImGui::SameLine();
@@ -370,25 +369,40 @@ void ImInspector::RenderBoxColliderInspector()
 
 	if (ImGui::TreeNodeEx("Box Collider", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		auto pos = _go->GetComponent<BoxCollider>()->GetPosition();
-		float fpos[3] = { pos.x, pos.y, pos.z };
+		auto component = _go->GetComponent<BoxCollider>();
+		{
+			// Trigger 변경
+			bool isTrigger = component->IsTrigger();
+			{
+				ImGui::Text("Is Trigger");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::Checkbox("##Is Trigger", &isTrigger);
+			}
+			component->SetTrigger(isTrigger);
 
-		auto scale = _go->GetComponent<BoxCollider>()->GetScale();
-		float fscale[3] = { scale.x, scale.y, scale.z };
+			// Collider 위치 변경
+			vec3 pos = component->GetPosition();
+			f32 fpos[3] = { pos.x,pos.y,pos.z };
+			{
+				ImGui::Text("Center");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::DragFloat3("##Center", fpos, 0.001f);
+			}
+			component->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
 
-		ImGui::Text("Offset");
-		ImGui::SameLine();
-		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat3("##Offset", fpos, 0.001f);
-		
-		ImGui::Text("Scale");
-		ImGui::SameLine();
-		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat3("Scale", fscale, 0.001f);
-
-		_go->GetComponent<BoxCollider>()->SetPosition(vec3(fpos[0],   fpos[1],   fpos[2]));
-		_go->GetComponent<BoxCollider>()->SetScale   (vec3(fscale[0], fscale[1], fscale[2]));
-
+			// Collider 크기 변경
+			vec3 scale = component->GetScale();
+			f32 fscale[3] = { scale.x, scale.y, scale.z };
+			{
+				ImGui::Text("Size");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::DragFloat3("Size", fscale, 0.001f);
+			}
+			component->SetScale(vec3(fscale[0], fscale[1], fscale[2]));
+		}
 		ImGui::TreePop();
 	}
 }
@@ -400,27 +414,40 @@ void ImInspector::RenderSphereColliderInspector()
 
 	if (ImGui::TreeNodeEx("Sphere Collider", ImGuiTreeNodeFlags_::ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		auto pos = _go->GetComponent<SphereCollider>()->GetPosition();
-		float fpos[3] = { pos.x, pos.y, pos.z };
+		auto component = _go->GetComponent<SphereCollider>();
+		{
+			// Trigger 변경
+			bool isTrigger = component->IsTrigger();
+			{
+				ImGui::Text("Is Trigger");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::Checkbox("##Is Trigger", &isTrigger);
+			}
+			component->SetTrigger(isTrigger);
 
-		auto scale = _go->GetComponent<SphereCollider>()->GetScale();
-		//float fscale[3] = { scale.x, scale.y, scale.z };
-		f32 fscale = scale.x;
+			// Collider 위치 변경
+			vec3 pos = component->GetPosition();
+			f32 fpos[3] = { pos.x,pos.y,pos.z };
+			{
+				ImGui::Text("Center");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::DragFloat3("##Center", fpos, 0.001f);
+			}
+			component->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
 
-		ImGui::Text("Offset");
-		ImGui::SameLine();
-		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		ImGui::DragFloat3("##Offset", fpos, 0.001f);
-
-		ImGui::Text("Scale");
-		ImGui::SameLine();
-		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
-		//ImGui::DragFloat3("Scale", fscale, 0.001f);
-		ImGui::DragFloat("Scale", &fscale, 0.001f);
-
-		_go->GetComponent<SphereCollider>()->SetPosition(vec3(fpos[0], fpos[1], fpos[2]));
-		_go->GetComponent<SphereCollider>()->SetScale(vec3(fscale, fscale, fscale));
-
+			// Collider 크기 변경
+			vec3 scale = component->GetScale();
+			f32 fscale = scale.x;
+			{
+				ImGui::Text("Radius");
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+				ImGui::DragFloat("Radius", &fscale, 0.001f);
+			}
+			component->SetScale(vec3(fscale, fscale, fscale));
+		}
 		ImGui::TreePop();
 	}
 }

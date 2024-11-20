@@ -751,19 +751,21 @@ void GeometryHelper::CreateSpherePBR(sptr<Geometry<VertexPBR>> geometry)
 
 void GeometryHelper::CreateCubeForCollider(sptr<Geometry<ColliderVertex>> geometry)
 {
+	f32 padding = 0.001f;
+
 	vector<ColliderVertex> vtx;
 	{
 		vtx.resize(8);
 
-		vtx[0].position = vec3(-0.5f,  0.5f, -0.5f);
-		vtx[1].position = vec3( 0.5f,  0.5f, -0.5f);
-		vtx[2].position = vec3( 0.5f, -0.5f, -0.5f);
-		vtx[3].position = vec3(-0.5f, -0.5f, -0.5f);
+		vtx[0].position = vec3(-0.5f - padding,  0.5f + padding, -0.5f - padding);
+		vtx[1].position = vec3( 0.5f + padding,  0.5f + padding, -0.5f - padding);
+		vtx[2].position = vec3( 0.5f + padding, -0.5f - padding, -0.5f - padding);
+		vtx[3].position = vec3(-0.5f - padding, -0.5f - padding, -0.5f - padding);
 
-		vtx[4].position = vec3(-0.5f,  0.5f, 0.5f);
-		vtx[5].position = vec3( 0.5f,  0.5f, 0.5f);
-		vtx[6].position = vec3( 0.5f, -0.5f, 0.5f);
-		vtx[7].position = vec3(-0.5f, -0.5f, 0.5f);
+		vtx[4].position = vec3(-0.5f - padding,  0.5f + padding, 0.5f + padding);
+		vtx[5].position = vec3( 0.5f + padding,  0.5f + padding, 0.5f + padding);
+		vtx[6].position = vec3( 0.5f + padding, -0.5f - padding, 0.5f + padding);
+		vtx[7].position = vec3(-0.5f - padding, -0.5f - padding, 0.5f + padding);
 	}
 	geometry->SetVertices(vtx);
 
@@ -781,7 +783,7 @@ void GeometryHelper::CreateSphereForCollider(sptr<Geometry<ColliderVertex>> geom
 	vector<ColliderVertex> vtx;
 
 	// 반지름, 0.5로 해야 기본 크기 1의 원이 되겠지?
-	f32 radius = 0.5f;
+	f32 radius = 0.501f;
 
 	// 원을 몇조각으로 나눌꺼니?
 	//i32 segments = segments;

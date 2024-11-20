@@ -15,7 +15,7 @@ float4 ComputeLight(float2 uv, float3 normal, float3 worldPos)
     float4 specularColor = 0;
     float4 emissiveColor = 0;
     
-    float4 basicColor = float4(0.f, 0.f, 0.f, 1.f);
+    float4 basicColor = float4(0.3f, 0.3f, 0.3f, 1.f);
     
     // DiffuseMap, SpecularMap, NormalMap 등등
     // Albedo, Roughness 등등을

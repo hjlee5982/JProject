@@ -33,7 +33,7 @@ void AssetManager::CreateDefaultResources()
 		// 콜라이더용 
 		{
 			sptr<Mesh> mesh = makeSptr<Mesh>();
-			mesh->CreateSphereForCollider(30);
+			mesh->CreateSphereForCollider(50);
 			Add(L"SphereCollider", mesh);
 		}
 		{

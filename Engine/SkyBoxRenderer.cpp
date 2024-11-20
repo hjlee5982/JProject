@@ -38,7 +38,7 @@ void SkyBoxRenderer::Render()
 		{
 			GLOBAL_DATA data;
 			{
-				data.test = vec4(1.f, 0.f, 1.f, 1.f);
+				data.color = vec4(1.f, 0.f, 1.f, 1.f);
 			}
 			shader->PushData<GLOBAL_DATA>(data);
 		}

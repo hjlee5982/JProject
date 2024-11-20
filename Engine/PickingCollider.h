@@ -8,7 +8,7 @@ public:
 	PickingCollider();
 	virtual ~PickingCollider() = default;
 public:
-	virtual bool Raycast(Ray ray) override;
+	bool Raycast(Ray ray);
 private:
 	vec3 _center;
 	vec3 _halfScale;

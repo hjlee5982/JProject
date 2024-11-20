@@ -25,6 +25,7 @@ cbuffer LIGHT_DATA : register(b1)
 
 cbuffer GLOBAL_DATA : register(b2)
 {
+    float4 color;
     float4 test;
 }
 

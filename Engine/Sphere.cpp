@@ -8,6 +8,10 @@ Sphere::Sphere()
 
 void Sphere::Init()
 {
+	AddComponent(makeSptr<PickingCollider>());
+	{
+
+	}
 	AddComponent(makeSptr<Transform>());
 	{
 		GetComponent<Transform>()->SetScale(vec3(3.f, 3.f, 3.f));

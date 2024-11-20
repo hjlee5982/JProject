@@ -93,6 +93,9 @@
 [24.11.19 17:56]
 └ Sphere콜라이더 유니티처럼 바꿈
 
+[24.11.20 17:21]
+└ Box 콜라이더 유니티처럼 바꿈
+
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 메모
 1. ViewPort, RTV, DSV 설정
@@ -173,3 +176,8 @@ JProject 구조
 	1. AssetManager에서 클라이언트가 시작될 때 Mesh 인스턴스를 생성함
 	2. Mesh 클래스가 Geometry와 VertexBuffer, IndexBuffer를 가지고 있음, 지정한 Geometry를 생성
 	3. GeometryHelper 클래스에서 Vertex와 Index를 정의해주고 있음
+
+ - 기본 오브젝트를 생성하는 순서
+	1. SceneManager에서 GameObjectManager를 통해 AddGameObject를 해줌
+	2. GameObjectManager는 GameObject를 생성하고 이름, 기본 컴포넌트(트랜스폼, 피킹, 스크립트)를 달아준 후 지정한 레이어와 본인에게 저장
+

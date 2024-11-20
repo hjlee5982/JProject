@@ -37,14 +37,15 @@ void MeshRenderer::Render()
 		{
 			GLOBAL_DATA data;
 			{
-				data.test = vec4(1.f, 0.f, 1.f, 1.f);
+				data.color = vec4(1.f, 0.f, 1.f, 1.f);
 			}
 			shader->PushData<GLOBAL_DATA>(data);
 		}
 		{
+			// Right도 다른데서 받아 와서 바인딩 해줘야 함
 			LIGHT_DATA data;
 			{
-				data.direction = vec3(1.f, -1.f, 1.f);
+				data.direction = vec3(-1.f, -1.f, 1.f);
 			}
 			shader->PushData<LIGHT_DATA>(data);
 		}
