@@ -28,8 +28,9 @@ void MeshRenderer::Render()
 	ComPtr<ID3D11RasterizerState> outlineRasterizerState;
 	DEVICE->CreateRasterizerState(&rasterDesc, outlineRasterizerState.GetAddressOf());
 
-	//CONTEXT->RSSetState(outlineRasterizerState.Get());
-	auto outlineShader = ASSET->Get<Material>(L"Outline")->GetShader();
+	CONTEXT->RSSetState(outlineRasterizerState.Get());
+	auto outlineMaterial = ASSET->Get<Material>(L"Outline");
+	auto outlineShader   = outlineMaterial->GetShader();
 	outlineShader->SetShader();
 
 	{
@@ -48,7 +49,7 @@ void MeshRenderer::Render()
 	}
 	// 머티리얼을 통해 SRV를 바인딩
 	{
-		_material->PushData();
+		outlineMaterial->PushData();
 	}
 	CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);
 

@@ -471,35 +471,51 @@ void GeometryHelper::CreateCube(sptr<Geometry<VertexTextureNormalTangentData>> g
 
 	vector<VertexTextureNormalTangentData> vtx(24);
 
-	vtx[0] = VertexTextureNormalTangentData(vec3(-w2, -h2, -d2), vec2(0.0f, 1.0f), vec3(0.0f, 0.0f, -1.0f), vec3(1.0f, 0.0f, 0.0f));
-	vtx[1] = VertexTextureNormalTangentData(vec3(-w2, +h2, -d2), vec2(0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f), vec3(1.0f, 0.0f, 0.0f));
-	vtx[2] = VertexTextureNormalTangentData(vec3(+w2, +h2, -d2), vec2(1.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f), vec3(1.0f, 0.0f, 0.0f));
-	vtx[3] = VertexTextureNormalTangentData(vec3(+w2, -h2, -d2), vec2(1.0f, 1.0f), vec3(0.0f, 0.0f, -1.0f), vec3(1.0f, 0.0f, 0.0f));
+	vec3 mpm = vec3(-1.f,  1.f, -1.f);	mpm.Normalize();
+	vec3 ppm = vec3( 1.f,  1.f, -1.f);	ppm.Normalize();
+	vec3 mmm = vec3(-1.f, -1.f, -1.f);	mmm.Normalize();
+	vec3 pmm = vec3( 1.f, -1.f, -1.f);	pmm.Normalize();
 
-	vtx[4] = VertexTextureNormalTangentData(vec3(-w2, -h2, +d2), vec2(1.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f));
-	vtx[5] = VertexTextureNormalTangentData(vec3(+w2, -h2, +d2), vec2(0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f));
-	vtx[6] = VertexTextureNormalTangentData(vec3(+w2, +h2, +d2), vec2(0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f));
-	vtx[7] = VertexTextureNormalTangentData(vec3(-w2, +h2, +d2), vec2(1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f));
+	vec3 mpp = vec3(-1.f,  1.f, 1.f);	mpp.Normalize();
+	vec3 ppp = vec3( 1.f,  1.f, 1.f);	ppp.Normalize();
+	vec3 pmp = vec3( 1.f, -1.f, 1.f);	pmp.Normalize();
+	vec3 mmp = vec3(-1.f, -1.f, 1.f);	mmp.Normalize();
 
-	vtx[8] = VertexTextureNormalTangentData(vec3(-w2, +h2, -d2), vec2(0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f));
-	vtx[9] = VertexTextureNormalTangentData(vec3(-w2, +h2, +d2), vec2(0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f));
-	vtx[10] = VertexTextureNormalTangentData(vec3(+w2, +h2, +d2), vec2(1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f));
-	vtx[11] = VertexTextureNormalTangentData(vec3(+w2, +h2, -d2), vec2(1.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f));
+	// Front
+	vtx[0] = VertexTextureNormalTangentData(vec3(-w2, -h2, -d2), vec2(0.0f, 1.0f), mmm, vec3(1.0f, 0.0f, 0.0f));
+	vtx[1] = VertexTextureNormalTangentData(vec3(-w2, +h2, -d2), vec2(0.0f, 0.0f), mpm, vec3(1.0f, 0.0f, 0.0f));
+	vtx[2] = VertexTextureNormalTangentData(vec3(+w2, +h2, -d2), vec2(1.0f, 0.0f), ppm, vec3(1.0f, 0.0f, 0.0f));
+	vtx[3] = VertexTextureNormalTangentData(vec3(+w2, -h2, -d2), vec2(1.0f, 1.0f), pmm, vec3(1.0f, 0.0f, 0.0f));
 
-	vtx[12] = VertexTextureNormalTangentData(vec3(-w2, -h2, -d2), vec2(1.0f, 1.0f), vec3(0.0f, -1.0f, 0.0f), vec3(-1.0f, 0.0f, 0.0f));
-	vtx[13] = VertexTextureNormalTangentData(vec3(+w2, -h2, -d2), vec2(0.0f, 1.0f), vec3(0.0f, -1.0f, 0.0f), vec3(-1.0f, 0.0f, 0.0f));
-	vtx[14] = VertexTextureNormalTangentData(vec3(+w2, -h2, +d2), vec2(0.0f, 0.0f), vec3(0.0f, -1.0f, 0.0f), vec3(-1.0f, 0.0f, 0.0f));
-	vtx[15] = VertexTextureNormalTangentData(vec3(-w2, -h2, +d2), vec2(1.0f, 0.0f), vec3(0.0f, -1.0f, 0.0f), vec3(-1.0f, 0.0f, 0.0f));
+	// Back
+	vtx[4] = VertexTextureNormalTangentData(vec3(-w2, -h2, +d2), vec2(1.0f, 1.0f), mmp, vec3(-1.0f, 0.0f, 0.0f));
+	vtx[5] = VertexTextureNormalTangentData(vec3(+w2, -h2, +d2), vec2(0.0f, 1.0f), pmp, vec3(-1.0f, 0.0f, 0.0f));
+	vtx[6] = VertexTextureNormalTangentData(vec3(+w2, +h2, +d2), vec2(0.0f, 0.0f), ppp, vec3(-1.0f, 0.0f, 0.0f));
+	vtx[7] = VertexTextureNormalTangentData(vec3(-w2, +h2, +d2), vec2(1.0f, 0.0f), mpp, vec3(-1.0f, 0.0f, 0.0f));
 
-	vtx[16] = VertexTextureNormalTangentData(vec3(-w2, -h2, +d2), vec2(0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f));
-	vtx[17] = VertexTextureNormalTangentData(vec3(-w2, +h2, +d2), vec2(0.0f, 0.0f), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f));
-	vtx[18] = VertexTextureNormalTangentData(vec3(-w2, +h2, -d2), vec2(1.0f, 0.0f), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f));
-	vtx[19] = VertexTextureNormalTangentData(vec3(-w2, -h2, -d2), vec2(1.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f));
+	// Top
+	vtx[8]  = VertexTextureNormalTangentData(vec3(-w2, +h2, -d2), vec2(0.0f, 1.0f), mpm, vec3(1.0f, 0.0f, 0.0f));
+	vtx[9]  = VertexTextureNormalTangentData(vec3(-w2, +h2, +d2), vec2(0.0f, 0.0f), mpp, vec3(1.0f, 0.0f, 0.0f));
+	vtx[10] = VertexTextureNormalTangentData(vec3(+w2, +h2, +d2), vec2(1.0f, 0.0f), ppp, vec3(1.0f, 0.0f, 0.0f));
+	vtx[11] = VertexTextureNormalTangentData(vec3(+w2, +h2, -d2), vec2(1.0f, 1.0f), ppm, vec3(1.0f, 0.0f, 0.0f));
 
-	vtx[20] = VertexTextureNormalTangentData(vec3(+w2, -h2, -d2), vec2(0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	vtx[21] = VertexTextureNormalTangentData(vec3(+w2, +h2, -d2), vec2(0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	vtx[22] = VertexTextureNormalTangentData(vec3(+w2, +h2, +d2), vec2(1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
-	vtx[23] = VertexTextureNormalTangentData(vec3(+w2, -h2, +d2), vec2(1.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f));
+	// Bottom
+	vtx[12] = VertexTextureNormalTangentData(vec3(-w2, -h2, -d2), vec2(1.0f, 1.0f), mmm, vec3(-1.0f, 0.0f, 0.0f));
+	vtx[13] = VertexTextureNormalTangentData(vec3(+w2, -h2, -d2), vec2(0.0f, 1.0f), pmm, vec3(-1.0f, 0.0f, 0.0f));
+	vtx[14] = VertexTextureNormalTangentData(vec3(+w2, -h2, +d2), vec2(0.0f, 0.0f), pmp, vec3(-1.0f, 0.0f, 0.0f));
+	vtx[15] = VertexTextureNormalTangentData(vec3(-w2, -h2, +d2), vec2(1.0f, 0.0f), mmp, vec3(-1.0f, 0.0f, 0.0f));
+
+	// Left
+	vtx[16] = VertexTextureNormalTangentData(vec3(-w2, -h2, +d2), vec2(0.0f, 1.0f), mmp, vec3(0.0f, 0.0f, -1.0f));
+	vtx[17] = VertexTextureNormalTangentData(vec3(-w2, +h2, +d2), vec2(0.0f, 0.0f), mpp, vec3(0.0f, 0.0f, -1.0f));
+	vtx[18] = VertexTextureNormalTangentData(vec3(-w2, +h2, -d2), vec2(1.0f, 0.0f), mpm, vec3(0.0f, 0.0f, -1.0f));
+	vtx[19] = VertexTextureNormalTangentData(vec3(-w2, -h2, -d2), vec2(1.0f, 1.0f), mmm, vec3(0.0f, 0.0f, -1.0f));
+
+	// Right
+	vtx[20] = VertexTextureNormalTangentData(vec3(+w2, -h2, -d2), vec2(0.0f, 1.0f), pmm, vec3(0.0f, 0.0f, 1.0f));
+	vtx[21] = VertexTextureNormalTangentData(vec3(+w2, +h2, -d2), vec2(0.0f, 0.0f), ppm, vec3(0.0f, 0.0f, 1.0f));
+	vtx[22] = VertexTextureNormalTangentData(vec3(+w2, +h2, +d2), vec2(1.0f, 0.0f), ppp, vec3(0.0f, 0.0f, 1.0f));
+	vtx[23] = VertexTextureNormalTangentData(vec3(+w2, -h2, +d2), vec2(1.0f, 1.0f), pmp, vec3(0.0f, 0.0f, 1.0f));
 
 	geometry->SetVertices(vtx);
 
