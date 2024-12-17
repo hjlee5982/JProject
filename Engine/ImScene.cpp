@@ -33,10 +33,6 @@ void ImScene::Update()
 
 						JLOG_INFO(str);
 					}
-					//else if (ImGui::IsWindowHovered() == true)
-					//{
-					//	GUI->Notify(nullptr);
-					//}
 				}
 			}
 		}

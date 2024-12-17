@@ -118,6 +118,9 @@
     <Filter Include="07. Component\SkyBoxRenderer">
       <UniqueIdentifier>{1730efb4-1c29-4b73-bb07-0b197ae9cb61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. ShaderCode\Render\Outline">
+      <UniqueIdentifier>{8c53b902-4b87-4a88-b9c5-9f8336e9208d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -543,6 +546,12 @@
     </FxCompile>
     <FxCompile Include="..\Shaders\ColliderPS.hlsl">
       <Filter>09. ShaderCode\Render\Collider</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\OutlineVS.hlsl">
+      <Filter>09. ShaderCode\Render\Outline</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\OutlinePS.hlsl">
+      <Filter>09. ShaderCode\Render\Outline</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

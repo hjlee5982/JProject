@@ -2,7 +2,6 @@
     "objects": [
         {
             "name": "Main Camera",
-            "class": "FreeCamera",
             "position": [
                 0.0,
                 3.0,
@@ -15,22 +14,7 @@
             ]
         },
         {
-            "name": "Skydome",
-            "class": "Skydome",
-            "position": [
-                0.0,
-                3.0,
-                -10.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "name": "Directional Light",
-            "class": "DirectionalLight",
+            "name": "SkyBox",
             "position": [
                 0.0,
                 0.0,
@@ -40,6 +24,45 @@
                 1.0,
                 1.0,
                 1.0
+            ]
+        },
+        {
+            "name": "GlobalLight",
+            "position": [
+                0.0,
+                2.0,
+                -4.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "name": "Sphere",
+            "position": [
+                -3.0,
+                3.0,
+                0.0
+            ],
+            "scale": [
+                3.0,
+                3.0,
+                3.0
+            ]
+        },
+        {
+            "name": "Cube",
+            "position": [
+                3.0,
+                3.0,
+                0.0
+            ],
+            "scale": [
+                3.0,
+                3.0,
+                3.0
             ]
         }
     ]

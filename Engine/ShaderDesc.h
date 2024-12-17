@@ -14,6 +14,9 @@ struct TRANSFORM_DATA
 
 	matx gCameraWorldMatrix = matx::Identity;
 
+	// 이를테면 Global.hlsli에 있는
+	// cbuffer TRANSFORM_DATA : register(b0)
+	// 레지스터 번호는 0번임
 	static const UINT registerNum = 0;
 };
 

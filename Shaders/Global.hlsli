@@ -3,6 +3,8 @@
 
 // ShaderDesc.h¶û Â¦À» ¸ÂÃç¾ßµÊ
 
+// »ó¼ö¹öÆÛ °¹¼öÁ¦ÇÑ 14°³
+
 cbuffer TRANSFORM_DATA : register(b0)
 {
     row_major matrix gWorldMatrix;

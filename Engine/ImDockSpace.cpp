@@ -20,7 +20,7 @@ void ImDockSpace::Update()
                 if (ImGui::MenuItem("Save Scene"))
                 {
                     SCENE->SaveScene();
-                    JLOG_INFO("Save Scene Complete");
+                    //JLOG_INFO("Save Scene Complete");
                 }
                 //ImGui::PopStyleColor();
                 ImGui::EndMenu();

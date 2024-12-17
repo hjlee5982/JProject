@@ -23,6 +23,7 @@ void Device::RenderBegin()
 	_context->ClearRenderTargetView(_backBufferRTV.Get(), (float*)(&_windowDesc.clearColor));
 	_context->ClearDepthStencilView(_DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 	_viewport.RSSetViewport();
+
 }
 
 void Device::RenderEnd()
@@ -86,6 +87,32 @@ void Device::CreateDSV()
 {
 	HRESULT hr;
 
+	// 외곽선 DSState
+	// 주석처리된 부분은 기본 스테이트임
+	D3D11_DEPTH_STENCIL_DESC outlineStencilDesc = {};
+	{
+		outlineStencilDesc.DepthEnable    = true;
+		outlineStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		//outlineStencilDesc.DepthWriteMask   = D3D11_DEPTH_WRITE_MASK_ALL;
+		outlineStencilDesc.DepthFunc      = D3D11_COMPARISON_LESS_EQUAL;
+
+		outlineStencilDesc.StencilEnable = true;
+		outlineStencilDesc.StencilReadMask = 0xFF;
+		outlineStencilDesc.StencilWriteMask = 0xFF;
+
+		outlineStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+		outlineStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+		//outlineStencilDesc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;
+		outlineStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
+		//outlineStencilDesc.FrontFace.StencilFunc        = D3D11_COMPARISON_NOT_EQUAL;
+		outlineStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+		outlineStencilDesc.BackFace = outlineStencilDesc.FrontFace;
+	}
+	hr = DEVICE->CreateDepthStencilState(&outlineStencilDesc, _outlineDSState.GetAddressOf());
+	CHECK(hr);
+
+
 	D3D11_TEXTURE2D_DESC textureDesc;
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 	{
@@ -101,9 +128,9 @@ void Device::CreateDSV()
 		textureDesc.CPUAccessFlags	   = 0;
 		textureDesc.MiscFlags		   = 0;
 	}
-
 	hr = DEVICE->CreateTexture2D(&textureDesc, nullptr, _DSTexture.GetAddressOf());
 	CHECK(hr);
+
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc;
 	ZeroMemory(&dsvDesc, sizeof(dsvDesc));
@@ -112,7 +139,6 @@ void Device::CreateDSV()
 		dsvDesc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
 		dsvDesc.Texture2D.MipSlice = 0;
 	}
-
 	hr = DEVICE->CreateDepthStencilView(_DSTexture.Get(), &dsvDesc, _DSV.GetAddressOf());
 	CHECK(hr);
 }

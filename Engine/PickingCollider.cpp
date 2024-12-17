@@ -66,7 +66,9 @@ bool PickingCollider::Raycast(Ray ray)
 				return false; // 교차하지 않음
 			}
 		}
-		else if (-e - XMVectorGetByIndex(_halfScale, i) > 0.0f || -e + XMVectorGetByIndex(_halfScale, i) < 0.0f)
+		else if 
+			(-e - XMVectorGetByIndex(_halfScale, i) > 0.0f || 
+				-e + XMVectorGetByIndex(_halfScale, i) < 0.0f)
 		{
 			return false;
 		}

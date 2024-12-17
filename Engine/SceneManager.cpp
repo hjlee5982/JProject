@@ -92,13 +92,13 @@ void SceneManager::LoadDefaultScene(const string& filename)
 
 void SceneManager::MakeScene()
 {
-	// 마지막 인자는 에디터 상에서 피킹이 되어야 하는가, 디폴트가 true임
+	// OBJECT->AddGameObject(Script, Tag);
 	OBJECT->AddGameObject(makeSptr<FreeCamera>(),  "Main Camera");
 	OBJECT->AddGameObject(makeSptr<SkyBox>(),      "SkyBox"     );
 	OBJECT->AddGameObject(makeSptr<GlobalLight>(), "GlobalLight");
 
 	OBJECT->AddGameObject(makeSptr<Sphere>(), "Sphere");
-	OBJECT->AddGameObject(makeSptr<Cube>(),   "Cube");
+	//OBJECT->AddGameObject(makeSptr<Cube>(),   "Cube");
 
 	// 유니티처럼 Script로 게임오브젝트를 제어하려면
 

@@ -30,7 +30,7 @@ private:
 private:
 	// 상수버퍼 ( Global.hlsl에 있는 cbuffer들 ) 에 바인딩을 하려면
 	// cbuffer에 맞게 ShaderDesc.h에 있는 것 처럼 맞춰서 바인딩을 따로따로 해줘야 됐는데
-	// any로 하나로 퉁쳐버림
+	// any로 하나로 합침
 	HashMap<u64, std::any> _constantBuffers;
 };
 
@@ -41,7 +41,8 @@ void Shader::PushData(const T& data)
 
 	auto findit = _constantBuffers.find(dataKey);
 
-	if (_constantBuffers.find(dataKey) == _constantBuffers.end() || _constantBuffers[dataKey].has_value() == false)
+	if (_constantBuffers.find(dataKey) == _constantBuffers.end() ||
+		_constantBuffers[dataKey].has_value() == false)
 	{
 		_constantBuffers[dataKey] = makeSptr<ConstantBuffer<T>>();
 	}

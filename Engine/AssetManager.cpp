@@ -80,6 +80,15 @@ void AssetManager::CreateDefaultResources()
 			}
 			ASSET->Add(L"Collider", shader);
 		}
+		// 5. 외곽선 렌더용
+		{
+			auto shader = makeSptr<Shader>();
+			{
+				shader->CreateShader(EShaderType::VS, L"OutlineVS.hlsl");
+				shader->CreateShader(EShaderType::PS, L"OutlinePS.hlsl");
+			}
+			ASSET->Add(L"Outline", shader);
+		}
 	}
 	// 기본 머티리얼 로드
 	{
@@ -111,6 +120,14 @@ void AssetManager::CreateDefaultResources()
 				material->SetShader(ASSET->Get<Shader>(L"Phong"));
 			}
 			ASSET->Add(L"Phong", material);
+		}
+		// 3. 외곽선 머티리얼
+		{
+			auto material = makeSptr<Material>();
+			{
+				material->SetShader(ASSET->Get<Shader>(L"Outline"));
+			}
+			ASSET->Add(L"Outline", material);
 		}
 	}
 
