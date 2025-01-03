@@ -15,8 +15,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-	try
-	{
 		WindowDesc desc;
 		{
 			desc.appName    = L"JProject";
@@ -29,11 +27,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		WINDOW->Run(desc);
+	/*try
+	{
 	}
 	catch (Exception& e)
 	{
 		JLOG_ERROR(e.ToString().c_str());
-	}
+	}*/
 	
 	return 0;
 }

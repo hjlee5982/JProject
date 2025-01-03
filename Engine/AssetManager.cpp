@@ -117,9 +117,17 @@ void AssetManager::CreateDefaultResources()
 		{
 			auto material = makeSptr<Material>();
 			{
+				// 1. 기본 텍스쳐
+				auto texture = ASSET->Load<Texture>(L"DefaultTexture", L"../Assets/Textures/Prefab_Grey75.png");
+				material->SetTexture(ETextureType::ALBEDO, texture);
+
 				material->SetShader(ASSET->Get<Shader>(L"Phong"));
 			}
 			ASSET->Add(L"Phong", material);
+
+			// 이거를 돌려쓰는건 좋은데, 여기에 텍스쳐를 박아버리면
+			// 이걸를 쓰는 다른것도 같은 텍스쳐로 바뀌잖아
+			// 스크립트 이닛할 때 복사해고 거기에 텍스쳐 박고 저장해놓기?
 		}
 		// 3. 외곽선 머티리얼
 		{

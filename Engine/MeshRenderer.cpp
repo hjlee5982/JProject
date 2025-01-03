@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "MeshRenderer.h"
 #include "Mesh.h"
+#include "OutlineRenderer.h"
 
 MeshRenderer::MeshRenderer()
 {
 	SetType<MeshRenderer>(EComponentType::MESHRENDERER);
 
 	_material        = ASSET->Get<Material>(L"PBR");
+	
+	_outlineRenderer = makeSptr<OutlineRenderer>();
 }
 
 void MeshRenderer::Render()
@@ -16,44 +19,12 @@ void MeshRenderer::Render()
 		return;
 	}
 
-	// 외곽선 렌더링
-	CONTEXT->OMSetDepthStencilState(DX->GetOutlineDSState().Get(), 1);
-	
-	D3D11_RASTERIZER_DESC rasterDesc = {};
+	/*if (GetOwner()->Picked())
 	{
-		rasterDesc.FillMode		   = D3D11_FILL_SOLID;
-		rasterDesc.CullMode		   = D3D11_CULL_FRONT;
-		rasterDesc.DepthClipEnable = true;
-	}
-	ComPtr<ID3D11RasterizerState> outlineRasterizerState;
-	DEVICE->CreateRasterizerState(&rasterDesc, outlineRasterizerState.GetAddressOf());
 
-	CONTEXT->RSSetState(outlineRasterizerState.Get());
-	auto outlineMaterial = ASSET->Get<Material>(L"Outline");
-	auto outlineShader   = outlineMaterial->GetShader();
-	outlineShader->SetShader();
+	}*/
 
-	{
-		TRANSFORM_DATA data;
-		{
-			data.gWorldMatrix = GetOwner()->GetComponent<Transform>()->GetWorld();
-			data.gViewMatrix = Camera::SView;
-			data.gProjMatrix = Camera::SProj;
-			data.gCameraWorldMatrix = Camera::SView.Invert();
-		}
-		outlineShader->PushData<TRANSFORM_DATA>(data);
-	}
-	// 버텍스, 인덱스 버퍼 바인딩
-	{
-		_mesh->PushData();
-	}
-	// 머티리얼을 통해 SRV를 바인딩
-	{
-		outlineMaterial->PushData();
-	}
-	CONTEXT->DrawIndexed(_mesh->GetIndexBuffer()->GetCount(), 0, 0);
-
-	CONTEXT->OMSetDepthStencilState(nullptr, 1);
+	_outlineRenderer->Render(GetOwner()->GetComponent<Transform>()->GetWorld(), _mesh);
 
 	auto& shader = _material->GetShader();
 

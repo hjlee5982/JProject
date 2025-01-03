@@ -20,6 +20,8 @@ void Material::PushData()
 	// Texture2D   g_Texture_7   : register(t7);
 	// TextureCube g_CubeTexture : register(t8);
 
+	// 첫 번째 인자가 레지스터 번호일꺼임
+
 	if (_albedoMap != nullptr)
 	{
 		CONTEXT->PSSetShaderResources(0, 1, _albedoMap->GetSRV().GetAddressOf());

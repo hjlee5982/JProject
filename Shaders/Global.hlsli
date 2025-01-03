@@ -39,6 +39,11 @@ cbuffer MATERIAL_DATA : register(b3)
     float4 mEmissive;
 }
 
+cbuffer OUTLINE_DATA : register(b4)
+{
+    float thickness;
+}
+
 Texture2D g_Texture_0 : register(t0); // Albedo
 Texture2D g_Texture_1 : register(t1); // Normal
 Texture2D g_Texture_2 : register(t2); // Metallic

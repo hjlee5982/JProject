@@ -5,7 +5,7 @@ PS_IN main(VS_IN input)
 {
     PS_IN output = (PS_IN)0;
 	
-    float3 expandedPosition = input.localPosition + input.normal * 0.02f; // ¿Ü°û¼± µÎ²²;
+    float3 expandedPosition = input.localPosition + input.normal * 0.06f; // ¿Ü°û¼± µÎ²²;
 	
     float4 position = float4(expandedPosition, 1.f);
 	{

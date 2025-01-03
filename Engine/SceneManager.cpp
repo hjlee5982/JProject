@@ -98,7 +98,7 @@ void SceneManager::MakeScene()
 	OBJECT->AddGameObject(makeSptr<GlobalLight>(), "GlobalLight");
 
 	OBJECT->AddGameObject(makeSptr<Cube>(),   "Cube");
-	OBJECT->AddGameObject(makeSptr<Sphere>(), "Sphere");
+	//OBJECT->AddGameObject(makeSptr<Sphere>(), "Sphere");
 
 	// 유니티처럼 Script로 게임오브젝트를 제어하려면
 

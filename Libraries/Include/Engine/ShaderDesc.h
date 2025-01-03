@@ -50,3 +50,12 @@ struct MATERIAL_DATA
 
 	static const UINT registerNum = 3;
 };
+
+struct OUTLINE_DATA
+{
+	f32 thickness;
+
+	vec3 padding;
+
+	static const UINT registerNum = 4;
+};

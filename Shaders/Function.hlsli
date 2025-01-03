@@ -32,7 +32,7 @@ float4 ComputeLight(float2 uv, float3 normal, float3 worldPos)
         //float4 color = DiffuseMap.Sample(LinearSampler, uv);
         float4 color = basicColor;
         float diffuseIntensity = dot(normalize(normal), -lDirection);
-
+        
         // 음수 제거 안하면 빛이 닿지 않는곳은 0,0,0,0이 될 수 있음(=엠비언트가 적용이 안될 수 있음)
         diffuseColor = saturate(lDiffuse * mDiffuse * color * diffuseIntensity);
     }

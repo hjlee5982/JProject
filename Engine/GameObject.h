@@ -91,4 +91,13 @@ private:
 private:
 	ELayerType _layerType = ELayerType::DEFAULT;
 	string _name;
+
+
+protected:
+	bool _picked = false;
+public:
+	void Picked(bool picked)
+	{
+		_picked = picked;
+	}
 };

@@ -286,8 +286,20 @@ void ImInspector::RenderMeshRendererInspector()
 		//	}
 		//}
 
+
+		// ¿Ü°û¼± µÎ²² µð¹ö±ë¿ë
+		/*f32 thickness = _go->GetComponent<MeshRenderer>()->GetTickness();
+		{
+			ImGui::Text("Thickness");
+			ImGui::SameLine();
+			ImGui::SetCursorPosX(ImGui::GetWindowSize().x - ImGui::CalcItemWidth() - ImGui::GetStyle().ItemSpacing.x);
+			ImGui::DragFloat("Thickness", &thickness, 0.01f);
+		}
+		_go->GetComponent<MeshRenderer>()->SetTickness(thickness);*/
+
 		ImGui::TreePop();
 	}
+
 }
 
 void ImInspector::RenderScriptInspector()

@@ -22,6 +22,12 @@ void Cube::Init()
 		GetComponent<MeshRenderer>()->SetMesh    (ASSET->Get<Mesh>(L"Cube"));
 		GetComponent<MeshRenderer>()->SetMaterial(ASSET->Get<Material>(L"Phong"));
 		//GetMeshRenderer()->SetMaterial(ASSET->Get<Material>(L"PBR"));
+
+		auto originalMaterial = ASSET->Get<Material>(L"Phong");
+		auto cloneMaterial    = makeSptr<Material>(*originalMaterial);
+
+		//auto texture = ASSET->Load<Texture>(L"SkyBox", L"../Assets/Textures/SkyBox.dds");
+
 	}
 	AddComponent(makeSptr<BoxCollider>());
 	{

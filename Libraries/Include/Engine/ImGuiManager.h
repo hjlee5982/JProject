@@ -51,7 +51,9 @@ public:
 private:
 	vector<sptr<class ImWindow>> _windows;
 public:
+	// 각 윈도우에게 어떤 오브젝트가 선택되었는지 알려줌
 	void Notify(sptr<GameObject> go);
+	// 어떤 윈도우가 포커싱이 되어있는지 유저에게 알려줌 
 	void NotifyWindow(const string& name);
 private:
 	sptr<GameObject> _go;

@@ -21,5 +21,7 @@ public:
 private:
 	sptr<Mesh>     _mesh;
 	sptr<Material> _material;
+private:
+	sptr<class OutlineRenderer> _outlineRenderer;
 };
 

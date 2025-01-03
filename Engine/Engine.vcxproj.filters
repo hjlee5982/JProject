@@ -121,6 +121,9 @@
     <Filter Include="09. ShaderCode\Render\Outline">
       <UniqueIdentifier>{8c53b902-4b87-4a88-b9c5-9f8336e9208d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\OutlineRenderer">
+      <UniqueIdentifier>{d3d9df81-3e5c-4f0a-8cfe-4ef237965f84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -327,6 +330,9 @@
     <ClInclude Include="PickingCollider.h">
       <Filter>07. Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="OutlineRenderer.h">
+      <Filter>07. Component\OutlineRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -520,6 +526,9 @@
     </ClCompile>
     <ClCompile Include="PickingCollider.cpp">
       <Filter>07. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="OutlineRenderer.cpp">
+      <Filter>07. Component\OutlineRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

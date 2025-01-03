@@ -27,11 +27,17 @@ void ImScene::Update()
 				{
 					if (go->GetComponent<PickingCollider>()->Raycast(ray) == true)
 					{
+						go->Picked(true);
+
 						GUI->Notify(go);
 
 						string str = go->GetName() + " Picked";
 
 						JLOG_INFO(str);
+					}
+					else
+					{
+						go->Picked(false);
 					}
 				}
 			}
