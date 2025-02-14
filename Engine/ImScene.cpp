@@ -10,43 +10,41 @@ void ImScene::Update()
 	ImGui::Begin("Scene");
 	IMFOCUS("Scene");
 	{
+		// 화면 출력
 		Present();
 
 		Ray ray = Unproject();
 
 		// 구한 ray와 콜라이더가 교차하는지 검증
-		if (INPUT->KeyDown(LBTN) == true)
+		if (INPUT->GetMouseButtonDown(KeyCode::L_BUTTON) == true)
 		{
+			_prevClickedObject = _currClickedObject;
+
 			auto& gameObjects = OBJECT->GetGameObjects();
 
 			for (auto& go : gameObjects)
 			{
-				auto collider = go->GetComponent<PickingCollider>();
+				auto pickingCollider = go->GetComponent<PickingCollider>();
 
-				if (collider != nullptr)
+				if (pickingCollider != nullptr)
 				{
-					if (go->GetComponent<PickingCollider>()->Raycast(ray) == true)
+					if (pickingCollider->Raycast(ray) == true)
 					{
-						go->Picked(true);
+						_currClickedObject = go;
 
-						GUI->Notify(go);
+						_currClickedObject->Picked(true);
+						GUI->Notify(_currClickedObject);
 
-						string str = go->GetName() + " Picked";
-
-						JLOG_INFO(str);
-					}
-					else
-					{
-						go->Picked(false);
+						// 이전과 다른 오브젝트가 클릭되었다
+						if (_prevClickedObject != nullptr &&_prevClickedObject != _currClickedObject)
+						{
+							_prevClickedObject->Picked(false);
+						}
+						break;
 					}
 				}
 			}
 		}
-
-		// 브로드페이즈
-		// 1. Sweep and prune
-		// 
-
 	}
 	ImGui::End();
 }

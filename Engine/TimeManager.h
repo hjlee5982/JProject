@@ -2,7 +2,7 @@
 
 //class TimeManager
 //{
-//	DECLARE_SINGLETON(TimeManager);
+//	SINGLETON(TimeManager);
 //public:
 //	void Init();
 //public:
@@ -31,7 +31,7 @@
 class TimeManager
 {
 public:
-	DECLARE_SINGLETON(TimeManager);
+	SINGLETON(TimeManager);
 public:
 	void Init();
 	void Update();

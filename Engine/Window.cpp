@@ -42,7 +42,7 @@ WPARAM Window::Run(WindowDesc& desc)
 		DX->Init(_desc);
 		ASSET->Init();
 		GUI->Init();
-		INPUT->Init(_desc.hWnd, _desc.hInstance);
+		INPUT->Init();
 		TIME->Init();
 		FACTORY->Init();
 		OBJECT->Init();

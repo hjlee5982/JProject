@@ -39,14 +39,14 @@ void FreeCamera::Update()
 {
 	auto transform = GetComponent<Transform>();
 
-	if (INPUT->KeyPress(RBTN) && GUI->GetFocusedWindow() == "Scene")
+	if (INPUT->GetMouseButton(KeyCode::R_BUTTON) && GUI->GetFocusedWindow() == "Scene")
 	{
 		// 마우스 중앙 고정
 		//POINT pos = { WINDOW->GetGameDesc().width / 2 , WINDOW->GetGameDesc().height / 2 };
 		//ClientToScreen(WINDOW->GetGameDesc().hWnd, &pos);
 		//SetCursorPos(pos.x, pos.y);
 
-		if (INPUT->KeyPress(KEY_W))
+		if (INPUT->GetKey(KeyCode::W))
 		{
 			vec3 look = transform->GetLook();
 			look.Normalize();
@@ -57,7 +57,7 @@ void FreeCamera::Update()
 
 			transform->SetPosition(position);
 		}
-		if (INPUT->KeyPress(KEY_S))
+		if (INPUT->GetKey(KeyCode::S))
 		{
 			vec3 look = transform->GetLook();
 			look.Normalize();
@@ -68,7 +68,7 @@ void FreeCamera::Update()
 
 			transform->SetPosition(position);
 		}
-		if (INPUT->KeyPress(KEY_A))
+		if (INPUT->GetKey(KeyCode::A))
 		{
 			vec3 right = transform->GetRight();
 			right.Normalize();
@@ -79,7 +79,7 @@ void FreeCamera::Update()
 
 			transform->SetPosition(position);
 		}
-		if (INPUT->KeyPress(KEY_D))
+		if (INPUT->GetKey(KeyCode::D))
 		{
 			vec3 right = transform->GetRight();
 			right.Normalize();
@@ -91,8 +91,11 @@ void FreeCamera::Update()
 			transform->SetPosition(position);
 		}
 
-		i32 dx = INPUT->MouseMove(EMouseState::X);
-		i32 dy = INPUT->MouseMove(EMouseState::Y);
+		//i32 dx = INPUT->MouseMove(EMouseState::X);
+		//i32 dy = INPUT->MouseMove(EMouseState::Y);
+
+		i32 dx = INPUT->GetMouseDeltaX();
+		i32 dy = INPUT->GetMouseDeltaY();
 
 		vec3 rotation = GetComponent<Transform>()->GetRotation();
 

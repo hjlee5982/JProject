@@ -6,7 +6,7 @@
 
 class GameObjectManager
 {
-	DECLARE_SINGLETON(GameObjectManager)
+	SINGLETON(GameObjectManager)
 public:
 	void Init();
 	void Update();

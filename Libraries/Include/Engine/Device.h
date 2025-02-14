@@ -4,7 +4,7 @@
 
 class Device
 {
-	DECLARE_SINGLETON(Device)
+	SINGLETON(Device)
 public:
 	void Init(WindowDesc desc);
 	void RenderBegin();

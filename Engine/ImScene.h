@@ -15,6 +15,9 @@ private:
 private:
 	vec2 _mousePos;
 	vec2 _screenSize;
+private:
+	sptr<GameObject> _prevClickedObject;
+	sptr<GameObject> _currClickedObject;
 public:
 	virtual void StateUpdate(sptr<GameObject> go) override;
 };

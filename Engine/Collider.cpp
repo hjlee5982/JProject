@@ -15,7 +15,7 @@ void Collider::Render()
 
 	// 쉐이더 세팅
 	{
-		_shader->SetShader();
+		_shader->BindShader();
 	}
 	// 상수버퍼 바인딩
 	{

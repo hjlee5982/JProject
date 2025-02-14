@@ -16,7 +16,7 @@ struct WindowDesc
 
 class Window
 {
-	DECLARE_SINGLETON(Window);
+	SINGLETON(Window);
 public:
 	WPARAM Run(WindowDesc& desc);
 private:

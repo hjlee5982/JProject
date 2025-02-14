@@ -9,7 +9,7 @@ class Material;
 
 class AssetManager
 {
-	DECLARE_SINGLETON(AssetManager)
+	SINGLETON(AssetManager)
 public:
 	void Init();
 public:

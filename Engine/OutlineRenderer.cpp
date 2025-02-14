@@ -26,7 +26,7 @@ void OutlineRenderer::Render(matx ownerWorldMatrix, sptr<Mesh> mesh)
 	CONTEXT->RSSetState(outlineRasterizerState.Get());
 	auto outlineMaterial = ASSET->Get<Material>(L"Outline");
 	auto outlineShader = outlineMaterial->GetShader();
-	outlineShader->SetShader();
+	outlineShader->BindShader();
 
 	{
 		TRANSFORM_DATA data;

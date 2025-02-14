@@ -225,7 +225,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>03. Manager\SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
+    <ClInclude Include="InputManager_Legacy.h">
       <Filter>03. Manager\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
@@ -333,6 +333,9 @@
     <ClInclude Include="OutlineRenderer.h">
       <Filter>07. Component\OutlineRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>03. Manager\InputManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JsonData.cpp">
@@ -428,7 +431,7 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>03. Manager\SceneManager</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
+    <ClCompile Include="InputManager_Legacy.cpp">
       <Filter>03. Manager\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
@@ -529,6 +532,9 @@
     </ClCompile>
     <ClCompile Include="OutlineRenderer.cpp">
       <Filter>07. Component\OutlineRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>03. Manager\InputManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

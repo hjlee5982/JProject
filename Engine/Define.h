@@ -12,7 +12,7 @@
 #endif
 #endif
 
-#define DECLARE_SINGLETON(classname)		\
+#define SINGLETON(classname)		\
 private:									\
 	classname() { }							\
 public:										\

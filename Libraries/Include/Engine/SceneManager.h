@@ -4,7 +4,7 @@
 
 class SceneManager
 {
-	DECLARE_SINGLETON(SceneManager)
+	SINGLETON(SceneManager)
 public:
 	void Init();
 public:

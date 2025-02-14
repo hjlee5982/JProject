@@ -19,7 +19,7 @@
 
 class Log final
 {
-	DECLARE_SINGLETON(Log);
+	SINGLETON(Log);
 private:
 	sptr<spdlog::logger> mLogger;
 public:

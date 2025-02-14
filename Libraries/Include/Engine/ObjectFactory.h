@@ -2,7 +2,7 @@
 
 class ObjectFactory
 {
-	DECLARE_SINGLETON(ObjectFactory);
+	SINGLETON(ObjectFactory);
 public:
 	using CreateObjectFunc = std::function<sptr<GameObject>()>;
 public:

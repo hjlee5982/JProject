@@ -62,7 +62,7 @@ void Shader::CreateShader(EShaderType type, const wstring& path, const string& e
 	CHECK(hr);
 }
 
-void Shader::SetShader()
+void Shader::BindShader()
 {
 	CONTEXT->VSSetShader(_vs.Get(), nullptr, 0);
 	CONTEXT->PSSetShader(_ps.Get(), nullptr, 0);

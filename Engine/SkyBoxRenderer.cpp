@@ -21,7 +21,7 @@ void SkyBoxRenderer::Render()
 
 	// 사용할 쉐이더 세팅
 	{
-		shader->SetShader();
+		shader->BindShader();
 	}
 	// 상수버퍼 바인딩
 	{

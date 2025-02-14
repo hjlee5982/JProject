@@ -183,6 +183,7 @@
     <ClInclude Include="ImWindow.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="InputManager_Legacy.h" />
     <ClInclude Include="JLog.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="Layer.h" />
@@ -267,6 +268,7 @@
     <ClCompile Include="ImWindow.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="InputManager_Legacy.cpp" />
     <ClCompile Include="JLog.cpp" />
     <ClCompile Include="JsonData.cpp" />
     <ClCompile Include="Layer.cpp" />

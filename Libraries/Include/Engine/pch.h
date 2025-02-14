@@ -131,6 +131,7 @@ using namespace Microsoft::WRL;
 
 // Singleton **********************************************************
 #include "ImGuiManager.h"
+#include "InputManager_Legacy.h"
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "SceneManager.h"

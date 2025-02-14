@@ -100,4 +100,8 @@ public:
 	{
 		_picked = picked;
 	}
+	bool IsPicked()
+	{
+		return _picked;
+	}
 };

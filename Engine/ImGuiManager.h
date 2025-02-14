@@ -2,7 +2,7 @@
 
 #define IMFOCUS(name)																		  \
 																							  \
-if (ImGui::IsMouseClicked(ImGuiMouseButton_Right))											  \
+if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))											  \
 {																							  \
 	ImVec2 mouse_pos   = ImGui::GetMousePos();												  \
 	ImVec2 window_pos  = ImGui::GetWindowPos();												  \
@@ -22,7 +22,7 @@ if (ImGui::IsWindowFocused())		 														  \
 
 class ImGuiManager
 {
-	DECLARE_SINGLETON(ImGuiManager)
+	SINGLETON(ImGuiManager)
 public:
 	void Init();
 	void RenderBegin();

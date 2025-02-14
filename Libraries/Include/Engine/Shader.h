@@ -12,7 +12,7 @@ public:
 	virtual void Save(const wstring& path) override {}
 public:
 	void CreateShader(EShaderType type, const wstring& path, const string& entry = "main");
-	void SetShader();
+	void BindShader();
 private:
 	void CreateInputLayout(ComPtr<ID3DBlob> shaderBlob);
 public:

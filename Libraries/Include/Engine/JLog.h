@@ -22,7 +22,7 @@ enum class LogLevel
 
 class JLog
 {
-	DECLARE_SINGLETON(JLog);
+	SINGLETON(JLog);
 public:
 	struct LogMessage
 	{
@@ -99,7 +99,7 @@ private:
 
 //class JLog
 //{
-//	DECLARE_SINGLETON(JLog);
+//	SINGLETON(JLog);
 //public:
 //	void Init()
 //	{
